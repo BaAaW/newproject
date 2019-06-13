@@ -1,0 +1,9 @@
+setsensorsdata({
+	"show_log": true
+	//"project": "TBJTGW",
+	});
+sa.quick('autoTrack',{
+	  pageChannel:'FWDT',
+	  pageName:s.pageName
+	});
+

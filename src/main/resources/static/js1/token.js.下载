@@ -1,0 +1,25 @@
+var ajaxToken = [
+	{//sit
+		token : "c73cb5b366c5a8d6660ed56db12161e7",
+        // storeToken:"f81ad933b8d91692eb046df94111c3d7",
+        storeToken:"a8301176ad0de693619f1858ba0c7fa3",
+		healthClaimApiToKen:"69a1dbee56536a8dbaf354783a7efce6"
+	},
+	{//pro
+		token : "522cc4c37502585665808bd3ad0371de",
+		storeToken:"befb6f88cdc9bd432b82d29a415262a0",
+		healthClaimApiToKen:"69a1dbee56536a8dbaf354783a7efce6"
+	}
+];
+var url = window.location.href;
+var storeToken,token; 
+if(url.indexOf("service.cpic.com.cn")<0){//sit
+	storeToken = ajaxToken[0].storeToken;
+	token = ajaxToken[0].token;
+	healthClaimApiToKen = ajaxToken[0].healthClaimApiToKen;
+}else{//pro
+	storeToken = ajaxToken[1].storeToken;
+	token = ajaxToken[1].token;
+	healthClaimApiToKen = ajaxToken[1].healthClaimApiToKen;
+}
+

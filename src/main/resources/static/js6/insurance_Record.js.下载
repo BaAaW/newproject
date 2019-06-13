@@ -1,0 +1,173 @@
+/**
+ * Created by c_yangzhitao-001 on 2017/8/28.  寿险红利分页展示数据方法
+ */
+//小数格式
+var currentPage = 1;//当前页码
+
+function addPoint(src){
+    var src = String(src);
+    if(src.length>1 && src.length-src.indexOf(".")==2 && src!=''){
+        src+="0";
+    }else if(src.indexOf(".")==-1 && src!=''){
+        src+=".00";
+    }
+    return src;
+}
+$.extend({
+    /*
+     pageSize默认为10
+     listElementId List UL节点ID，为NULL时默认为#record
+     pageElementId PAGE DIV节点ID，为NULL时默认为#record_page<
+     pageNo 第几页，必填
+     reportList 分页的列表数据，JSON，必填
+     recordModel 数据格式定义，必填，格式见例子，name,width必填，其他属性可不写<br>
+     *   name:数据对象的属性<br>
+     *   width:列宽<br>
+     *   isFirstSpan:spanFirst   为li里面第一个span添加特殊样式名
+     *   isInput:是否添加input   radio / checkBox
+     *   isCurrency：货币金额元 2位
+     */
+    pageRecord:function pageRecord(listElementId,pageElementId,pageNo,pageSize,reportList,recordModel,clickFun){
+
+        if(listElementId == null || listElementId == '' || typeof(listElementId)=="undefined" ){
+            listElementId ='#record';
+        }
+        if(pageElementId == null || pageElementId == '' || typeof(pageElementId)=="undefined" ){
+            pageElementId ='#record_page';
+        }
+
+        $(listElementId+' .record_row').remove();
+        $(pageElementId+' .fs-12').remove();
+        $(pageElementId+' lable').remove();
+
+        if(reportList == null || reportList =="" ||reportList.length ==0 ||reportList ==undefined || reportList =="--"){
+            var nonhtml='<li class="record_row"><span class=" width100">暂无符合条件的数据</span><div class="clear"></div></li>';
+            $(listElementId).append(nonhtml);
+            return ;
+        }
+        curPageNo=Number(pageNo);
+        if(typeof(pageSize)=="undefined" || pageSize==null || pageSize==''){
+            pageSize =10;
+        }
+        var beginNum = pageSize*(curPageNo-1);
+        var curTotalNum = reportList.length;
+        var endNum = curTotalNum-pageSize*curPageNo>0?beginNum+pageSize:curTotalNum;
+        //数据显示
+        for(beginNum;beginNum<endNum;beginNum++){
+            var obj = reportList[beginNum];
+            var anewCss = "anew"+beginNum;
+            var html ='<li class="record_row">';
+            $.each(recordModel,function(index){
+                var curOb=recordModel[index];
+                var value = obj[curOb.name];
+
+                // 列表第一个span  加 padL2 txt-l 样式     取类名
+                if(curOb.isFirstSpan == undefined|| typeof(curOb.isFirstSpan) =="undefined"){
+                    html=html+'<span class=" width'+curOb.width+'">';
+                }else {
+                    html=html+'<span class="'+curOb.isFirstSpan+'  width'+curOb.width+'">';
+                }
+                // 是否添加input框   <input type="checkbox">  // 值是否需要货币符元
+                if(curOb.isInput == undefined|| typeof(curOb.isInput) =="undefined"){
+                    if(curOb.isCurrency == undefined|| typeof(curOb.isCurrency) =="undefined"){
+                        html=html+value+'</span>';
+                    }else{ // 无input框  需要货币元  需要留2位小数
+                        html=html+addPoint(value+'')+'元</span>';
+                    }
+                }else if(curOb.isInput == "radio"){ //单选框
+                    if(curOb.isCurrency == undefined|| typeof(curOb.isCurrency) =="undefined"){
+                        html=html+'<input type="radio" name="personInfo"> '+value+'</span>';
+                    }else{
+                        html=html+'<input type="radio" name="personInfo"> '+value+'元</span>';
+                    }
+                }else if(curOb.isInput == "checkBox"){ //复选框
+                    if(curOb.isCurrency == undefined|| typeof(curOb.isCurrency) =="undefined"){
+                        if(obj[curOb.isFlag]==true || obj[curOb.isFlag]=="true"){
+                            html=html+'<input type="checkBox" checked> '+value+'</span>';
+                        }else{
+                            html=html+'<input type="checkBox"> '+value+'</span>';
+                        }
+                    }else{
+                        html=html+'<input type="checkBox" checked> '+value+'元</span>';
+                    }
+                }
+            });
+            html=html+'<div class="clear"></div></li>';
+            $(listElementId).append(html);
+
+
+            // 添加click事件
+            /*if(clickFun!=null && clickFun!='' && clickFun!=undefined){
+             $(listElementId+' .record_row a'+","+listElementId+' .record_row i').click(clickFun);
+             }*/
+            var totalPage = curTotalNum%pageSize==0?parseInt(curTotalNum/pageSize):parseInt(curTotalNum/pageSize)+1;
+            // 分页页码显示
+            var pageClickFun=function (e){
+                currentPage = $(this).attr("p");
+                pageRecord(listElementId,pageElementId,$(this).attr('p'),pageSize,reportList,recordModel,clickFun);
+            };
+            $.pageNumShow(pageElementId,totalPage,curPageNo,pageClickFun)
+        }
+    },
+    pageNumShow:function(pageElementId,totalPage,curPageNo,pageClickFun){  // 分页点击事件
+        $(pageElementId+' .fs-12').remove();
+        if(totalPage>=2){
+            //上一页
+            if(curPageNo>1){
+                $(pageElementId).append('<span class="fs-12" p="'+(curPageNo-1)+'">上一页</span>');
+            }
+
+            //计算当前页的起始页，结束页
+            var curPageCls="";
+            var begin ;
+            var end ;
+            //每个页码显示多少个页码
+            var showPageNum = 10;
+            if(totalPage<=showPageNum){
+                begin =1;
+                end = totalPage;
+            }
+            else {
+                var perPageNum=Math.round(showPageNum/2);
+                var lastPageNum=showPageNum-perPageNum-1;
+                begin = curPageNo - perPageNum<=0?1:curPageNo-perPageNum;
+                end = curPageNo+lastPageNum>=totalPage?totalPage:curPageNo+lastPageNum;
+                if(end-begin==showPageNum-1){
+                    begin =begin;
+                    end = end;
+                }
+                else if(end == totalPage && end-begin<showPageNum-1){
+                    begin=begin-(showPageNum-(end-begin));
+
+                }
+                else if(begin == 1 && end-begin<showPageNum-1){
+                    end =showPageNum;
+                }
+
+            }
+            //循环生成页码
+            for(var j=begin;j<=end;j++){
+                if(j==curPageNo){
+                    curPageCls= " bg-005bac fc-fff ";
+                }else{
+                    curPageCls="";
+                }
+                $(pageElementId).append('<span class="fs-12 page_num'+curPageCls+'" p="'+j+'">'+j+'</span>');
+            }
+            //下一页
+            if(curPageNo<totalPage){
+                $(pageElementId).append('<span class="fs-12" p="'+(curPageNo+1)+'">下一页</span>');
+            }
+            $(pageElementId+' .fs-12').click(pageClickFun);
+            //选中当前页
+//			   $(pageElementId+' .page_num').each(function(index){
+//
+//					if(index+1 == curPageNo)
+//					{
+//						$(this).addClass('bg-005bac').addClass('fc-fff');
+//
+//					}
+//				});
+        }
+    }
+})

@@ -1,0 +1,186 @@
+.service_tit{ border-bottom:2px #b9b9b9 solid; height:50px;}
+.service_tit_b{ width:294px; position:relative; height:50px; display:block; float:left;}
+.service_tit_line_blue{ border-bottom:2px #2b64ab solid;}
+.service_tit_b p{ display:block; margin:0 auto; width:110px; text-align:center;}
+.service_tit_b label{ display:block; margin:0 auto; text-align:center; font-size:16px;}
+.service_yuan_grey,.service_yuan_blue{ width:50px; height:50px; line-height:50px; display:block; color:#fff; margin:0 auto; margin-top:25px; margin-bottom:10px; background:url(../../images/project/project.png) no-repeat; background-position:-61px 0; font-size:24px;}
+.service_yuan_blue{ background-position:0 0;}
+.main-tab {
+	/*margin-left:-22px*/
+}
+.main-tab ul {
+}
+.main-tab ul li {
+	float:left;
+	display:block;
+	line-height:70px;
+	position:relative;
+}
+
+.main-tab ul li.height180{ height:160px;}
+.wid70{ width:70px;}
+.wid130{ width:130px;}
+.wid290{ width:290px;}
+.wid200{ width:196px;}
+.wid800{ width:690px;}
+.wid1050{ width:980px;}
+.stepClose{ height:40px; line-height:40px; padding:0 10px; border:1px #005bac solid; display:block; float:left; margin-top:14px; margin-right:10px;}
+.stepClose i{ width:13px; height:13px; background:url(../../images/project/project.png) no-repeat; background-position:-128px -3px; display:block; float:right; margin:13px 0 0 8px; cursor:pointer;}
+.stepAdd{ height:40px; line-height:40px; width:100px; padding:0 10px; border:1px #005bac solid; display:block; float:left; margin-top:14px; margin-right:10px; color:#005bac; font-size:16px; cursor:pointer;}
+.stepAdd i{ width:15px; height:16px; background:url(../../images/project/project.png) no-repeat; background-position:-151px 0; display:block; float:left; margin:12px 10px 0 20px;}
+.stepAdd:hover{ background:#005bac; color:#fff;}
+.stepAdd:hover i{ background-position:-151px -20px;}
+.stepRadio{ margin-right:15px;}
+.stepRadio2{ display:block;}
+.stepXsqy{ padding-top:22px;}
+.stepRadioS{ margin:28px 10px 0 0; float:left;}
+.stepRadioFont{ height:70px; line-height:70px; float:left; margin-right:10px;}
+.stepChoosen{ position:relative;height:40px; line-height:40px; padding:0 10px; border:1px #adadad solid; display:block; float:left; margin-top:14px; margin-right:15px;}
+.stepBgGrey{ background:#f8f8f8; padding:15px 30px;width:800px}
+.stepBgGrey p{ display:block; line-height:23px; margin-bottom:15px;}
+/*æ˜Ÿæ˜Ÿæ ·å¼ start*/
+.startNum{
+	padding: 24px 0;
+}
+.star_score {
+	background: url(../../images/stark2.png);
+	width: 160px;
+	height: 21px;
+	position: relative;
+}
+.star_score a {
+	height: 21px;
+	display: block;
+	text-indent: -999em;
+	position: absolute;
+	left: 0;
+}
+.star_score a:hover {
+	background: url(../../images/stars2.png);
+	left: 0;
+}
+.star_score a.clibg {
+	background: url(../../images/stars2.png);
+	left: 0;
+}
+/*.stepWjx01{ width:25px; height:23px; background:url(../../images/project/project.png) no-repeat;  background-position:-117px -21px; display:block; float:left; margin-right:5px; margin-top:22px;}
+.stepWjx02{ width:25px; height:23px; background:url(../../images/project/project.png) no-repeat;  background-position:-147px -47px; display:block; float:left; margin-right:5px; margin-top:22px;}
+.stepWjx03{ width:25px; height:23px; background:url(../../images/project/project.png) no-repeat;  background-position:-117px -47px; display:block; float:left; margin-right:5px; margin-top:22px;}*/
+/*æ˜Ÿæ˜Ÿæ ·å¼ end*/
+.stepAdd2{ height:40px; line-height:40px; width:100px; border:1px #adadad solid; display:block; float:left; margin-top:14px; margin-right:10px; color:#005bac; font-size:16px; cursor:pointer;}
+.stepAddInp{ height:40px; line-height:40px; width:45px; float:left; padding:0 10px;}
+.stepAdd2R{ background:#f4f4f4; width:34px; height:40px; border-left:1px #adadad solid; display:block; float:left; cursor:pointer;}
+.stepAdd2R i{ width:14px; height:14px; background:url(../../images/project/project.png) no-repeat; background-position:-172px 0; display:block; margin:0 auto; margin-top:14px;}
+.stepTitle{ font-size:24px; text-align:center; color:#235ea8; font-weight:normal; display:block; margin-bottom:30px;}
+.step03{ padding:20px;}
+.step03Tit{ font-size:18px; font-weight:normal;}
+.stepAddWj{ height:40px; line-height:40px; width:100px; padding:0 10px; background:#005bac; display:block; color:#fff; float:left; margin:13px 0 0 0; cursor:pointer;}
+.stepAddWj i{ width:15px; height:17px; background:url(../../images/project/project.png) no-repeat; background-position:-179px -18px; display:block; float:left; margin:12px 10px 0 10px; }
+.offline{}
+.offlineLeft{ float:left; width:130px; text-align:right; font-size:18px;}
+.offlineRight{ float:left; width:1000px;}
+.offlineChoose{ width:930px; border:1px #e8e8e8 solid;}
+.offlineChooseLeft{ float:left; width:464px; border-right:1px #e8e8e8 solid; padding:55px 0;}
+.offlineChooseIcon01{ width:69px; height:57px; background:url(../../images/project/project.png) no-repeat; background-position:-5px -79px; display:block; margin:0 auto;}
+.offlineChooseLeft span{ text-align:center; display:block; line-height:45px;}
+.offlineButton{ width:195px; height:43px; line-height:43px; text-align:center; font-size:18px; margin:0 auto; display:block; background:#fff; border:1px #0260af solid; color:#0260af;}
+.offlineChooseLeft:hover{ background:#f9f9f9; cursor:pointer;}
+.offlineChooseLeft:hover .offlineChooseIcon01{ background-position:-5px -151px;}
+.offlineChooseLeft:hover span{ color:#0260af;}
+.offlineChooseLeft:hover .offlineButton{ background:#0260af; color:#fff; cursor:pointer;}
+.offlineChooseRight{ float:left; width:465px; padding:55px 0;}
+.offlineChooseIcon02{ width:30px; height:58px; background:url(../../images/project/project.png) no-repeat; background-position:-100px -78px; display:block; margin:0 auto;}
+.offlineChooseRight span{ text-align:center; display:block; line-height:45px;}
+.offlineChooseRight:hover{ background:#f9f9f9; cursor:pointer;}
+.offlineChooseRight:hover .offlineChooseIcon02{ background-position:-100px -150px;}
+.offlineChooseRight:hover span{ color:#0260af;}
+.offlineChooseRight:hover .offlineButton{ background:#0260af; color:#fff; cursor:pointer;}
+.offInputLarge{ width:910px; border:1px #e8e8e8 solid; padding:10px;}
+.offlineFont{ font-size:16px; margin-top:20px;}
+.offlineFont a{ color:#005bac; font-size:16px; margin-right:25px;}
+.offlineFont a:hover{ text-decoration:underline; cursor:pointer;}
+.offlineChooseLeft1{ float:left; width:309px; border-right:1px #e8e8e8 solid; padding:55px 0;}
+.offlineChooseLeft1 span{ text-align:center; display:block; line-height:45px;}
+.offlineChooseLeft1:hover{ background:#f9f9f9; cursor:pointer;}
+.offlineChooseLeft1:hover .offlineChooseIcon01{ background-position:-5px -151px;}
+.offlineChooseLeft1:hover span{ color:#0260af;}
+.offlineChooseLeft1:hover .offlineButton{ background:#0260af; color:#fff; cursor:pointer;}
+.offlineChooseMid1{ float:left; width:310px; padding:55px 0;}
+.offlineChooseMid1 span{ text-align:center; display:block; line-height:45px;}
+.offlineChooseMid1:hover{ background:#f9f9f9; cursor:pointer;}
+.offlineChooseMid1:hover .offlineChooseIcon02{ background-position:-100px -150px;}
+.offlineChooseMid1:hover span{ color:#0260af;}
+.offlineChooseMid1:hover .offlineButton{ background:#0260af; color:#fff; cursor:pointer;}
+.offlineChooseRight1{ float:left; width:310px; padding:55px 0;}
+.offlineChooseRight1 span{ text-align:center; display:block; line-height:45px;}
+.offlineChooseRight1:hover{ background:#f9f9f9; cursor:pointer;}
+.offlineChooseRight1:hover .offlineChooseIcon03{ background-position:-153px -150px;}
+.offlineChooseRight1:hover span{ color:#0260af;}
+.offlineChooseRight1:hover .offlineButton{ background:#0260af; color:#fff; cursor:pointer;}
+.offlineChooseIcon03{ width:66px; height:61px; background:url(../../images/project/project.png) no-repeat; background-position:-153px -78px; display:block; margin:0 auto;}
+.stepI{ width:21px; height:21px; background:url(../../images/project/project.png) no-repeat; background-position:-202px -8px; display:block; float:left; margin:23px 0 0 0; cursor:pointer; position:relative;}
+.stepITc{ width:310px; height:160px; position:absolute; z-index: 10;top:-63px; left:20px; display:none;}
+.stepITc i{ width:14px; height:30px; background:url(../../images/project/project.png) no-repeat; background-position:-205px -40px; display:block; float:left; left:1px; top:60px; position:absolute;}
+.stepITcCon{ float:right; border:1px #005fb3 solid; height:158px; width:294px; background:#fff;}
+.stepI:hover .stepITc{ display:block;}
+.s-width380 {
+	width:580px;
+}
+.releaseSearch{ width:500px; height:50px; border:1px #e8e8e8 solid; float:left;}
+.releaseSearchRight{ width:50px; border-left:1px #e8e8e8 solid; height:50px; float:right; cursor:pointer;}
+.releaseSearchInput{ width:439px; height:40px; float:left; padding:0 10px;}
+.releaseSearchRight i{ width:18px; height:19px; background:url(../../images/project/project.png) no-repeat; background-position:-80px -220px; display:block; margin:15px auto; margin-top:16px;}
+.releaseSenior{ float:left; display:block; height:42px; line-height:42px; color:#005bac; font-size:16px; margin-left:20px; width:85px;}
+.releaseSeniorI{ width:9px; height:6px; background:url(../../images/project/project.png) no-repeat; background-position:-111px -220px; display:block; float:right; margin:18px 0 0 0;}
+.cur{ background-position:-110px -232px;}
+.releaseButton{ width:160px; height:40px; border:1px #005bac solid; float:right;}
+.releaseButton i{ width:18px; height:21px; background:url(../../images/project/project.png) no-repeat; background-position:-133px -219px; display:block; float:left; margin:10px 15px 0 25px;}
+.releaseButton label{ display:block; height:40px; line-height:40px; font-size:16px; color:#005bac;}
+.releaseButton:hover{ background:#005bac; cursor:pointer;}
+.releaseButton:hover label{ color:#fff; cursor:pointer;}
+.releaseButton:hover i{ background-position:-157px -219px;}
+.muCon{ height:266px; width:860px; margin:0 auto; margin-bottom:30px;}
+.muConUpload{   margin:0 auto; margin-top:75px; cursor:pointer;}
+.muConUpload i{ width:92px; height:82px; background:url(../../images/project/project.png) no-repeat; background-position:-3px -245px; display:block; margin:0 auto;}
+.muConUpload label{ font-size:18px; text-align:center; display:block; margin-top:20px; cursor:pointer;}
+.muCon img{ display:block; margin:10px auto;max-height: 266px;max-width: 860px;}
+
+.stepRadioInput{height70px;line-height: 70px;}
+.stepChoosenLine{border: none;}
+.responseItem{display: block;}
+.step03_wid1050{ width:1050px;}
+
+.closeIcon{
+	width: 18px;
+    height: 18px;
+    position: absolute;
+    background: url(../../images/closeIcon.png);
+    top: -10px;
+    right: -10px;
+}
+.rmConLeft{ text-align:right; display:block; float:left; margin-top:22px;}
+.rmConRight{ margin-top:14px;}
+.rmYm span{ width:195px; height:40px; line-height:40px; font-size:18px; color:#005bac; text-align:center; border:1px #005bac solid; display:block; margin:0 auto; margin-top:15px;}
+.rmYm span:hover{ color:#fff; background:#005bac; cursor:pointer;}
+.rmYm label{ display:block; text-align:center; margin-top:10px;}
+.rmCon{ margin-top:20px;}
+.rmYm{ width:580px; border:1px solid #adadad; height:266px;}
+.rmYm i{ width:92px; height:82px; background:url(../../images/project/project.png) no-repeat; background-position:-3px -245px; display:block; margin:0 auto; margin-top:55px;}
+
+#title li{
+    display: block;
+    line-height: 50px;
+    position: relative;
+    font-weight: bold;
+    font-size:16px;
+}
+.main-tab .c_ul li{
+    float: left;
+    display: block;
+    line-height: 12px;
+    position: relative;
+    height:35px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

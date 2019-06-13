@@ -1,0 +1,46 @@
+.silder_bar{
+	width: 40px;
+	position: fixed;
+	right: 0;
+	z-index: 500;
+	top:300px;
+}
+
+.silder_bar_con {
+
+}
+.silder_bar_con ul li {
+	border-bottom: 1px #d3d3d3 solid;
+	display: block;
+	text-align: center;
+	margin-top:10px;
+	font-size: 12px;
+	cursor: pointer;
+	background: #005bac;
+}
+.silder_bar_con ul li i {
+	width: 40px;
+	height: 35px;
+	margin: 0 auto;
+	padding-top: 5px;
+	line-height: 16px;
+}
+.icon01{
+	background: url(../../images/v2/fav.png) no-repeat;
+	background-position: -3px -4px;
+}
+.icon01:hover{
+	background: none;
+	color:#fff;
+}
+.icon02{
+	background: url(../../images/v2/fav.png) no-repeat;
+	background-position: -3px -39px;
+}
+.icon02:hover{
+	background: none;
+	color:#fff;
+}
+.dp-block {
+	display: block;
+}

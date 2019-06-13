@@ -1,0 +1,53 @@
+// cookie操作方法 start
+function getCookie(name) {
+    var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+    if (arr = document.cookie.match(reg))
+        return unescape(arr[2]);
+    else
+        return null;
+}
+function setCookie(name, value, days, path, domain) {
+    var Days = days || 0;
+    var path = path || "";
+    var domain = domain || "";
+    var expires = "";
+    if (Days != 0) {
+        var date = new Date();
+        date.setTime(date.getTime() + Days * 24 * 60 * 60 * 1000);
+        expires = "; expires=" + date.toGMTString();
+    }
+    if (path != "") {
+        path = ";path=" + path;
+    }
+    if (domain != "") {
+        domain = ";domain=" + domain;
+    }
+    var tmp = escape(value) + expires + path + domain;
+    tmp = tmp.replace("%0a", "").replace("%0d", "").replace("\r", "").replace("\n", "");
+    document.cookie = name + "=" + tmp;
+}
+// 搜索首页搜索功能块 end
+function inOut(productId) {  
+    if (getCookie("cpic_product_ids") != null) {  
+        var i = 0;  
+        var push = true;  
+        var result=[];
+        var arr = getCookie("cpic_product_ids").split(",");  
+        for (i; i < arr.length; i++) {  
+            if (productId.toString() != arr[i]) {  
+                result.push(arr[i]);  
+            }  
+        }  
+      if (result.length!=0) {  
+            if (result.length > 2) {  
+                result.pop();  
+                result.unshift(productId);  
+            } else {  
+                result.unshift(productId);  
+            }  
+        }  
+        setCookie("cpic_product_ids", result.join(","), 0, "/", "cpic.com.cn")  
+    } else {  
+        setCookie("cpic_product_ids", productId, 0, "/", "cpic.com.cn")  
+    }  
+}  

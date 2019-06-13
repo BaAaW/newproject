@@ -1,0 +1,326 @@
+/*!
+ * jquery.base64.js 0.0.3 - https://github.com/yckart/jquery.base64.js
+ * Makes Base64 en & -decoding simpler as it is.
+ *
+ * Based upon: https://gist.github.com/Yaffle/1284012
+ *
+ * Copyright (c) 2012 Yannick Albert (http://yckart.com)
+ * Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php).
+ * 2013/02/10
+ **/
+;(function($) {
+
+    var b64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",
+        a256 = '',
+        r64 = [256],
+        r256 = [256],
+        i = 0;
+
+    var UTF8 = {
+
+        /**
+         * Encode multi-byte Unicode string into utf-8 multiple single-byte characters
+         * (BMP / basic multilingual plane only)
+         *
+         * Chars in range U+0080 - U+07FF are encoded in 2 chars, U+0800 - U+FFFF in 3 chars
+         *
+         * @param {String} strUni Unicode string to be encoded as UTF-8
+         * @returns {String} encoded string
+         */
+        encode: function(strUni) {
+            // use regular expressions & String.replace callback function for better efficiency
+            // than procedural approaches
+            var strUtf = strUni.replace(/[\u0080-\u07ff]/g, // U+0080 - U+07FF => 2 bytes 110yyyyy, 10zzzzzz
+                function(c) {
+                    var cc = c.charCodeAt(0);
+                    return String.fromCharCode(0xc0 | cc >> 6, 0x80 | cc & 0x3f);
+                })
+                .replace(/[\u0800-\uffff]/g, // U+0800 - U+FFFF => 3 bytes 1110xxxx, 10yyyyyy, 10zzzzzz
+                    function(c) {
+                        var cc = c.charCodeAt(0);
+                        return String.fromCharCode(0xe0 | cc >> 12, 0x80 | cc >> 6 & 0x3F, 0x80 | cc & 0x3f);
+                    });
+            return strUtf;
+        },
+
+        /**
+         * Decode utf-8 encoded string back into multi-byte Unicode characters
+         *
+         * @param {String} strUtf UTF-8 string to be decoded back to Unicode
+         * @returns {String} decoded string
+         */
+        decode: function(strUtf) {
+            // note: decode 3-byte chars first as decoded 2-byte strings could appear to be 3-byte char!
+            var strUni = strUtf.replace(/[\u00e0-\u00ef][\u0080-\u00bf][\u0080-\u00bf]/g, // 3-byte chars
+                function(c) { // (note parentheses for precence)
+                    var cc = ((c.charCodeAt(0) & 0x0f) << 12) | ((c.charCodeAt(1) & 0x3f) << 6) | (c.charCodeAt(2) & 0x3f);
+                    return String.fromCharCode(cc);
+                })
+                .replace(/[\u00c0-\u00df][\u0080-\u00bf]/g, // 2-byte chars
+                    function(c) { // (note parentheses for precence)
+                        var cc = (c.charCodeAt(0) & 0x1f) << 6 | c.charCodeAt(1) & 0x3f;
+                        return String.fromCharCode(cc);
+                    });
+            return strUni;
+        }
+    };
+
+    while(i < 256) {
+        var c = String.fromCharCode(i);
+        a256 += c;
+        r256[i] = i;
+        r64[i] = b64.indexOf(c);
+        ++i;
+    }
+
+    function code(s, discard, alpha, beta, w1, w2) {
+        s = String(s);
+        var buffer = 0,
+            i = 0,
+            length = s.length,
+            result = '',
+            bitsInBuffer = 0;
+
+        while(i < length) {
+            var c = s.charCodeAt(i);
+            c = c < 256 ? alpha[c] : -1;
+
+            buffer = (buffer << w1) + c;
+            bitsInBuffer += w1;
+
+            while(bitsInBuffer >= w2) {
+                bitsInBuffer -= w2;
+                var tmp = buffer >> bitsInBuffer;
+                result += beta.charAt(tmp);
+                buffer ^= tmp << bitsInBuffer;
+            }
+            ++i;
+        }
+        if(!discard && bitsInBuffer > 0) result += beta.charAt(buffer << (w2 - bitsInBuffer));
+        return result;
+    }
+
+    var Plugin = $.base64 = function(dir, input, encode) {
+        return input ? Plugin[dir](input, encode) : dir ? null : this;
+    };
+
+    Plugin.btoa = Plugin.encode = function(plain, utf8encode) {
+        plain = Plugin.raw === false || Plugin.utf8encode || utf8encode ? UTF8.encode(plain) : plain;
+        plain = code(plain, false, r256, b64, 8, 6);
+        return plain + '===='.slice((plain.length % 4) || 4);
+    };
+
+    Plugin.atob = Plugin.decode = function(coded, utf8decode) {
+        coded = String(coded).split('=');
+        var i = coded.length;
+        do {--i;
+            coded[i] = code(coded[i], true, r64, a256, 6, 8);
+        } while (i > 0);
+        coded = coded.join('');
+        return Plugin.raw === false || Plugin.utf8decode || utf8decode ? UTF8.decode(coded) : coded;
+    };
+}(jQuery));
+
+/**
+ * 判空
+ * @param param
+ * @returns
+ */
+function checkIsNotNullStr(param){
+	if(param!=null && param !="null" && param !=undefined && param !='undefined' && typeof(param)!="undefined" && param.toString()!=''){
+		return true;
+	}
+	return false;
+};
+/**
+ * 检查列表是否为空
+ * @param param
+ * @returns {Boolean}
+ */
+function checkIsNotNullList(param){
+	if(param != null && param !="null" && param !='undefined' && param != undefined && typeof(param)!="undefined" && param.length>0){
+		return true;
+	}
+	return false;
+};
+
+/**
+ * 转换为空的值为'--'
+ * @param param 要做处理的字符串
+ * @param defaultStr 为空时返回的默认字符串
+ * @returns
+ */
+function tirmStrNull(param,defaultStr){
+	if(param==null || param=="null" || param.length==0||param==undefined){
+		
+		return " -- "//defaultStr==null || defaultStr==undefined?" -- ":defaultStr;
+	}
+	return param;
+	
+};
+/**
+ * 将2015-01-10转成2015年01月10日
+ * @param date
+ * @returns {String}
+ */
+function formatDateStr(date){
+	if(checkIsNotNullList(date)){
+		var arr=date.split('-');
+		var result="";
+		var key=["年","月","日"];
+		for(var i=0;i<arr.length;i++){
+			
+				result =result + arr[i]+key[i];
+		
+		}
+		return result;
+	}else {
+		return  ' -- ';
+	}
+	
+}
+/**
+ * 将Date转成2015-01-10
+ * @param date
+ * @returns {String}
+ */
+Date.prototype.Format = function (fmt) { //author: meizz 
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+/**
+ * 设置COOKIE
+ * @param key
+ * @param value
+ */
+function setCookie(key,value){
+	var nowDate= new Date();
+	//一小时
+	nowDate.setTime(nowDate.getTime()+1*1000*3600);
+	document.cookie=key+"="+escape($.base64.encode(value))+';path=/;expires='+nowDate.toGMTString();	
+}
+
+/**
+ * 得到COOKIE
+ * @param name
+ * @returns
+ */
+function getCookie(key)
+{
+var arr,reg=new RegExp("(^| )"+key+"=([^;]*)(;|$)");
+if(arr=document.cookie.match(reg))
+return $.base64.decode(unescape(arr[2]));
+else
+return null;
+}
+/**
+ * 删除COOKIE
+ * @param key
+ */
+function removeCookie(key){
+	if(getCookie(key)){
+		document.cookie=key+"="+";expires=Thu,01-Jan-70 00:00:01 GMT";
+	}
+}
+/**
+ * 写claims的Cookie
+ * @param lock
+ * @param phone
+ * @param sms
+ */
+function setClaimsCookie(phone,sms){
+//	var cookieListstr = getCookie("claims");
+//	var claimsList=[];
+//	var flag = false;
+//	if(cookieListstr!=null){
+//		claimsList =  $.parseJSON(cookieListstr);
+//		//如果cookie里存在该lock值，则替换,否则就新加
+//		if(checkIsNotNullList(claimsList)){
+//		$.each(claimsList,function(i){
+//			if(claimsList[i].lock == lock){
+//				claimsList[i].phoneNum=phone;
+//				claimsList[i].smsNum=sms;
+//				flag = true;
+//			}
+//		});
+//		}	
+//		
+//	}
+//	if(!flag){
+//		claimsList[claimsList.length]={"lock":$("#lock").val(),"phoneNum":$("#phoneNum").val(),"smsNum":$("#smsNum").val()};
+//	}
+//	setCookie('claims',JSON.stringify(claimsList));
+	var claimsCookie ={};
+	claimsCookie.phoneNum=phone;
+	claimsCookie.smsNum=sms;
+	setCookie('claims',JSON.stringify(claimsCookie));
+	
+}
+
+/**
+ * 读取claims的Cookie
+ * @param lock
+ * @return {}
+ */
+function getClaimsCookie(){
+	var cookieStr = getCookie("claims");
+	if(cookieStr == null){
+		return null;
+	}
+	var obj=$.parseJSON(cookieStr);
+	if(checkIsNotNullStr(obj.phoneNum) && checkIsNotNullStr(obj.smsNum)){
+		return obj;
+	}
+	return null;
+}
+/**
+ * 返回上一页
+ */
+var backPage=function (){
+	//history.go(-1);
+	window.close();
+}
+
+/**
+ * 倒计时
+ */
+function smsTime(tagName, setTime,btnFun) {
+	var obj = $(tagName);
+	var t = setTime;
+	var str = '秒后重新获取';
+	var time;
+	deadline();
+
+	function deadline() {
+//		obj.off();
+		obj.unbind("click");
+		
+		obj.text(t + str).addClass("dx-font-setTime");
+		time = setTimeout(autoplay, 1000);
+	}
+
+	function autoplay() {
+		t--;
+		obj.text('发送验证码').removeClass("dx-font-setTime");
+		if (t < 0) {
+			clearTimeout(time);
+			t = setTime;
+			obj.bind("click", btnFun);
+		} else {
+			obj.text(t + str).addClass("dx-font-setTime");
+			time = setTimeout(autoplay, 1000);
+		}
+	}
+}
+

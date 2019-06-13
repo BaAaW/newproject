@@ -1,0 +1,313 @@
+"use strict";
+let enviroment = {
+    "sit": "sit",
+    "prod": "prod"
+};
+
+let env = enviroment.prod;
+// var sa = null,s=null;
+/**
+ * @function 环境判断
+ * @return  sit || prod
+ *
+ **/
+let host = location.href.match(/(http[s]?\:\/\/)(.*?)\//);
+if (host[0].split('.')[0].indexOf('sit') > 0 || host[0].split('.')[0].indexOf('localhost') > 0
+    || !isNaN(Number(host[0].split('.')[0]))) {
+    env = enviroment.sit;
+}
+/**
+ * 动态加载JS
+ * @param {string} url 脚本地址
+ * @param {function} callback  回调函数
+ */
+function loadJs(url, callback) {
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = url;
+    if (typeof(callback) == 'function') {
+        script.onload = script.onreadystatechange = function () {
+            if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") {
+                callback();
+                script.onload = script.onreadystatechange = null;
+            }
+        };
+    }
+    head.appendChild(script);
+}
+
+// omniture.js star
+var bm_omniture= bm_omniture || {};
+(function() {
+/*    var that = this,
+        core_version = "1.0";
+    this.init = function() {
+        loadJs("//service.cpic.com.cn/res/js/newcommon/s_code_pc.js", function () {
+            s = s_gi(s_account);
+        });
+    };
+    
+    this.page=function (_s) {
+        setTimeout(function () {
+            if((typeof s) != "undefined"){
+                s.pageName = _s.pageName;
+                var tmp = null;
+                if (tmp = _s.channel) {
+                    s.channel = tmp;
+                }
+                if (tmp = _s.prop1) {
+                    s.prop1 = tmp;
+                }
+                if (tmp = _s.prop50) {
+                    s.prop50 = tmp;
+                }
+                var s_code = s.t();
+                if (s_code) {
+                    document.write(s_code);
+                }
+            }
+        }, 2000);
+    };
+    this.eventDesc = function (e,desc) {
+        s.linkTrackVars = 'prop21';
+        s.prop21 = desc;
+        s.tl(e, 'o', '控件监控');
+    };
+    this.eventMsg = function (e,pageName,prop50,prop51) {
+        if ((typeof s) != "undefined") {
+            if (prop50) {
+                s.prop50 = prop50;
+            }else{
+                s.prop50="";
+            }
+            if (prop51) {
+                s.prop51 = prop51;
+            }else{
+                s.prop51="";
+            }
+            s.linkTrackVars="";
+            if (s.prop51 && s.prop50) {
+                s.linkTrackVars = 'prop50,prop51';
+            } else if (s.prop50) {
+                s.linkTrackVars = 'prop50';
+            } else if (s.prop51) {
+                s.linkTrackVars = 'prop51';
+            }
+            s.tl(e, 'o', pageName);
+        }
+    }*/
+}).call(bm_omniture)
+//bm_omniture.init();
+// omniture.js end
+
+// sensor.js star
+var bm_sensor = bm_sensor || {};
+(function() {
+    var that = this,
+        core_version = "1.0";
+    this.init = function() {
+        loadJs("//service.cpic.com.cn/res/js/newcommon/cpic.sd.js",function () {
+        // loadJs("//a2cdn3.8686c.com/sensorsdata/cpic.sd.js",function () {
+            setsensorsdata({
+                "show_log": true
+                //"project": "TBJTGW",
+            });
+        });
+    };
+
+    //page 浏览页面
+    this.page=function (process,pageName) {
+        //pageChannel 频道、pageName 页面名称、main_operation 流程名称
+        setTimeout(function () {
+            if((typeof sa) != "undefined") {
+                sa.track('page', {
+                    pageChannel: '服务大厅',
+                    main_operation: process,
+                    pageName: pageName
+                });
+            }
+        }, 2000);
+    }
+    //click_start_sevice 开始服务
+    this.serverStar=function (process,svcMode) {
+        //pageChannel 频道、main_operation 流程名称、sevice_mode 服务方式
+        if((typeof sa) != "undefined"){
+            sa.track('click_start_sevice', {
+                pageChannel: '服务大厅',
+                main_operation:process,
+                sevice_mode:svcMode,
+            });
+        }
+    }
+    //complicate_service 开始服务
+    this.serverComp=function (process,svcMode,ending) {
+        //pageChannel 频道、main_operation 流程名称、sevice_mode 服务方式
+        if ((typeof sa) != "undefined") {
+            sa.track('complicate_service', {
+                pageChannel: '服务大厅',
+                main_operation: process,
+                sevice_mode: svcMode,
+                end_operation: ending
+            });
+        }
+    }
+    //WebClick 元素点击
+    this.webClick=function (pageName,mainOperation,elementContent) {
+        //pageChannel 频道、pageName 页面名称、main_operation 流程名称、element_content 元素内容
+        if((typeof sa) != "undefined"){
+            sa.track('$WebClick', {
+                pageChannel: '服务大厅',
+                pageName:pageName,
+                main_operation:mainOperation,
+                $element_content:elementContent
+            });
+        }
+    }
+}).call(bm_sensor)
+bm_sensor.init();
+// sensor.js end
+
+// zntj.js star
+var bm_zntj= bm_zntj || {};
+(function() {
+    var that = this,
+        core_version = "1.0",
+        url="",device_id="";
+    this.init = function() {
+        if (env === enviroment.sit) {
+            url = "//zntjsit.cpic.com.cn/zntj/api_recommend/monitorPoint";
+        } else if (env === enviroment.prod) {
+            url = "//zntj.cpic.com.cn/zntj/api_recommend/monitorPoint";
+        }
+        var arr, reg = new RegExp("(^| )sensorsdata2015jssdkcross=([^;]*)(;|$)");
+        arr = document.cookie.match(reg);
+        if(arr && arr[2]){
+            device_id = JSON.parse(unescape(arr[2])).$device_id;
+        }
+    };
+
+    this.recommend=function (obj) {
+        var data = {
+            "client": "000",
+            "distinct_id": device_id,//sa.store.getDistinctId(),
+            "time": Date.parse(new Date()),
+            "url": location.href,
+            "productName": "",
+            "productCode": "",
+            "keyWord": "",
+            "version": "1.0.0"
+        };
+        var tmp = null;
+        if (tmp = obj.mobile) {
+            data.mobile = tmp;
+        }
+        if (tmp = obj.serviceName) {
+            data.serviceName = tmp;
+        }
+        if (tmp = obj.serviceCode) {
+            data.serviceCode = tmp;
+        }
+        $.ajax({
+            url: url,
+            type: 'get',
+            data: data,
+            success:function(result){
+                result.source="recommond";
+                console.info(result);
+            },
+            complete: function (e) {
+            }
+        });
+    }
+}).call(bm_zntj)
+bm_zntj.init();
+// zntj.js end
+
+
+var channelName = "服务大厅";
+var xlj_alarm= xlj_alarm || {};
+(function() {
+    //page 浏览页面
+    //传参：1.channel：默认“服务大厅”
+    //传参：2.business：业务头
+    //传参：3.pageName：页面名称
+    this.page = function (alarm) {
+        var process = alarm.business;
+        var pageName = alarm.pageName;
+        bm_sensor.page(process, pageName);
+    }
+    //serverStar 某项服务的开始
+    //传参：1.channel：默认“服务大厅”
+    //传参：2.business：业务头
+    //传参：3.pageName：页面名称
+    //传参：4.process：具体业务
+    //传参：5.message：具体描述
+    this.serverStar = function (alarm) {
+        var process = alarm.process;
+        var svcMode = alarm.message;
+        bm_sensor.serverStar(process, svcMode);
+    }
+    //serverComp 某项服务的完成
+    //传参：1.channel：默认“服务大厅”
+    //传参：2.business：业务头
+    //传参：3.pageName：页面名称
+    //传参：4.process：具体业务
+    //传参：5.message：具体描述
+    this.serverComp = function (alarm) {
+        var process = alarm.process;
+        var svcMode = alarm.message;
+        var ending = alarm.message + "完成";
+        bm_sensor.serverStar(process, svcMode, ending);
+    }
+    //message 传递消息
+    //传参：1.channel：默认“服务大厅”
+    //传参：2.business：业务头
+    //传参：3.pageName：页面名称
+    //传参：4.process：具体业务
+    //传参：5.message：具体描述
+    this.message = function (alarm) {
+
+    }
+    //webClick 控件操作
+    //传参：1.channel：默认“服务大厅”
+    //传参：2.business：业务头
+    //传参：3.pageName：页面名称
+    //传参：4.process：具体业务
+    //传参：5.action：操作
+    //传参：6.message：具体描述
+    this.webClick = function (alarm) {
+        var pageName = alarm.pageName;
+        var mainOperation = alarm.business;
+        var elementContent = alarm.message;
+        bm_sensor.webClick(pageName, mainOperation,elementContent);
+    }
+
+    this.services= {
+        server1:{
+            name:"",
+            business:"",
+            pageName:"",
+            process:""
+        },
+        server2:{
+            name:"",
+            business:"",
+            pageName:"",
+            process:""
+        }
+    };
+    this.action={
+        inputBlur:"input-blur",
+        inputFocus:"input-focus",
+        select:"select",
+        btnQuery:"btn-query",
+        btnSubmit:"btn-submit",
+        hrefClick:"href-click",
+        tabClick:"tab-click",
+    }
+}).call(xlj_alarm)
+
+
+
+

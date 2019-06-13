@@ -1,0 +1,12 @@
+function strToBase64(str){
+	 var b64str= BASE64.encoder(str);
+	 return b64str;
+};
+function b64ToString(b64str){
+	 var unicode= BASE64.decoder(b64str);
+	 var str = '',len =  unicode.length;  
+	 for(var i=0; i < len; ++i){  
+	       str += String.fromCharCode(unicode[i]);
+	 }
+	 return str;
+}

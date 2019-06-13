@@ -1,0 +1,121 @@
+@charset "utf-8";
+
+.ankang { padding-bottom:20px; width: 994px; border: 1px solid #dedede; /*margin-top: 31px;*/ float: left; background-attachment: scroll; background-image: url(../../images/sale.png); background-repeat: no-repeat; background-position: right top; }
+.ankangMain { width: 93%; margin-right: auto; margin-left: auto; height: auto; margin-top: 13px; }
+.ankangLeft { float: left; height: auto; width: 240px; font-size: 12px; color: #999999; }
+.ankangPic { float: left; height: 180px; width: 238px; border: 1px solid #dedede; }
+.peopleAnkang { width: 100%; margin-top: 5px; height: 20px; line-height: 20px; float: left; }
+.peopleAnkang img { margin-bottom: 3px; }
+.ankangRight { float: left; height: auto; width: 660px; margin-left: 24px; }
+.ankangRight h1 { font-size: 20px; font-weight: normal; color: #272727; margin: 0px; padding: 0px; }
+.ankangRight span { float: left; width: 100%; }
+.ankangButton a:hover {color:red;}
+.enjoyCMS { font-size: 14px; line-height: 52px; color: #666666; text-indent: 15px; height: 52px; background-color: #fff2e8; margin-top: 15px; margin-bottom: 15px; }
+.condition { font-size: 12px; color: #5b5b5b; line-height: 26px; }
+.ankangButton { margin-top: 15px; }
+
+.purchaseButton,.bbtxgw{ line-height: 30px; background-color: #feead9; height: 30px; padding:0 15px; font-family: "微软雅黑", "宋体"; font-size: 14px; color: #f69434; cursor: pointer; border: 1px solid #f69434; /*margin-left: 48px;*/ display:inline-block; _word-wrap:break-word; }
+.gm_btn  { width:88px;height:27px;display:inline-block;margin:0px 10px;cursor:pointer;background:transparent url("http://www.ecpic.com.cn/zaxeg/images/cpxq/ljgm.gif") no-repeat scroll 0% 0%}
+.clauseArea { float: left; height: 35px; width: 994px; background-color: #ebebeb; border: 1px solid #dedede; margin-top: -1px; font-size: 12px; line-height: 35px; color: #999999; text-align: center; }
+.clauseArea img { margin-bottom: -4px; }
+.ankangTab { float: left; height: 36px; width: 744px; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 2px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: #b9bec7; border-right-color: #b9bec7; border-bottom-color: #055eae; border-left-color: #b9bec7; font-size: 16px; color: #848484; }
+.ankangTab ul { margin: 0px; padding: 0px; list-style-type: none; }
+.ankangTab li { float: left; height: 36px; display: block; line-height: 36px; text-align: center;  padding-left:20px;padding-right:20px; }
+.ankangTab_over { color: #FFF; background-color: #1499f1; }
+.ankangTab li:hover{ color: #FFF; background-color: #5ABDFF; cursor:pointer;}
+.ankangTab a { display: block; height: 20px; margin-top: 8px; line-height: 20px; border-left-width: 1px; border-left-style: solid; border-left-color: #b9bec7; }
+.aboutAnkang { float: left; height: auto; width: 100%; }
+
+.buyAndB { height: 55px; width: 55px; float: left; margin-top: 10px; margin-left: 12px; text-align: center; background-color: #EBEBEB; border: 1px solid #cccccc; }
+.satisfaction { float: left; height: 129px; width: 100%; margin-top: 26px; margin-bottom: 16px; }
+.satisfactionPart1 { float: left; height: auto; width: 120px; margin-left: 15px; }
+.satisfaction h3 { font-size: 16px; color: #848484; margin: 0px; padding: 0px; }
+.satisfactionPart1 h1 { font-family: Arial, Helvetica, sans-serif; font-size: 50px; font-weight: bold; color: #005bac; margin: 0px; padding: 0px; line-height: 150%;margin-top:10px; }
+.satisfaction p { font-size: 12px; color: #999999; margin: 0px; }
+.satisfactionPart2 { float: left; height: 85px; width: 210px; border-right-width: 1px; border-right-style: solid; border-right-color: #dddddd; text-align: center;margin-top:30px; }
+/* .satisfactionPart2 img { margin-bottom: -3px; } */
+.opinionCMS { float: right; height: 129px; width: 50%; }
+.opinionCMS ul { padding: 0px; list-style-type: none; font-size: 12px; color: #FFF; float: left; width: 100%; height: auto; display: block; margin-top: 33px; margin-right: 0px; margin-bottom: 0px; margin-left: -11px; }
+.opinionCMS li { color:white; background-color: #59bdff; text-align: center; display: block; float: left; margin-right: 10px; margin-bottom: 10px; width: 130px; line-height: 26px; height: 26px; }
+
+.commType li {
+	float: left;
+    margin-left: 29px;
+    cursor: pointer;
+}
+
+.commType h3{
+	float: left;
+    margin-left: 31px;
+}
+
+.opinionCMS h3{
+	float: left;
+    margin-left: -56px;
+    margin-top: 9px;
+}
+
+.bgcolor {
+   color: #59bdff;
+}
+
+
+
+
+.userComment { font-size: 12px; color: #3f3f3f; float: left; height: 140px;height: auto; width: 744px; margin-top: -1px; border: 1px solid #dddddd; }
+.userComment dl { display: block; width: 95%; margin-top: 18px; margin-right: auto; margin-left: auto; }
+.userComment dt { float: left; height: auto; width: 40px; display: block; }
+.userHeaderCMS { background-color: #e0dfe1; float: left; height: 40px; width: 40px; }
+.userNameCMS { float: left; height: 25px; width: 100%; line-height: 25px; text-align: center; }
+.userComment dd { display: block; float: right; width: 90%; margin: 0px; padding: 0px; }
+.commentTime { display: block; float: right; color: #b0b0b0; }
+.commentManiCMS { float: left; height: auto; width: 100%;margin:0;border-bottom:1px dashed #ddd;padding:0px 0px 10px;}
+.commentManiCMS span{ margin-top:10px;font-size:14px;}
+.spanl { float:left;padding-left:10px;}
+.spanr { float:right;padding-right:10px;color:#1499F1;}
+/*返回顶部*/
+*html{  
+    background-image:url(about:blank);
+    background-attachment:fixed;
+}
+#back-top {width:28px; height:25px; background:url(/cpic/bxcs/images/TOP_icon.gif) no-repeat top; background-size:cover; position:fixed; right:0px; bottom:70px; z-index:1000; display:none; cursor:pointer; }
+
+##back-top { _margin-bottom:70px;
+    _position:absolute;
+    _bottom:auto;
+    _top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt(this.currentStyle.marginBottom,10)||0)));
+}
+
+/*2016.5.23iframe页面尺寸修改*/
+/* .online-service-layer iframe {width: 528px!important; height: 690px!important;} */
+
+
+.satisfactionPart1 span {
+	display: block;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 50px;
+	font-weight: bold;
+	color: #005bac;
+	line-height: 150%;
+}
+#avg1 {
+font-family: Arial, Helvetica, sans-serif;
+font: 15px/25px "microsoft yahei", "times new roman", sans-serif;
+color: #848484;
+line-height: 150%;
+margin-left: 25px;
+}
+.satisfactionPart1 h1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 50px;
+	font-weight: bold;
+	color: #005bac;
+	line-height: 150%;
+	height:auto;
+}
+
+
+
+
+
+

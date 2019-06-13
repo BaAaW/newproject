@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cpic.dao.LipeiMapper">
+<select id="selectLpbaoan" resultType="Integer">
+    select lpid from lipei where lpidnumber=#{lpidnumber} and lpnumber=#{lpnumber}
+</select>
+
+
+<select id="selectLpbaodan" resultType="Integer">
+    select lpid from lipei where lpidnumber=#{lpidnumber} and lpbdnumber=#{lpbdnumber}
+</select>
+
+
+<select id="selectLpjieguo" resultType="String">
+    select lpjieguo from lipei where lpid=#{lpid}
+</select>
+
+
+</mapper>

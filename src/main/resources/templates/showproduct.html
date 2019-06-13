@@ -1,0 +1,433 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrom=1" />
+  <title>个人意外综合保险在线投保购买-太平洋保险超市</title>
+  <meta name="description" content="太平洋保险网上保险超市提供个人意外综合保险。优质服务保障让您安心购买太平洋保险个人意外综合保险，在线投保购买个人意外综合保险上中国太平洋保险官网。"/>
+  <meta name="keywords" content="个人意外综合保险在线投保,个人意外综合保险购买" />
+  <link rel="stylesheet" href="/cpic/market/css/v2/common.css" />
+  <link href="/cpic/market/css/v2/lew.css" rel="stylesheet" type="text/css">
+  <link href="/cpic/market/css/v2/common.css" rel="stylesheet" type="text/css">
+  <link href="/cpic/market/css/v2/ankangCMS.css" rel="stylesheet">
+  <link rel="stylesheet" href="/cpic/market/css/v2/base.css?v=2.0">
+  <script type="text/javascript" src="/cpic/market/js/jquery.min.js"></script>
+
+  <link href="/cpic/market/css/v2/idangerous.swiper.css" rel="stylesheet">
+  <link href="/cpic/market/css/v2/detail.css?v=1.0" rel="stylesheet">
+  <link href="/cpic/market/css/v2/detailEdit.css" rel="stylesheet">
+  <link href="/cpic/market/css/v2/project.css" rel="stylesheet">
+  <link href="/cpic/market/css/v2/logIndex.css" rel="stylesheet">
+  <link rel="stylesheet" href="/cpic/market/css/v2/selectStyle.css">
+  <link href="/cpic/market/css/v2/fav.css" rel="stylesheet">
+  <script src="/cpic/js/v2/commonInclude.js"></script>
+  
+  <script>
+     //将http协议强转为https
+//    var protocol = window.location.protocol;
+//	var articleids=['1199709','1199710','1199703','1199711','1199712','1199668','1199669','1199705','1199704','1199610','1199670','1199596','1199675','1199676','1199677','1199708','1199707','1565298','1491338','1450989','1552947','1199706','1199586','1199694','1199681','1199682','1199684','1199685','1199687','1199688','1199689','1199690','1199691','1199692','1199693','1199611','1199594','1199594','1564718','1564733','1199696','1199671','1199672','1200042'];
+//		if (protocol == "http:" && articleids.indexOf('1199685')+1){
+//			window.location.href = window.location.href.replace("http","https");
+//		}
+//
+//
+//      window.onload = function () {
+//        //处理浏览器回退后会记住上次选择的问题
+//        $(".rgBox input").attr("autocomplete", "off");
+//      }
+  </script>
+</head>
+
+<body>
+  <div class="product-loader hide"></div>
+
+  <!-- 面包屑导航 begin -->
+  <div class="breadCrumbBg">
+    <div class="breadCrumbInner">
+      <a href="/"  target="_blank">太平洋保险</a>&gt;
+      <a href='/market/rsywbx/'>人身意外保险</a> &gt;[[${product.pname}]]
+    </div>
+  </div>
+  <!-- 面包屑导航 end -->
+  <div style="margin: 10px auto; width: 1200px;">
+    <div class="boxCont">
+      <div class="boxInner_left">
+        <img id="productImg" class="boxInner_left_img" th:src="'/cpic/'+${product.picsrc}">
+        <div class="boxInner_left_bottom">
+          <label class="bottom_font fl">评分：</label>
+          <ul class="show_number clearfix fl">
+            <li>
+              <div class="atar_Show">
+                <p class="starScore" id="scoreNumber" style="width: 128px;" tip="10"></p>
+              </div>
+            </li>
+          </ul>
+          <div class=" clear"></div>
+        </div>
+      </div>
+      <!-- 普通模式 begin -->
+      
+        <div class="boxInner_right">
+          <h1 id="name1" class="boxInnerTit">[[${product.pname}]]</h1>
+          
+            <p id="subtitle" class="boxInnerTitCon">[[${product.description}]]</p>
+          
+          
+          <!--全流程产品专用start-->
+          
+            <div class="boxInnerTitGrey" id="quanliucheng1" th:if="${product.vipprice>0}">
+              <ul>
+                <li class="width80">优惠价：</li>
+                <li class="width670">
+                  <span class="boxInnerJG">￥</span>
+                  <span class="boxInnerJG" id="saleprice">[[${product.vipprice}]]</span>
+                  <label class="boxInnerRed">起</label>
+                </li>
+                
+                <div class="clear"></div>
+              </ul>
+            </div>
+            <div id="o2oShow" th:unless="${product.vipprice>0}">
+                <div class="boxInnerTitGrey" id="o2o1" style="background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial;"></div>
+            </div>
+          
+          
+          <!--全流程产品专用end-->
+          <div class="modelEdit" id="m4Show">
+            <div class="boxInnerTx">
+              <ul>
+                <!--全流程产品专用start-->
+                <!-- 显示申请保额与保费费率-->
+                <!-- 显示申请保额与保费费率-->
+                  <div id="quanliucheng2" th:if="${not #strings.isEmpty(mongoproduct.scheme)}">
+                    <li class="width80">产品方案：</li>
+                    <li class="width650" id="prices">
+                      <div class="xz"><div class="xz">[[${mongoproduct.scheme}]]</div></div>
+                    </li>
+                  </div>
+                  <div class="clear"></div>
+                
+                <!--全流程产品专用end-->
+                
+                  <li class="width80">保险期限：</li>
+                  <li class="width260" id="insurancePeriod" th:if="${product.minduration==product.maxduration&&#strings.equals(product.unit1,product.unit2)}">
+						[[${product.maxduration}]][[${product.unit2}]]
+                  </li>
+                  <li class="width260" id="insurancePeriod" th:unless="${product.minduration==product.maxduration&&#strings.equals(product.unit1,product.unit2)}">
+						[[${product.minduration}]][[${product.unit1}]]~[[${product.maxduration}]][[${product.unit2}]]
+                  </li>
+                  
+                  <!--
+					<z:if condition="${Article.MetaValue_PaymentTerm!=''}">
+										<div class="lingqutiaojianShow">
+											<li class="width80">领取条件：</li>
+											<li class="lingqutiaojian width260">${Article.MetaValue_PaymentTerm}</li>
+										</div>
+									</z:if>-->
+                  <!--  领取条件的多个版本 start-->
+                  <!--  领取条件的多的版本 end-->
+                  
+                  <div class="clear"></div>
+                    <div class="shiyongrenqunShow" th:if="${not #strings.isEmpty(mongoproduct.suitpeople)}">
+                      <li class="width80">适用人群：</li>
+                      <li class="shiyongrenqun width260">
+                        [[${mongoproduct.suitpeople}]]
+                      </li>
+                    </div>
+                  <div class="chengbaonianlingShow">
+                    <li class="width80 ">承保年龄：</li>
+                    <li class="chengbaonianling width260">[[${product.minage}]]-[[${product.maxage}]]周岁</li>
+                  </div>
+                
+                <div class="clear"></div>
+                <li class="width80">销售区域：</li>
+                <li class="width650 saleArea" id="saleArea" onclick="saleArea_click()">
+                  [[${product.salearea}]]
+                </li>
+                <div class="clear"></div>
+              </ul>
+            </div>
+            <div class="boxInnerTitButton">
+              <!--start of 企业、贷款栏目显示按钮-->
+              
+              <!--end of 企业、贷款栏目显示按钮-->
+                    <a rel="nofollow" id="buyNowLink" th:href="@{${'/hds/estimate'}(productid=${product.pid})}" onclick="scInsuranceClick()">
+                      <input class="boxInnerTitButton0Red" id="buyNowBtn" type="button" value="立即购买">
+                    </a>
+              <p class="boxInnerTitPhone" id="hotLineBtn" style="display: none;">
+                <i class="boxInnerTitPhoneIcon"></i>
+                <span class="fc_005bac">咨询热线：95500</span>
+              </p>
+              <div class="clear"></div>
+            </div>
+            <p class="boxInnerTitPhone">
+              <!--<i class="scj"></i><a class="fc_005bac" onclick="addScj()">添加到收藏夹&gt;&gt;</a>-->
+              <i class="scj"></i>
+              <a class="fc_005bac" onclick="addScj('1199685','个人意外综合保险','55','GRYWX','GRYWX_planA','/market/c/2017-06-01/1199685.shtml','/market/upload/resources/image/2017/06/01/36532_120x120.jpg','')">添加到收藏夹&gt;&gt;</a>
+            </p>
+          </div>
+        </div>
+      <div class="clear"></div>
+    </div>
+    <div class="height50"></div>
+    <!--产品推荐开始-->
+    <div class="ProductRecommendation" id="ProductRecommendation">
+      <!--主体内容开始-->
+      <!-- <div class="ProductRecommendation">-->
+      <h2 class="ProductRecommendationTit">
+        <i class="ProductRecommendationIcon"></i>
+        <label>产品推荐</label>
+        <div class="clear"></div>
+      </h2>
+      <div id="ProductRecommendationCon">
+        <div class="mboxDefault">
+                <a href="/cpic/market/c/2017-06-06/1199607.shtml" title="个人意外伤害保险" target="_blank" alt="个人意外伤害保险">
+                  <div id="mbox1" class="ProductRecommendationCon">
+                    <img src="/cpic/market/upload/resources/image/2017/06/06/37511_325x376.jpg">
+                    <font class="ProductName">个人意外伤害保险</font>
+                  </div>
+                  
+                </a>
+                <a href="/cpic/market/c/2017-06-06/1199608.shtml" title="世纪行人身意外伤害保险（B款）" target="_blank" alt="世纪行人身意外伤害保险（B款）">
+                  <div id="mbox2" class="ProductRecommendationCon">
+                    <img src="/cpic/market/upload/resources/image/2017/06/06/37512_325x376.jpg">
+                    <font class="ProductName">世纪行人身意外伤害保险（B款）</font>
+                  </div>
+                  
+                    <h2 class="ProductRecommendationTit"></h2>
+                  
+                </a>
+              
+              
+              
+                <a href="/cpic/market/c/2017-06-06/1199609.shtml" title="燃气保险" target="_blank" alt="燃气保险">
+                  <div id="mbox3" class="ProductRecommendationCon">
+                    <img src="/cpic/market/upload/resources/image/2017/06/06/37513_325x376.jpg">
+                    <font class="ProductName">燃气保险</font>
+                  </div>
+                  
+                    <h2 class="ProductRecommendationTit"></h2>
+                  
+                </a>
+              
+              
+              
+                <a href="/cpic/market/c/2017-06-06/1199613.shtml" title="悠乐宝" target="_blank" alt="悠乐宝">
+                  <div id="mbox4" class="ProductRecommendationCon">
+                    <img src="/cpic/market/upload/resources/image/2017/06/06/37514_325x376.jpg">
+                    <font class="ProductName">悠乐宝</font>
+                  </div>
+                  
+                    <h2 class="ProductRecommendationTit"></h2>
+                  
+                </a>
+          <!-- 如果为二级栏目下的产品，则取其父级栏目下不包含本栏目的所有栏目的4条推荐产品 -->
+          
+          <!-- 如果此产品在一级栏目下，则其该栏目下二级栏目的四条推荐产品 -->
+        </div>
+      </div>
+      <!--主体内容结束-->
+    </div>
+    <!--产品推荐结束-->
+    <!--产品推荐开始-->
+    <div class="ProductConRight">
+      <div class="index_turn">
+        <div class="index_turn_con">
+          <div class="tabs">
+            <a  class="active" id="tab1Link" onclick="changeTab(1)">产品详情</a>
+            <a  id="tab2Link" onclick="changeTab(2)" class="">投保须知</a>
+            <a  id="tab3Link" onclick="changeTab(3)" class="">重要说明</a>
+            <a  id="tab4Link" onclick="changeTab(4)" class="">案例分享</a>
+            <a  id="tab5Link" onclick="changeTab(5)" class="">产品评论</a>
+            <a  id="tab1Link" onclick="changeTab(6)" class="">条款费率</a>
+              <!-- 贷款保险的网点查询页签 start-->
+              <!-- 贷款保险的网点查询页签 end-->
+          </div>
+        </div>
+      </div>
+      <div class="tabs-container swiper-container">
+        <div class="swiper-wrapper" style="left: 0px; top: 0px; width: 5454px; height: 1004px; transition: 0.5s;">
+
+                    <div class="swiper-slide swiper-slide-visible swiper-slide-active" id="tabContent1" style="width: 909px; height: auto;">
+                      <div class="check-policy-con modelEdit"><div class="height50"></div><div id="modelEdit1">
+                        <div th:if="${not #lists.isEmpty(mongoproduct.details)}" class="cpxq_tab_content cpxq_info" style="display: block;">
+                          <div th:each="detail:${mongoproduct.details}"><h3 class="f14 fa1" >[[${detail.h}]]</h3>
+                          <p class="f12 gray ml20 mb15" >[[${detail.p}]]</p></div>
+                        </div>
+                        <div class="aboutAnkang" th:if="${not #lists.isEmpty(mongoproduct.detailpics)}">
+                        <table width="730" height="2277" id="__01" border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+                        <tr th:each="detailpic,picstat:${mongoproduct.detailpics}" th:class="${picstat.index==0}?'firstRow'">
+                          <td th:style="${picstat.index==0}?'word-break: break-all;'">
+                          <img width="730" height="683" alt="个人意外综合保险产品详情" th:src="${detailpic}"/>
+                          </td>
+                        </tr>
+                        </tbody></table></div></div></div></div>
+
+                    <div class="swiper-slide" id="tabContent2" style="width: 909px; height: auto;">
+                      <div class="check-policy-con modelEdit"><div class="height50"></div><div id="modelEdit2"><div class="aboutAnkang"><img src="/cpic/market/upload/resources/image/2017/06/16/72693.jpg" alt="个人意外综合保险投保须知"/><img src="/cpic/market/upload/resources/image/2017/06/16/72694.jpg" alt="个人意外综合保险投保须知"/><img src="/cpic/market/upload/resources/image/2017/06/16/72695.jpg" alt="个人意外综合保险投保须知"/><img src="/cpic/market/upload/resources/image/2017/06/16/72696.jpg" alt="个人意外综合保险投保须知"/>
+        
+        
+        
+        
+        </div><div class="clear"></div></div></div></div>
+                    <div class="swiper-slide" id="tabContent3" style="width: 909px; height: auto;">
+                      <div class="check-policy-con modelEdit"><div class="height50"></div><div id="modelEdit3"><p><img src="/cpic/market/upload/resources/image/2017/06/16/72697.jpg" alt="个人意外综合保险重要说明"/><img src="/cpic/market/upload/resources/image/2017/06/16/72698.jpg" alt="个人意外综合保险重要说明"/><img src="/cpic/market/upload/resources/image/2017/06/16/72699.jpg" alt="个人意外综合保险重要说明"/><img src="/cpic/market/upload/resources/image/2017/06/16/72700.jpg" alt="个人意外综合保险重要说明"/>
+         <img src="/cpic/market/images/v2/baoegaozhi.jpg" title="mingshigaozhi" alt="mingshigaozhi" suffix="jpg"/>
+        </p><p style="text-align:center;"><img src="/cpic/market/upload/resources/image/2018/12/03/48670.jpg" alt="know_tbyd5" suffix="jpg"/>
+        
+        </p><p style="text-align:center;"><br/>
+        
+        </p><p><br/>
+        
+        </p></div></div></div>
+                  
+                  
+                  
+                    <div class="swiper-slide" id="tabContent4" style="width: 909px; height: auto;">
+                      <div class="check-policy-con modelEdit"><div class="height50"></div><div id="modelEdit4"><div class="aboutAnkang"><img width="731" height="1964" src="/cpic/market/upload/resources/image/2017/06/16/72703.png" alt="个人意外综合保险案例分享"/></div></div></div><p><br/></p></div>
+                  
+                  
+                  
+                    <div class="swiper-slide" id="tabContent5" style="width: 909px; height: auto;">
+                      <div class="check-policy-con" id="comment" style=""><div style="float: left; height: auto; width: 100%;"><div class="satisfaction"><div class="satisfactionPart1"><h3>产品综合评分</h3><h2><span id="avg"></span><span id="avg1"></span>
+                
+                </h2></div><div class="satisfactionPart2"><span style="margin-top: 30px;"><p id="product"><br/>
+                
+                </p><p id="service"><br/>
+                
+                </p><p id="course"><br/>
+                
+                </p></span>
+            
+            </div><div class="commType"></div>
+                        <div class="opinionCMS">
+                          <h3>大家都说</h3>
+                          <ul class="khyx list-paddingleft-2">
+                            <li>便宜实惠（5）</li>
+                            <li>保障全（12）</li>
+                            <li>理赔快（6）</li>
+                            <li>服务好（20）</li>
+                            <li>服务优（10）</li>
+                          </ul>
+                        </div>
+                        <div class="clear"></div>
+                      </div></div>
+                        <div class="o2oCon">
+                          <ul id="topic" class=" list-paddingleft-2"></ul>
+                          <div class="page" id="page" style="text-align: right; padding-top: 15px;display:block;"></div>
+                        </div><div class="height30"></div></div>
+                    </div>
+                  
+
+                <!-- 网点查询页签内容 start-->
+                <!-- 网点查询页签内容 end-->
+              
+                <div class="swiper-slide" id="tabContent6" style="width: 909px; height: auto;">
+                  <div class="check-policy-con" id="termRate">
+                    <div class="height20"></div>
+                    
+                      <li>
+                        <i class="FlPdfIcon"></i>
+                        <label class="fc-666666">附加意外伤害住院津贴保险条款.pdf</label>
+                        <a  class="fc-005bac" href="/cpic/market/c/2017-06-16/1199470.shtml" target="_blank">
+                          <i class="FlPdfIcon02"></i>
+                          <span style="margin-right: -45px; float: right;">查看</span>
+                        </a>
+                        <div class="clear"></div>
+                      </li>
+                      <li>
+                        <i class="FlPdfIcon"></i>
+                        <label class="fc-666666">附加意外伤害骨折保险条款.pdf</label>
+                        <a  class="fc-005bac" href="/cpic/market/c/2017-06-16/1199477.shtml" target="_blank">
+                          <i class="FlPdfIcon02"></i>
+                          <span style="margin-right: -45px; float: right;">查看</span>
+                        </a>
+                        <div class="clear"></div>
+                      </li>
+                      <li>
+                        <i class="FlPdfIcon"></i>
+                        <label class="fc-666666">个人人身意外伤害保险（2013版）条款.pdf</label>
+                        <a  class="fc-005bac" href="/cpic/market/c/2017-06-16/1199478.shtml" target="_blank">
+                          <i class="FlPdfIcon02"></i>
+                          <span style="margin-right: -45px; float: right;">查看</span>
+                        </a>
+                        <div class="clear"></div>
+                      </li>
+                      <li>
+                        <i class="FlPdfIcon"></i>
+                        <label class="fc-666666">附加交通意外伤害加倍给付保险（2013版）条款.pdf</label>
+                        <a  class="fc-005bac" href="/cpic/market/c/2017-06-16/1199479.shtml" target="_blank">
+                          <i class="FlPdfIcon02"></i>
+                          <span style="margin-right: -45px; float: right;">查看</span>
+                        </a>
+                        <div class="clear"></div>
+                      </li>
+                      <li>
+                        <i class="FlPdfIcon"></i>
+                        <label class="fc-666666">附加意外伤害全残补助金保险（2013版）条款.pdf</label>
+                        <a  class="fc-005bac" href="/cpic/market/c/2017-06-16/1199480.shtml" target="_blank">
+                          <i class="FlPdfIcon02"></i>
+                          <span style="margin-right: -45px; float: right;">查看</span>
+                        </a>
+                        <div class="clear"></div>
+                      </li>
+                      <li>
+                        <i class="FlPdfIcon"></i>
+                        <label class="fc-666666">附加意外伤害医疗保险（2013版）条款.pdf</label>
+                        <a  class="fc-005bac" href="/cpic/market/c/2017-06-16/1199481.shtml" target="_blank">
+                          <i class="FlPdfIcon02"></i>
+                          <span style="margin-right: -45px; float: right;">查看</span>
+                        </a>
+                        <div class="clear"></div>
+                      </li>
+                      <li>
+                        <i class="FlPdfIcon"></i>
+                        <label class="fc-666666">个人意外综合保障计划费率.pdf</label>
+                        <a  class="fc-005bac" href="/cpic/market/c/2017-06-16/1199482.shtml" target="_blank">
+                          <i class="FlPdfIcon02"></i>
+                          <span style="margin-right: -45px; float: right;">查看</span>
+                        </a>
+                        <div class="clear"></div>
+                      </li>
+                      <li>
+                        <i class="FlPdfIcon"></i>
+                        <label class="fc-666666">太平洋保险财产险产品条款备案表下载.pdf</label>
+                        <a  class="fc-005bac" href="/cpic/market/c/2017-06-16/1199483.shtml" target="_blank">
+                          <i class="FlPdfIcon02"></i>
+                          <span style="margin-right: -45px; float: right;">查看</span>
+                        </a>
+                        <div class="clear"></div>
+                      </li>
+                    <p class="FLTx">
+                      保险责任请参考保险条款，并敬请特别留意条款中的
+                      <span style="color: red;">"责任免除"</span>部分
+                    </p>
+                  </div>
+                </div>
+        </div>
+      </div>
+    </div>
+    <div class="clear"></div>
+    <div class="height40"></div>
+  </div>
+
+  <div class="reveal-modal-bg" style="display: none; cursor: pointer;"></div>
+  <!--侧边栏开始-->
+  <div class="silder_bar">
+    <div class="silder_bar_con ">
+      <ul>
+        <li class="silder_bar_1" onclick="javascript:window.open('scj')">
+          <i class="dp-block icon01"></i>
+        </li>
+        <li class="silder_bar_2" onclick="javascript:window.scrollTo(0,0)">
+          <i class="dp-block icon02 "></i>
+        </li>
+      </ul>
+    </div>
+  </div>
+</body>
+
+</html>

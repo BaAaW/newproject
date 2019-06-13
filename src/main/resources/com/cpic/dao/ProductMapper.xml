@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.cpic.dao.ProductMapper">
+    <select id="selectproductbypid" resultMap="Productmap">
+        SELECT * FROM product p
+        LEFT JOIN producttofeatures ptf ON ptf.fkpid=p.pid
+        LEFT JOIN producttoprotection pttp ON pttp.fkpid=p.pid
+        LEFT JOIN features f ON ptf.fkfid=f.fid
+        LEFT JOIN protection pt ON pt.ptid=pttp.fkptid
+        LEFT JOIN contenttoprotection ctpt ON ctpt.`fkptid`=pt.`ptid`
+        LEFT JOIN content c ON c.`ctid`=ctpt.`fkctid`
+        where p.pid=#{pid}
+    </select>
+    <select id="selectallproduct" resultMap="Productmap">
+        SELECT * FROM product p
+        LEFT JOIN producttofeatures ptf ON ptf.fkpid=p.pid
+        LEFT JOIN producttoprotection pttp ON pttp.fkpid=p.pid
+        LEFT JOIN features f ON ptf.fkfid=f.fid
+        LEFT JOIN protection pt ON pt.ptid=pttp.fkptid
+        LEFT JOIN contenttoprotection ctpt ON ctpt.`fkptid`=pt.`ptid`
+        LEFT JOIN content c ON c.`ctid`=ctpt.`fkctid`
+        <where>
+            <if test="selectcont!=null and selectcont!=0">and c.`ctid`=#{selectcont}</if>
+
+            <if test="selectfeat!=null and selectfeat!=0">
+                <if test="selectfeat==-1">
+                    and f.`feature` like "%意外%"
+                </if>
+                <if test="selectfeat!=-1">
+                    and f.`fid`=#{selectfeat}
+                </if>
+            </if>
+
+            <if test="selectage == 1">
+                and p.`minage` between 0 and 18 or p.`maxage` between 0 and 18
+                or 0 between p.`minage` and p.`maxage` or 18 between p.`minage` and p.`maxage`
+            </if>
+            <if test="selectage == 2">
+                and p.`minage` between 18 and 60 or p.`maxage` between 18 and 60
+                or 18 between p.`minage` and p.`maxage` or 60 between p.`minage` and p.`maxage`
+            </if>
+            <if test="selectage == 3">
+                and p.`minage` between 60 and 70 or p.`maxage` between 60 and 70
+                or 60 between p.`minage` and p.`maxage` or 70 between p.`minage` and p.`maxage`
+            </if>
+
+            <if test="selecttime == 1">
+                and p.`maxduration` &gt;= 10 and unit2 = '年'
+            </if>
+            <if test="selecttime == 2">
+                and p.`maxduration` = 1 and unit2 = '年'
+            </if>
+            <if test="selecttime == 3">
+                and p.`maxduration` = 30 and unit2 = '年'
+            </if>
+            <if test="selecttime == 4">
+                and p.`maxduration` != p.`minduration` or unit2 != unit1
+            </if>
+
+        </where>
+    </select>
+    <resultMap type="Product" id="Productmap">
+        <id property="pid" column="pid"/>
+        <collection property="featurelist" ofType="Features">
+            <id property="fid" column="fkfid"/>
+            <result property="feature" column="feature"/>
+        </collection>
+        <collection property="protectionlist" ofType="Protection">
+            <id property="ptid" column="fkptid"/>
+            <result property="ptbelong" column="ptbelong"/>
+            <result property="ptgrade" column="ptgrade"/>
+        </collection>
+    </resultMap>
+</mapper>

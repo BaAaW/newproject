@@ -1,0 +1,154 @@
+* {
+	PADDING-RIGHT: 0px;
+	PADDING-LEFT: 0px;
+	PADDING-BOTTOM: 0px;
+	PADDING-TOP: 0px
+}
+
+.search-list {
+	BORDER-RIGHT: gray 1px solid;
+	BORDER-TOP: gray 1px solid;
+	FONT-SIZE: 12px;
+	BORDER-LEFT: gray 1px solid;
+	COLOR: #666;
+	BORDER-BOTTOM: gray 1px solid;
+	BACKGROUND-COLOR: white
+}
+
+.search-list A {
+	COLOR: #666;
+	TEXT-DECORATION: none
+}
+
+.search-list-insured {
+	BORDER-RIGHT: gray 1px solid;
+	BORDER-TOP: gray 1px solid;
+	FONT-SIZE: 12px;
+	BORDER-LEFT: gray 1px solid;
+	COLOR: #666;
+	BORDER-BOTTOM: gray 1px solid;
+	BACKGROUND-COLOR: white
+}
+
+.search-list-insured A {
+	COLOR: #666;
+	TEXT-DECORATION: none
+}
+
+.search-list-insured-asset {
+	BORDER-RIGHT: gray 1px solid;
+	BORDER-TOP: gray 1px solid;
+	FONT-SIZE: 12px;
+	BORDER-LEFT: gray 1px solid;
+	COLOR: #666;
+	BORDER-BOTTOM: gray 1px solid;
+	BACKGROUND-COLOR: white
+}
+
+.search-list-insured-asset A {
+	COLOR: #666;
+	TEXT-DECORATION: none
+}
+
+.search UL {
+	OVERFLOW-Y: hidden;
+	OVERFLOW-X: hidden
+}
+
+.search-input {
+	BORDER-: #aaa 1px solid;
+	FLOAT: left;
+	WIDTH: 192px;
+	LINE-HEIGHT: 20px;
+	HEIGHT: 20px
+}
+
+.search LI {
+	MARGIN: 0;
+	PADDING-LEFT: 1px; *
+	PADDING-LEFT: 0 !important; *
+	PADDING-LEFT: 0;
+	PADDING-RIGHT: 1px; *
+	PADDING-RIGHT: 0 !important; *
+	PADDING-RIGHT: 0;
+	FONT-SIZE: 12px;
+	PADDING-BOTTOM: 1px;
+	OVERFLOW: hidden;
+	WIDTH: 41px; *
+	WIDTH: 42px !important; *
+	WIDTH: 42px;
+	CURSOR: pointer;
+	LINE-HEIGHT: 22px;
+	PADDING-TOP: 1px;
+	LIST-STYLE-TYPE: none;
+	HEIGHT: 22px;
+	TEXT-ALIGN: center
+}
+
+.regFormListSearch li {
+	height: auto !important;
+	min-height: 20px;
+}
+
+.search li.list-l {
+	width: 100% !important;
+	text-align: left;
+}
+
+.search li.list-l a {
+	margin: 2px
+}
+
+.search .n-f {
+	margin: 5px;
+	overflow: hidden
+}
+
+.search li.li-hover {
+	background-color: #0058a3
+}
+
+.search li.li-hover a {
+	color: white
+}
+
+.search a:hover {
+	text-decoration: none ! important
+}
+
+.search li.list-f {
+	margin-top: 4px;
+	float: left;
+}
+
+.search a.list-a {
+	padding-left: 10px
+}
+
+.search .title {
+	font-size: 12px;
+	border-bottom: 1px dashed;
+	height: 22px;
+	line-height: 22px;
+}
+
+.search .close {
+	margin-top: -20px;
+	display: block;
+	float: right;
+	margin-left: 5px;
+	width: 14px;
+	cursor: pointer;
+	height: 14px
+}
+
+.search li.list-l span {
+	float: left;
+	width: 50%
+}
+
+.search-text {
+	color: #cccccc
+}
+
+

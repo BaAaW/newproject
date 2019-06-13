@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cpic.dao.DingzhiMapper">
+      <insert id="insertDingzhi" parameterType="Dingzhi" keyProperty="dzid" keyColumn="dzid">
+    insert into dingzhi values
+    (default,#{who},#{birth},#{intention},#{budget},#{date},#{dname},#{age},#{phone},#{site},#{dznum})
+      </insert>
+
+
+    <select id="selectMax" resultType="Integer">
+        SELECT MAX(dznum) FROM dingzhi
+    </select>
+
+
+    <select id="selectPhone" resultType="Map">
+        SELECT * FROM dingzhi WHERE phone=#{phone} AND dname=#{dname}
+    </select>
+
+
+    <select id="selectDzid" resultType="Map">
+        select * from  dingzhi where dzid=#{dzid}
+    </select>
+
+
+    <update id="updateDingzhi" keyColumn="dzid" keyProperty="dzid" parameterType="Dingzhi">
+UPDATE dingzhi SET who=#{who},birth=#{birth},intention=#{intention},budget=#{budget},
+date=#{date},dname=#{dname},age=#{age},phone=#{phone},site=#{site}
+WHERE dzid=#{dzid};
+    </update>
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cpic.dao.XiankaMapper">
+    <select id="selectMima" resultType="String">
+        SELECT xkjihuo FROM xianka WHERE xkcard=#{xkcard} AND xkpass=#{xkpass}
+    </select>
+
+    <select id="selectRenid" resultType="String">
+        SELECT xkjihuo FROM xianka WHERE xkrenid=#{xkrenid}
+    </select>
+
+    <update id="updateJihuo" parameterType="Xianka" keyProperty="xkid" keyColumn="xkid">
+        UPDATE xianka SET xkjihuo="1" WHERE xkcard=#{xkcard} AND xkpass=#{xkpass}
+    </update>
+
+    <select id="selectBd" resultType="Xianka">
+        SELECT * FROM xianka WHERE xkcard=#{xkcard} AND xkpass=#{xkpass}
+    </select>
+
+    <select id="selectSfz" resultType="Xianka">
+        SELECT * FROM xianka WHERE xkrenid=#{xkrenid}
+    </select>
+
+
+
+</mapper>

@@ -1,0 +1,78 @@
+<div class="footer">
+    <div class="footer-contanir">
+        <div class="footer-top clearfix">
+            <div class="clearfix pull-left" style="overflow: hidden">
+                <div class="pull-left list">
+                    <h4>关于我们</h4>
+                    <ul>
+                        <li><a rel="nofollow" href="aboutUs/index.shtml?hit=ShouyeGywmGsjj" target="_blank" onclick="omnitureSave('ShouyeGywmGsjj')">公司简介</a></li>
+                        <li><a rel="nofollow" href="life/cn/lxwm/index.shtml?hit=ShouyeGywmLxwm" target="_blank" onclick="omnitureSave('ShouyeGywmLxwm')">联系我们</a></li>
+                        <li><a rel="nofollow" href="/?hit=ShouyeGywmRczp" target="_blank" onclick="omnitureSave('ShouyeGywmRczp')">人才招聘</a></li>
+                    </ul>
+                </div>
+                <div class="pull-left list">
+                    <h4>帮助中心</h4>
+                    <ul>
+                        <li><a rel="nofollow" href="cpic/cn/contactus/privacypolicy/index.shtml?hit=ShouyeBzzxYstk" target="_blank" onclick="omnitureSave('ShouyeBzzxYstk')">隐私条款</a></li>
+                        <li><a rel="nofollow" href="cpic/cn/contactus/notice/index.shtml?hit=ShouyeBzzxFlzx" target="_blank" onclick="omnitureSave('ShouyeBzzxFlzx')">法律咨询</a></li>
+                        <li><a href="zixun2/?hit=ShouyeBzzxBxzx" target="_blank" onclick="omnitureSave('ShouyeBzzxBxzx')">保险资讯</a></li>
+                        <li><a href="baike/?hit=ShouyeBzzxBxbk" target="_blank" onclick="omnitureSave('ShouyeBzzxBxbk')">保险百科</a></li>
+                    </ul>
+                </div>
+                <div class="pull-left list">
+                    <h4>集团旗下</h4>
+                    <ul>
+                        <li><a href="/xccbx/?hit=ShouyeJtqxCcbx" target="_blank" onclick="omnitureSave('ShouyeJtqxCcbx')">财产保险</a></li>
+                        <li><a href="/xrsbx/?hit=ShouyeJtqxRsbx" target="_blank" onclick="omnitureSave('ShouyeJtqxRsbx')">人寿保险</a></li>
+                        <li><a href="/xzcgl/?hit=ShouyeJtqxZcgl" target="_blank" onclick="omnitureSave('ShouyeJtqxZcgl')">资产管理</a></li>
+                        <li><a href="/jkx/?hit=ShouyeJtqxJkx" target="_blank" onclick="omnitureSave('ShouyeJtqxJkx')">健康险</a></li>
+                    </ul>
+                </div>
+                <div class="pull-left list">
+                    <h4>&nbsp;</h4>
+                    <ul>
+                        <li><a href="/?hit=ShouyeJtqxAxnb" target="_blank" onclick="omnitureSave('ShouyeJtqxAxnb')">安信农保</a></li>
+                        <li><a href="cjyl/CN/?hit=ShouyeJtqxCjyl" target="_blank" onclick="omnitureSave('ShouyeJtqxCjyl')">长江养老</a></li>
+                        <li><a href="/?hit=ShouyeJtqxYltz" target="_blank" onclick="omnitureSave('ShouyeJtqxYltz')">养老投资</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pull-left qrcode-box">
+                <h4>关注我们</h4>
+                <ul class="clearfix" style="overflow: hidden; float: right;">
+                    <li class="pull-left"><i class="icon-cpic-common image-codePhone"></i>
+                        <p>手机网站</p></li>
+                    <li class="pull-left"><i class="icon-cpic-common image-codeWx"></i>
+                        <p>官方微信号</p></li>
+                    <li class="pull-left"><i class="icon-cpic-common image-codeApp"></i>
+                        <p>APP下载</p></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bot">
+            <div class="pull-left copyright" style="font-size: 14px;">
+                <div style="display: inline-block;">
+                    <span style="color: #eeeeef;">版权所有©中国太平洋保险（集团）股份有限公司</span>
+                    <br>
+                    <span style="color: #eeeeef;">CopyRight©China  Pacific Insurance(group) Co.,Ltd.. All Rights Reserved </span>
+                </div>
+                <div style="display: inline-block;margin-left: 25px;">
+                    <span style="float: left;color: #eeeeef;">沪ICP备12028297号</span>
+                    <br>
+                    <div style="display:  inline-block;">
+                        <a target="_blank" href="portal/registerSystemInfo?recordcode=31011502008915"><img src="images/v2/common/gongAnJiGuan.png"><span style="color: #eeeeef;">沪公网安备 31011502008915号</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="pull-right">
+                <div class="clearfix pull-left" style="margin-right:5px;">
+                    <i class="icon-cpic-common icon-iconphone_1x" title="全国统一客服电话：95500"></i>
+                </div>
+                <div class="pull-left">
+                    <p style="font-size: 14px; letter-spacing: 1.75px;line-height:19px;color:#d0e0f2;margin-left:5px;" ;="">7×24小时全国统一客服电话</p>
+                    <p style="font-size: 18px; opacity: 0.8; letter-spacing: 2.25px;line-height:24px;color:#d0e0f2">95500</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

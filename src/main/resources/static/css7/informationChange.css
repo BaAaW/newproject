@@ -1,0 +1,64 @@
+body{
+    background: rgb(237, 239, 241);
+}
+.m_position{
+    padding: 24px 0;
+}
+/*标题*/
+.m-menber-title{
+    height: 95px;
+    line-height: 95px;
+    background: white;
+    padding-left: 40px;
+    color: #4A4A4A;
+}
+.g-center{
+    width:85%;
+    margin: 0 auto;
+    font-size: 14px;
+    margin-top: 90px;
+}
+/*资产*/
+.money .title{
+    background: #F9F9F9;
+    border-radius: 2px;
+    color: #F9F9F9;
+    height: 70px;
+    line-height: 70px;
+    padding-left: 37px;
+}
+.money .title img{
+    margin-right: 10px;
+}
+.contentInfo{
+    height: 160px;
+    background: white;
+    text-align: center;
+}
+.contentInfo .list{
+    float: left;
+    width:16.5%;
+    border-right: 1px dotted #ccc;
+    height: 100%;
+}
+.contentInfo .first{
+    border-right: 1px solid #ccc;
+}
+.contentInfo .last{
+    border-right: none;
+}
+.contentInfo .list img{
+    margin-top: 49px;
+    margin-bottom: 6px;
+}
+/*字体大小*/
+.fontSize22{
+    font-size: 22px;
+}
+
+.footer{
+	    margin-top: 80px;
+}
+.g-center{
+	*padding-top:80px;
+}

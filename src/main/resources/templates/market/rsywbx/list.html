@@ -1,0 +1,352 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <title>太平洋人身意外保险险种产品介绍大全价格多少钱,怎么买哪家好_在线投保-太平洋保险超市</title>
+    <meta name="description" content="太平洋保险超市提供太平洋人身意外保险险种产品介绍大全价格、人身意外保险多少钱、人身意外保险怎么买、人身意外保险在线投保，让你了解更多太平洋人身意外保险产品信息。全国统一销售电话:95500。"/>
+    <meta name="keywords" content="太平洋人身意外保险险种产品介绍大全价格,人身意外保险多少钱,人身意外保险怎么买,人身意外保险在线投保" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="max-age=604800" />
+  	<link rel="canonical" href="/cpic/market/rsywbx/"/>
+	<link rel="stylesheet" href="/cpic/css/v2/common.css" />
+	<link rel="stylesheet" href="/cpic/market/css/v2/market_common.css?v=1.2.1">
+	<link rel="stylesheet" type="text/css" href="/cpic/market/css/v2/tableStyle.css?v=1.2">
+  	<script type="text/javascript" src="/cpic/js/v2/base.js"></script>
+  	<script type="text/javascript" src="/cpic/market/js/jquery.min.js"></script>
+  　<script src="/cpic/js/v2/commonInclude.js"></script>
+
+  <style>
+    .feature{margin-top: 5px !important;}
+    .prod-detail{padding:20px 47px 20px 47px !important;}
+  </style>
+	<script th:inline="javascript">
+$().ready(function () {
+    //var current=[[${pagenum}]];
+    $(".page span a").click(function () {
+        //alert(1);
+        var href1=$(this).attr("href");
+        if(href1!="javascript:void(0)"){
+            href1+="&selectcont="+$(".dest a.current").attr("value");
+            href1+="&selectfeat="+$(".feat a.current").attr("value");
+            href1+="&selectage="+$(".age a.current").attr("value");
+            href1+="&selecttime="+$(".time a.current").attr("value");
+            $(this).attr("href",href1);
+		}
+
+    })
+	$(".dest a").click(function () {
+	    var thisclass=$(this).attr("class");
+	    if(thisclass==undefined){thisclass="";}
+		//alert(thisclass);
+		if(thisclass.indexOf("current")<0){
+			$(this).attr("href","/cpic/hds/pageproduct?selectcont="
+				+$(this).attr("value")+"&pagenum=1"
+				+"&selectfeat="+$(".feat a.current").attr("value")
+				+"&selectage="+$(".age a.current").attr("value")
+                +"&selecttime="+$(".time a.current").attr("value"));
+		}
+    })
+    $(".feat a").click(function () {
+        var thisclass=$(this).attr("class");
+        if(thisclass==undefined){thisclass="";}
+        //alert(thisclass);
+        if(thisclass.indexOf("current")<0){
+            $(this).attr("href","/cpic/hds/pageproduct?selectfeat="
+                +$(this).attr("value")+"&pagenum=1"
+                +"&selectcont="+$(".dest a.current").attr("value")
+				+"&selectage="+$(".age a.current").attr("value")
+                +"&selecttime="+$(".time a.current").attr("value"));
+        }
+    })
+	$(".age a").click(function () {
+        var thisclass=$(this).attr("class");
+        if(thisclass==undefined){thisclass="";}
+        if(thisclass.indexOf("current")<0){
+            $(this).attr("href","/cpic/hds/pageproduct?selectage="
+                +$(this).attr("value")+"&pagenum=1"
+                +"&selectcont="+$(".dest a.current").attr("value")
+			    +"&selectfeat="+$(".feat a.current").attr("value")
+				+"&selecttime="+$(".time a.current").attr("value"));
+        }
+    })
+    $(".time a").click(function () {
+        var thisclass=$(this).attr("class");
+        if(thisclass==undefined){thisclass="";}
+        if(thisclass.indexOf("current")<0){
+            $(this).attr("href","/cpic/hds/pageproduct?selecttime="
+                +$(this).attr("value")+"&pagenum=1"
+                +"&selectcont="+$(".dest a.current").attr("value")
+                +"&selectfeat="+$(".feat a.current").attr("value")
+				+"&selectage="+$(".age a.current").attr("value"));
+        }
+    })
+})
+	</script>
+</head>
+
+<body>
+
+<!--header start-->
+<!--header end-->
+<!-- mian-show start--> 
+<div class="main" style="background-image:url(/cpic/market/images/v2/banner_rsywbx2.png?v=0.1);">
+	<div class="introduce-nav">
+		<div class="w">
+			<a href="/" style="line-height: 50px">首页 &gt; </a><a href="market/">保险超市 &gt; </a><b style="font-weight: bold;">人身意外保险</b>
+		</div>
+    </div>
+</div>
+
+<!--condition begin-->
+<div class="condtion">
+	<input type="hidden" value="001360" class="current-catalog-code"/>
+	<div class="condition-con">
+        <h2>快速筛选</h2>
+        <div class="count">
+            <div>共<span class="red" th:text="${producttotal}"></span>产品符合</div>
+            <div class="clear"><span></span>清空筛选条件</div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="details">
+          
+            <p class="dest">
+				<span>保障内容</span>
+				<a data-value="0" value="0" th:class="${selectcont eq 0}?'current unlimited':'unlimited'">不限</a>
+				<a th:each="cont:${contentlist}" th:value="${cont.ctid}" th:text="${cont.ctname}"
+				   th:class="${selectcont eq cont.ctid}?'current'" th:attr="data-value=${cont.ctname}"></a>
+            </p>
+          
+          <p class="feat">
+				<span>保障特色</span>
+				<a data-value="0" value="0" th:class="${selectfeat eq 0}?'current unlimited':'unlimited'">不限</a>
+			  	<a th:each="feat,featstat:${featureslist}" th:value="${feat.fid}" th:text="${feat.feature}"
+				   th:class="${#strings.concat(selectfeat eq feat.fid?'current':'',featstat.index>5?' br-block':'',featstat.index eq 6?' mr270':'')}"
+				   th:attr="data-value=${feat.feature}"></a>
+            <a data-value="意外" value="-1" th:class="${#strings.concat(selectfeat eq -1?'current':'',' br-block')}">意外</a>
+			</p>
+          
+            <p class="age">
+				<span>承保年龄</span>
+				<a data-value="0" th:class="${selectage eq 0}?'current unlimited':'unlimited'" value="0">不限</a>
+				<a data-value="0-18岁" value="1" th:class="${selectage eq 1}?'current'">0-18岁</a>
+                <a data-value="18-60岁" value="2" th:class="${selectage eq 2}?'current'">18-60岁</a>
+                <a data-value="60-70岁" value="3" th:class="${selectage eq 3}?'current'">60-70岁</a>
+            </p>
+            <p class="time">
+				<span>保障期限</span>
+				<a data-value="0" th:class="${selecttime eq 0}?'current unlimited':'unlimited'" value="0">不限</a>
+              	<a data-value="长期" value="1" th:class="${selecttime eq 1}?'current'">长期</a>
+				<a data-value="一年" value="2" th:class="${selecttime eq 2}?'current'">一年</a>
+				<a data-value="30年" value="3" th:class="${selecttime eq 3}?'current'">30年</a>
+				<a data-value="自由定制" value="4" th:class="${selecttime eq 4}?'current'">自由定制</a>
+            </p>
+        </div>
+</div>
+</div>
+<!--condition end-->
+
+<!--products begin-->
+<div class="products">
+    <div class="sort">
+          <b>排序</b>
+          <span class="current" data-value='2'>人气<i></i></span>
+          <span data-value='1'>销量<i></i></span>
+      </div>
+    <div class="warnno" th:if="${producttotal==0}" >对不起，暂时没有符合条件的产品！</div>
+    <div class="prod-all" >
+		<div class="prod-tab" th:each="prod : ${productlist}">
+			<div class="prod-img">
+				<img th:src="@{'/'+${prod.picsrc}}" alt="个人意外综合保险">
+			</div>
+			<div class="prod-detail">
+				<div class="prod-tit">
+					<a href="/cpic/market/c/2017-06-01/1199685.shtml?SCsite=accidentLb" target="_blank">
+						<span class="tab_name">[[${prod.pname}]]</span>
+					</a>
+					<span class="collect">
+				<!--onclick="addScj('1199685','%u4E2A%u4EBA%u610F%u5916%u7EFC%u5408%u4FDD%u9669','55','GRYWX','GRYWX_planA','market/c/2017-06-01/1199685.shtml?SCsite=accidentLb','upload/resources/image/2017/06/01/36532.jpg')"-->
+				<i class="star"></i>收藏</span>
+				</div>
+				<div class="feature" >
+					<span th:each="f:${prod.featurelist}"><i>√&nbsp;</i>[[${f.feature}]]&nbsp;</span>
+				</div>
+				<div class="age mt18">
+					<span class="black">承保年龄</span>
+					<span class="tab_age">[[${prod.minage}]]-[[${prod.maxage}]]周岁</span>
+				</div>
+				<div class="date mt10">
+					<span class="black">保障期限</span>
+					<span class="tab_date" th:if="${prod.minduration==prod.maxduration&&#strings.equals(prod.unit1,prod.unit2)}">
+						[[${prod.maxduration}]][[${prod.unit2}]]
+					</span>
+					<span class="tab_date" th:unless="${prod.minduration==prod.maxduration&&#strings.equals(prod.unit1,prod.unit2)}">
+						[[${prod.minduration}]][[${prod.unit1}]]~[[${prod.maxduration}]][[${prod.unit2}]]
+					</span>
+				</div>
+				<div class="safe mt10">
+					<span class="black">主要保障</span>
+					<div class="tab_safe" >
+						<table>
+							<tbody >
+								<tr class="firstRow" th:each="prot,protstat:${prod.protectionlist}">
+									<td class="left" th:if="${protstat.index<4}">
+									[[${prot.ptgrade>0}?'附加'+${prot.ptname}:${prot.ptname}]] [[${prot.amount/1000>0}?${#numbers.formatInteger(prot.amount,3,'COMMA')}:${prot.amount}]]元
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div></div></div>
+			<div class="price">
+				<div th:if="${prod.vipprice > 0}"><span>[[${prod.vipprice}]]元</span>起</div>
+				<div th:unless="${prod.vipprice > 0}" class="more-btn cesuan-btn"><a target="_blank">保费测算</a></div>
+				<a th:href="@{'/hds/showproduct/'+${prod.pid}}" class="more-btn" target="_blank">查看详情</a>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<!--<div class="page" id="page"></div>-->
+	<div class="page">
+		<span th:class="${pagenum eq 1}?'disabled':'prevPage'">
+			<a class="triangle-left" th:href="${pagenum eq 1}?@{'javascript:void(0)'}:@{${'/hds/pageproduct'}(pagenum=${pagenum-1})}">
+		</a></span>
+		<span th:each="pageNo : ${#numbers.sequence(1, pagecount)}"
+			  th:class="${pagenum eq pageNo}?'current blue':'tcdNumber'">
+			<a style="display: inline-block;width: 100%;height: 100%;"
+			   th:href="${pagenum eq pageNo}?@{'javascript:void(0)'}:@{${'/hds/pageproduct'}(pagenum=${pageNo})}">
+				[[${pageNo}]]
+			</a>
+		</span>
+		<span th:class="${pagenum eq pagecount}?'disabled':'nextPage'"><i class="triangle-right">
+			<a style="display: inline-block;width: 100%;height: 100%;"
+			   th:href="${pagenum eq pagecount}?@{'javascript:void(0)'}:@{${'/hds/pageproduct'}(pagenum=${pagenum+1})}">
+			</a>
+		</i></span>
+	</div>
+</div>
+<!--products end-->
+<!--sidebar begin -->
+
+<div id="sidebar">
+	<ul>
+		<li class="collect" onclick="javascript:window.open('/scj')">
+			  <div id="favoriteTotal" class="news">0</div>
+			 <span class="shoucang"></span>
+			<div class="sidename">收藏</div> 
+		</li>
+      	<li class="li1">
+          <div class="cust-ser" onclick="javascript:window.open('GWKF/index.html')"></div>
+      </li>
+	</ul>
+</div>
+
+<!--sidebar end-->
+<!--howtopick begin-->
+
+<div class="howtopick">
+	<div class="htp-con">
+		<h2>如何挑选人身意外保险？</h2>
+		<p class="mb30"><span class="custom"></span><span class="custom-bg">看了半天还是不知道哪一款产品适合我？</span></p>
+		<p><span class="ml92 pr80 sell-bg">别烦恼我来告诉您，<a href="cta/aiweb/pcindex.html?linkid=rsyw_ruhexuanze" tagert="_blank">人身意外保险该如何选</a></span><span class="sell" ></span></p>
+	</div>
+</div>
+
+<!--howtopick end-->
+
+
+<!--klyk begin-->
+
+<div class="klyk">
+	<div class="klyk-con">
+		<h2>看了又看</h2>
+		<ul>
+					<li style="position:relative;">
+                      <a style="display: block;width: 100%;height: 100%;position: absolute;top: 0;left: 0;" href="/cpic/market/c/2018-11-01/1562444.shtml" target="_blank"></a>
+						<img src="/cpic/market/images/v2/rsywbx-icon.png" alt="icon">
+						<h4>安行宝3.0版两全保险</h4>
+						<p title="百万护驾安心无忧，“驾、乘、骑、走”全方位保障">百万护驾安心无忧，“驾、乘、骑、走”全方位保障</p>
+					</li>
+					<li style="position:relative;">
+                      <a style="display: block;width: 100%;height: 100%;position: absolute;top: 0;left: 0;" href="/cpic/market/c/2017-06-01/1199684.shtml" target="_blank"></a>
+						<img src="/cpic/market/images/v2/rsywbx-icon.png" alt="icon">
+						<h4>&quot;乐行人生&quot;&#32;交通工具意外伤害保险</h4>
+						<p title="覆盖海陆空&#32;多种组合&#32;全年有保障">覆盖海陆空&#32;多种组合&#32;全年有保障</p>
+						
+						<div><span>34元</span>&nbsp;起</div>
+                      
+					</li>
+					<li style="position:relative;">
+                      <a style="display: block;width: 100%;height: 100%;position: absolute;top: 0;left: 0;" href="/cpic/market/c/2017-06-01/1199685.shtml" target="_blank"></a>
+						<img src="/cpic/market/images/v2/rsywbx-icon.png" alt="icon">
+						<h4>个人意外综合保险</h4>
+						<p title="意外医疗&#32;伤残补助&#32;最高100万">意外医疗&#32;伤残补助&#32;最高100万</p>
+						
+						<div><span>55元</span>&nbsp;起</div>
+                      
+					</li>
+					<li style="position:relative;">
+                      <a style="display: block;width: 100%;height: 100%;position: absolute;top: 0;left: 0;" href="/cpic/market/c/2017-06-05/1199707.shtml" target="_blank"></a>
+						<img src="/cpic/market/images/v2/jkbx-icon.png" alt="icon">
+						<h4>太健康-百万全家桶</h4>
+						<p title="住院太贵不用怕&#32;超过1万我来赔">住院太贵不用怕&#32;超过1万我来赔</p>
+						
+						<div><span>96元</span>&nbsp;起</div>
+                      
+					</li>
+			
+			<div style="clear: both">
+
+			</div>
+		</ul>
+	</div>
+</div>
+
+<!--klyk end-->
+
+
+<!--footer start-->
+<!--footer end-->
+<!-- 按钮点击统计 start-->
+<!--
+  <script>
+$("a[data-value]").click(function(){
+  var CatalogName=('人身意外保险');
+  _this = $(this);
+  var content = _this.parent().children("span:first-child").text();
+  var type = _this.text();
+  pushOM(CatalogName,content,type);
+  console.log(content)});
+function pushOM(CatalogName,content,type){
+    var s=s_gi(s_account);
+    s.linkTrackVars='prop25';
+    s.prop25=CatalogName+':'+content+':'+type;
+    s.tl(this,'o','列表页筛选条件点击');
+    }
+ </script>
+<script type="text/javascript" src="market/js/v2/collect.js?v=1.0"></script>
+<script type="text/javascript" src="market/js/v2/accident_min.js?v=1.311"></script>
+<script type="text/javascript" src="market/js/v2/pagination.js?v=1.5"></script>
+<script language="JavaScript" type="text/javascript" src="omniture/s_code_pc.js"></script>
+<script language="JavaScript" type="text/javascript">
+
+	s.channel="保险超市" 
+	s.prop1="新保险超市:保险超市列表页";
+	s.prop2="新保险超市:保险超市列表页：人身意外保险产品列表";
+	s.prop3="运营:太平洋保险首页:自然流量";
+	s.prop4="运营";
+	s.pageName="新保险超市:保险超市列表页：人身意外保险产品列表";
+	s.eVar40="人身意外保险";
+	s.eVar31="导航";
+	var s_code = s.t();
+	if (s_code) document.write(s_code);
+  sa.track('page',  {
+  pageName: "新保险超市:保险超市列表页：人身意外保险产品列表",    //需各个触点关注布码此属性，属性值沿用Omniture中pageName字段填充的值使用Omniture的DTM埋点的需联系OM提供pageName
+  pageChannel:  "保险超市",  //页面频道一级 
+  pageChannel2: "保险超市列表页"//页面频道二级 
+});
+</script>
+App=ZCMS(ZCMS内容管理系统) 2.4.27615,CostTime=89,PublishDate=2019-05-20 14:29:47 -->
+
+</body>
+</html>

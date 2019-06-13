@@ -1,0 +1,1281 @@
+﻿@charset "utf-8";
+.policy-top {
+    width:928px;
+    background:#f7f7f7;
+    border:1px #e8e8e8 solid;
+    padding:10px 20px;
+}
+.policy-top p {
+    border-bottom:1px #e8e8e8 solid;
+    padding-bottom:10px;
+    text-indent:10px;
+}
+.policy-con-person {
+    width:55px;
+    height:55px;
+    margin:0 15px 0 0;
+    background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;
+    background-position:0 0;
+}
+/*.policy-con-tab {*/
+/*}*/
+/*.policy-con-tab tr th {*/
+/*}*/
+/*.policy-con-tab tr td {*/
+    /*border-right:1px #e8e8e8 solid;*/
+    /*height:60px;*/
+    /*padding:10px 20px 10px 20px;*/
+/*}*/
+.policy-top-con-sz {
+    font-size:14px;
+    display:block;
+    margin:0 auto;
+    padding:30px 0;
+    border-bottom:1px #e8e8e8 solid;
+}
+.policy-top-con-sz span {
+    color:#005bac;
+    font-weight:normal;
+    padding-top:3px;
+    margin-bottom:10px;
+}
+.policy-list-con {
+    border-right:1px #e8e8e8 solid;
+    width:472px;
+    padding:8px 12px 8px 0;
+    height:326px;
+}
+.policy-list-con ul {
+    height: 260px;
+}
+.policy-list-con ul li {
+    display:block;
+}
+.policy-list-con ul li span {
+    padding:13px 2% 13px 3%;
+    display:block;
+    float:left;
+    font-size:12px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.policy-list-con:nth-last-child(odd) {
+    padding-left:12px;
+    border-right:0;
+    padding-right:0;
+}
+.policy-list-con-tit {
+    display:block;
+    height:35px;
+    line-height:35px;
+    color:#005bac;
+    border-bottom:1px #e8e8e8 solid;
+    margin-bottom:15px;
+}
+.policy-list-con-tit-margin0 {
+    margin:0;
+}
+.policy-list-con-tit a {
+    margin:6px 10px 0 0;
+}
+.policy-list-con-tit i {
+    width:28px;
+    height:28px;
+    display:block;
+    float:left;
+    margin:3px 0 0 5px;
+    margin-right:5px;
+}
+.policy-list-con-tit a:hover {
+    text-decoration:underline;
+}
+.policy-con-fot-line {
+    border-bottom:1px #e8e8e8 solid;
+    height:20px;
+}
+.policy-list-no {
+    padding:85px 0 0 92px;
+    height:171px;
+}
+.policy-list-no-img{
+    width:84px;
+    height:75px;
+    background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;
+    display:block;
+}
+.policy-list-no-img00 {
+    background-position:-88px 0;
+}
+.policy-list-no-img01 {
+    background-position:-189px 0;
+}
+.policy-list-no-img02 {
+    background-position:-274px 0;
+}
+.policy-list-no-img03 {
+    background-position:-278px -83px;
+}
+.policy-list-no-img04 {
+    background-position:-147px -199px;
+}
+.policy-list-no-img05 {
+    background-position:-241px -173px;
+}
+.policy-list-no-font {
+    margin-left:20px;
+}
+.policy-list-no-font span {
+    color:#e83344;
+    line-height:50px;
+}
+.policy-list-no-font-a {
+    color:#e83344;
+}
+.policy-list-no-font-a:hover {
+    text-decoration:underline;
+    color:#e83344;
+}
+/*.policy-list-relative {*/
+    /*position:relative;*/
+/*}*/
+.policy-tab-icon01 {
+    width:43px;
+    height:20px;
+    line-height:20px;
+    font-size:12px;
+    font-weight:normal;
+    background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;
+    background-position:-3px -184px;
+    position:absolute;
+    display:block;
+    top:14px;
+    right:-30px;
+    color:#fff;
+    padding-left:10px;
+    z-index: 2;
+}
+.policy-tab-icon02 {
+    width:43px;
+    height:20px;
+    line-height:20px;
+    font-size:12px;
+    background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;
+    background-position:-60px -184px;
+    position:absolute;
+    display:block;
+    top:14px;
+    right:-30px;
+    color:#fff;
+    padding-left:10px;
+    z-index: 2;
+}
+.policy-tab-with-icon01{
+    top: 4px;
+}
+.policy-tab-with-icon02{
+    top: 26px;
+}
+.policy_list_icon01 {
+    background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;
+    background-position:4px -92px;
+}
+.policy_list_icon02 {
+    background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;
+    background-position:-40px -92px;
+}
+.policy_list_icon03 {
+    background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;
+    background-position:-88px -92px;
+}
+.policy_list_icon04 {
+    background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;
+    background-position:-137px -92px;
+}
+.policy_list_icon05 {
+    background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;
+    background-position:-190px -92px;
+}
+.policy_list_icon06 {
+    background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;
+    background-position:-238px -92px;
+}
+.policy_list_icon07 {
+    background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;
+    background-position: 3px -117px;
+}
+.policy_list_icon08 {
+    background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;
+    background-position: -41px -117px;
+}
+.overview-con {
+    width:880px;
+    margin:0 auto;
+    padding-left:50px;
+    background: #FDFDFD;
+    background-image: -webkit-linear-gradient(top, #f7f7f7 0%, #fff 25%, #f7f7f7 50%, #fff 75%, #f7f7f7 100%);
+    background-image: -moz-linear-gradient(top, #f7f7f7 0%, #fff 25%, #f7f7f7 50%, #fff 75%, #f7f7f7 100%);
+    background-image: -o-linear-gradient(top, #f7f7f7 0%, #fff 25%, #f7f7f7 50%, #fff 75%, #f7f7f7 100%);
+    background-image: -ms-linear-gradient(top, #f7f7f7 0%, #fff 25%, #f7f7f7 50%, #fff 75%, #f7f7f7 100%);
+    background-image: linear-gradient(top, #f7f7f7 0%, #fff 25%, #f7f7f7 50%, #fff 75%, #f7f7f7 100%);
+    position:relative;
+}
+.overview-con-right {
+    border-left:1px #e8e8e8 solid;
+    width:738px;
+    padding:0 46px;
+}
+.overview-con-more{
+    width: 840px;
+    padding: 0 20px;
+}
+/*.overview-con-tit {*/
+    /*border-bottom:1px #e8e8e8 solid;*/
+    /*padding-bottom:15px;*/
+/*}*/
+/*.overview-logo {*/
+    /*width:115px;*/
+    /*height:31px;*/
+    /*background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;*/
+    /*background-position:-149px -139px;*/
+    /*display:block;*/
+    /*float:left;*/
+/*}*/
+.overview-tit-but {
+    padding:0 20px;
+    height:32px;
+    line-height:32px;
+    color:#005bac;
+    border-radius:5px;
+    float:right;
+    margin-left:20px;
+}
+/*.overview_icon01{*/
+    /*width:16px;*/
+    /*height:16px;*/
+    /*background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;*/
+    /*background-position:-149px -182px;*/
+    /*display:block;*/
+    /*float:left;*/
+    /*margin:10px 8px 0 0;*/
+/*}*/
+.overview_icon02{
+    width:16px;
+    height:16px;
+    background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;
+    background-position:-173px -182px;
+    display:block;
+    float:left;
+    margin:10px 8px 0 0;
+}
+.overview_icon03{
+    width:16px;
+    height:16px;
+    background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;
+    background-position:-196px -182px;
+    display:block;
+    float:left;
+    margin:10px 8px 0 0;
+}
+.overview_icon05{
+    width:16px;
+    height:16px;
+    background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;
+    background-position:-180px -279px;
+    display:block;
+    float:left;
+    margin:10px 8px 0 0;
+}
+.overview-con-blue {
+    height:37px;
+    line-height:37px;
+    color:#fff;
+    padding-left:10px;
+    display:block;
+    background:#005bac;
+}
+.overview-con-blue span {
+    line-height:37px;
+}
+.overview-con-blue-grey {
+    height:37px;
+    line-height:37px;
+    color:#005bac;
+    padding-left:10px;
+    display:block;
+}
+.overview-con-blue-grey a {
+    margin-right:20px;
+    line-height:37px;
+}
+.overview-con-blue-grey a:hover {
+    text-decoration:underline;
+}
+.overview-con-blue-icon01 {
+    width:25px;
+    height:25px;
+    background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;
+    background-position:0 -224px;
+    float:left;
+    display:block;
+    margin-top:5px;
+    margin-right:7px;
+}
+.overview-con-blue-icon02 {
+    width:25px;
+    height:25px;
+    background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;
+    background-position:-35px -224px;
+    float:left;
+    display:block;
+    margin-top:6px;
+    margin-right:7px;
+}
+.overview-con-blue-icon03 {
+    width:25px;
+    height:25px;
+    background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;
+    background-position:-73px -224px;
+    float:left;
+    display:block;
+    margin-top:6px;
+    margin-right:7px;
+}
+.overview-con-blue-add, .overview-con-blue-plus {
+    width:22px;
+    height:22px;
+    background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;
+    background-position:0 -145px;
+    display:block;
+    margin:7px 20px 0 0;
+    float:right;
+    cursor:pointer;
+}
+.overview-con-blue-plus {
+    background-position:-44px -145px;
+}
+.policy-tit-con {
+    border-right:1px #e8e8e8 solid;
+    float:left;
+    margin:10px 0;
+    padding:0 20px;
+}
+/*.policy-tit-con-no {*/
+    /*border:0;*/
+/*}*/
+.policy-tit-con p {
+    text-indent:0;
+}
+/*.policy-details-tit {*/
+    /*margin-top:20px;*/
+    /*border-bottom:1px #e3e3e3 solid;*/
+    /*color:#005bac;*/
+    /*line-height:40px;*/
+/*}*/
+/*.policy-details span {*/
+    /*width:12px;*/
+    /*height:12px;*/
+    /*display:block;*/
+    /*background:#005bac;*/
+    /*float:left;*/
+    /*margin:14px 15px 0 10px;*/
+/*}*/
+.check-policy-con {
+    border:1px #d3d3d3 solid;
+    border-top:0;
+    padding:0 40px;
+}
+.swiper-wrapper{
+    left:0 !important;
+    height:auto!important;
+}
+.swiper-slide{
+    display:none;
+    height:auto!important;
+}
+.swiper-slide-visible{
+    display:block;
+}
+.overview_icon04{
+    width:16px;
+    height:16px;
+    background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;
+    background-position:-221px -182px;
+    display:block;
+    float:left;
+    margin:10px 8px 0 0;
+}
+.policy-top-button{ width:135px; height:25px; border:1px #e8e8e8 solid; display:block; background:#fff; margin-right:80px; color:#005bac; font-size:12px; cursor:pointer;line-height:27px;}
+.policy-top-button:hover{ border:1px #005bac solid;}
+.policy-top-button i{ display:block; float:left; width:18px; height:18px; background:url(../images/left_list.png) no-repeat; background-position:-532px -7px; margin:4px 5px 0 16px;}
+
+.intInquiryContent{ width:900px; margin:0 auto;}
+.intInquiryTit{ border-bottom:1px #e8e8e8 solid; margin-bottom:15px; line-height:45px; color:#005bac; font-size:16px; text-align:center;}
+.intInquiryCon{ font-size:12px; line-height:25px; display:block; margin-bottom:15px;}
+
+
+.diviTable{ width:100%; border-collapse:collapse; border:1px #e8e8e8 solid; margin-top:10px;}
+.diviTable th{ text-align:center; font-weight:normal;}
+.diviTable td{ text-align:left; padding:12px 0 12px 8px; background:#005bac; color:#fff;}
+/*.wid35{ width:147px;}*/
+/*.wid36{ width:166px;}*/
+/*.wid37{ width:116px;}*/
+/*.wid38{ width:69px;}*/
+/*.wid39{ width:86px;}*/
+/*.wid40{ width:89px;}*/
+/*.wid41{ width:87px;}*/
+/*.wid42{ width:69px;}*/
+/*.wid43{ width:60px;}*/
+
+/*.guideList{ padding:28px 20px; background:#f9f9f9; border-bottom:1px #e8e8e8 solid; margin-left:0;}*/
+/*.guideList a{ padding:0 10px; height:28px; line-height:28px; border-radius:4px; display:block; float:left; border:1px #d0d0d0 solid; text-align:center; cursor:pointer; margin:4px 0; font-size:12px; margin-right:9px;}*/
+/*.guideList a:hover{ background:#005bac; color:#fff; border:1px #005bac solid;}*/
+/*.guideList a.active{ background:#005bac; color:#fff; border:1px #005bac solid;}*/
+
+/*.billTit02 {*/
+    /*border-bottom:1px #d3d3d3 solid;*/
+    /*font-weight:normal;*/
+    /*margin-top:10px;*/
+/*}*/
+/*.guideQA{ padding:25px 15px; border-bottom:1px #e8e8e8 solid;}*/
+/*Frece  添加*/
+/*.employeeSecurityService .guideQA{border-bottom: 0;}*/
+/*Frece  添加 end*/
+/*.guideQAcon{ margin:14px 0;}*/
+/*.guideQuestionIcon{ width:20px; height:20px; background:url(//service.cpic.com.cn/res/img/common/left_list.png) no-repeat; background-position:-477px -372px; float:left; display:block; margin-top:2px; margin-right:10px;}*/
+/*.guideAnswerIcon{ width:20px; height:20px; background:url(//service.cpic.com.cn/res/img/common/left_list.png) no-repeat; background-position:-506px -372px; float:left; display:block; margin-top:2px; margin-right:10px;}*/
+/*.guideCon{ display:block; float:left; width:910px;}*/
+/*.guideCon2{ display:block; float:left; width:820px;}*/
+/*.insuranceGuideCon{ text-indent:28px; margin:20px 0;}*/
+/*.zxbaButton{ padding:3px 12px; color:#005bac; border:1px #005bac solid; border-radius:4px; cursor:pointer;behavior:url(//service.cpic.com.cn/res/js/common/PIE.htc)!*CSS3*!;}*/
+/*.zxbaButton:hover{ background:#005bac; color:#fff;}*/
+/*Frece 修改 删除 border-top:1px #e3e3e3 solid; */
+/*.csgImg{ padding:30px 0 30px 60px; !* border-top:1px #e3e3e3 solid; *!}*/
+/*.csgFot{ border:1px #e3e3e3 solid; border-right:none; width:968px; float:right; margin-right:12px;}*/
+/*.csgFot p{ width:241px; display:block; float:left; border-right:1px #e3e3e3 solid; padding:15px 0;}*/
+/*.csgFot p i{ width:17px; height:17px; background:url(//service.cpic.com.cn/res/img/common/left_list.png) no-repeat; display:block; float:left; margin:4px 5px 0 75px}*/
+/*.csgFot p i.csgFotIcon01{ background-position:-7px -602px;}*/
+/*.csgFot p i.csgFotIcon02{ background-position:-32px -602px;}*/
+/*.csgFot p i.csgFotIcon03{ background-position:-55px -602px;}*/
+/*.csgFot p i.csgFotIcon04{ background-position:-78px -602px;}*/
+/* Frece修改：删除 cursor:pointer; */
+/*.csgFot label{ font-size:16px; color:#005bac; !*cursor:pointer;*!}*/
+/* Frece修改：删除  .csgFot label:hover{ text-decoration:underline;} */
+/*.csgFot label:hover{ text-decoration:underline;}*/
+/*.dzxzTit{ font-size:16px; color:#005bac; margin-bottom:15px;}*/
+/*.dzxzCon ul li{ padding:10px 0; color:#e8e8e8; border-bottom:1px #e8e8e8 solid; display:block;}*/
+/*!* Frece修改：删除cursor:pointer; *!*/
+/*.dzxzCon ul li span{ color:#575757; !*cursor:pointer;*!}*/
+/*.dzxzCon .curN{ cursor:auto;}*/
+/*.dzxzCon ul li label{ float:right;color: #575757;}*/
+/*.dzxzCon ul li a{ margin-right:20px; color:#005bac; float:right;}*/
+/*.dzxzCon ul li a:hover{ text-decoration:underline;}*/
+/*.downloadIcon{ background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat; background-position:-197px -182px; width:14px; height:14px;margin-top:4px; display:inline-block; margin-right:6px;}*/
+/*.csgListIcon{ background:url(//service.cpic.com.cn/res/img/common/left_list.png) no-repeat; background-position:-100px -569px; width:6px; height:6px; display:inline-block; margin-right:10px;}*/
+/*.dzxzCon ul li:hover .csgListIcon{ background-position:-100px -575px;}*/
+
+
+/* 保单贷还款-begin */
+/*.repayIndexCon{ border:1px #e3e3e3 solid;}*/
+/*.repayName{ display:block; height:40px; padding:10px 0 10px 20px; border-bottom:1px #e3e3e3 solid;}*/
+/*.repayName i{ width:40px; height:40px; background:url(//service.cpic.com.cn/res/img/common/left_list.png) no-repeat; background-position:-516px -403px; display:block; float:left; margin-right:15px;}*/
+/*.repayName label{ line-height:40px;}*/
+/*.repayT{ border-bottom:1px #e3e3e3 solid; padding:0 10px;}*/
+/*.repayTTit{ height:90px; border-bottom:1px #005bac solid;}*/
+/*.repayTTit02{ height:90px; border-bottom:1px #e93543 solid;}*/
+/*.repayTTitje{ height:90px; line-height:90px; padding:0 30px;}*/
+/*.repayTTitje span{ color:#005bac; font-size:32px; margin:0 5px;}*/
+/*.repayTTitje02{ height:90px; line-height:90px; padding:0 30px;}*/
+/*.repayTTitje02 span{ color:#e93543; font-size:32px; margin:0 5px;}*/
+/*.repayButtonDk{ border:1px #005bac solid; width:110px; height:36px; line-height:36px; display:inline-block; float:right; margin-top:25px; background:#fff;}*/
+/*.repayButtonDk i{ background:url(//service.cpic.com.cn/res/img/common/left_list.png) no-repeat; width:16px; height:16px; background-position:-536px -348px; display:block; margin:10px 8px 0 15px; float:left;}*/
+/*.repayButtonDk label{ height:36px; line-height:36px; color:#005bac;}*/
+/*.repayButtonDk:hover{ background:#005bac; cursor:pointer;}*/
+/*.repayButtonDk:hover i{ background-position:-536px -329px;}*/
+/*.repayButtonDk:hover label{ color:#fff; cursor:pointer;}*/
+/*.repayTabTit{ display:block; margin-top:23px; padding-left:10px;}*/
+/*.repayButtonHk{ border:1px #e93543 solid; width:110px; height:36px; line-height:36px; display:inline-block; float:right; margin-top:25px; background:#fff;}*/
+/*.repayButtonHk i{ background:url(//service.cpic.com.cn/res/img/common/left_list.png) no-repeat; width:16px; height:16px; background-position:-535px -374px; display:block; margin:10px 8px 0 15px; float:left;}*/
+/*.repayButtonHk label{ height:36px; line-height:36px; color:#e93543;}*/
+/*.repayButtonHk:hover{ background:#e93543; cursor:pointer;}*/
+/*.repayButtonHk:hover i{ background-position:-513px -354px;}*/
+/*.repayButtonHk:hover label{ color:#fff; cursor:pointer;}*/
+/*.repayB{ padding:0 10px;}*/
+/*.repayArr01{ width:16px; height:16px; background:url(//service.cpic.com.cn/res/img/common/left_list.png) no-repeat; background-position:-540px -283px; display:block; position:absolute; right:0; top:16px; cursor:pointer;}*/
+/*.repayArr01.open{ background-position:-540px -304px;}*/
+.loanTabCon.repayTab {
+    position: relative;
+}
+/*.loanTabCon.repayTab ul {*/
+/*}*/
+.loanTabCon.repayTab ul li {
+    display:block;
+}
+.loanTabCon.repayTab ul li span {
+    padding:12px 5px 12px 6px;
+    display:block;
+    float:left;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    position:relative;
+}
+/*.repayLine{ border-bottom:1px #b9b9b9 solid; height:50px;}*/
+/*.repayLineB{ width:320px; position:relative; height:50px; display:block; float:left;}*/
+/*.repayLineBBlue{ border-bottom:1px #2b64ab solid;}*/
+/*.loanStep{ width:80px; display:block; position:absolute; margin:20px 0 0 123px;}*/
+/*.loanIcon1{ width:61px; height:62px; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) no-repeat; background-position:-12px -13px; display:block; margin:0 auto;}*/
+/*.loanIcon2{ width:61px; height:62px; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) no-repeat; background-position:-12px -86px; display:block; margin:0 auto;}*/
+/*.loanIcon3{ width:61px; height:62px; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) no-repeat; background-position:-91px -13px; display:block; margin:0 auto;}*/
+/*.loanIcon4{ width:61px; height:62px; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) no-repeat; background-position:-91px -86px; display:block; margin:0 auto;}*/
+/*.loanIcon5{ width:61px; height:62px; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) no-repeat; background-position:-169px -13px; display:block; margin:0 auto;}*/
+/*.loanIcon6{ width:61px; height:62px; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) no-repeat; background-position:-169px -86px; display:block; margin:0 auto;}*/
+/*.loanStep font{ display:block; margin:0 auto; text-align:center; font-size:16px; margin-top:5px;}*/
+/*.loanAmount{ border:1px #dadada solid; height:200px;}*/
+/*.loanAmountleft{border-right:1px #dadada solid; padding:10px 30px; width:310px; border-right:1px #dadada solid; position:relative; float:left; height:180px;}*/
+/*.loanAmountleftTit{ color:#005bac; font-size:16px;}*/
+/*.loanAmountleftMoney{ color:#888888; margin-bottom:5px;}*/
+/*.loanAmountleftMoney label{ color:#888888;}*/
+/*.loanAmountleftInput{ width:264px; height:40px; border:1px #adadad solid; background:#f9f9f9; padding:0 13px; margin-bottom:5px;}*/
+/*.loanAmountleftButton{ width:292px; height:32px; line-height:36px; color:#fff; text-align:center; background:#005bac; border:none; cursor:pointer;}*/
+/*.loanAmountleftButton:hover{ background:#0061b8;}*/
+/*.loanAmountleftButton.invalid{ background:#ababab;}*/
+/*.loanAmountleftArrow{ width:14px; height:16px; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) no-repeat; background-position:-235px -13px; display:block; position:absolute; right:-1px; top:84px;}*/
+/*.loanAmountRight{padding:30px; width:537px; position:relative; float:left; height:140px; background:#fbfbfb;}*/
+/*.loanAmountRightCon{ width:381px; margin:0 auto; position:relative;}*/
+/*.loanAmountRightConTL{ position:absolute; width:130px; border-bottom:1px #e9e9e9 solid; border-right:1px #e9e9e9 solid; left:0; top:0; padding:10px 0 10px 60px; height:50px;}*/
+/*.loanAmountRightConA{ color:#005bac; font-size:22px; display:block; margin-top:2px;}*/
+/*.loanAmountRightConB{ color:#888888; display:block;}*/
+/*.loanAmountRightConTR{ position:absolute; width:150px; border-bottom:1px #e9e9e9 solid; right:0; top:0; padding:10px 0 10px 40px; height:50px;}*/
+/*.loanAmountRightConBL{ position:absolute; width:130px; border-right:1px #e9e9e9 solid; left:0; bottom:-141px; padding:10px 0 10px 60px; height:50px;}*/
+/*.loanAmountRightConBR{ position:absolute; width:150px; right:0; bottom:-141px; padding:10px 0 10px 40px; height:50px;}*/
+/*.loanDistributionDetail{ border-bottom:1px #e8e8e8 solid; padding:15px 0; margin-top:15px;}*/
+/*.loanDistributionDetailTit{ color:#005bac; font-size:16px;}*/
+/*.loanDistributionDetailXX{ font-size:12px; color:#575757;}*/
+/*.loanDistributionDetailXXA{ font-size:12px; color:#005bac; text-decoration:underline; cursor:pointer; position:relative;}*/
+/*.loanDistributionDetailXXA:hover{text-decoration:underline;}*/
+/*.loanDistributionDetailXXA:hover .loanDistributionDetailXXHide{ display:block;}*/
+/*.loanDistributionDetailXXHide{ width:274px; height:122px; padding:0 20px; background:#444444; position:absolute; left:-45px; top:32px; z-index:80; padding-top:5px; display:none;}*/
+/*.loanDistributionDetailXXHide span{ width:14px; height:11px; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) no-repeat; background-position:-68px -155px; display:block;margin-top:-11px; margin-left:60px;}*/
+/*.loanDistributionDetailXXHide p{ color:#fff; font-size:12px;}*/
+.loanDistributionDetailButton{ border:1px #005bac solid; padding:3px 10px; display:inline-block; margin-left:10px; float:right; font-size:12px; color:#005bac;}
+/*.loanDistributionDetailButtonIcon01{ width:14px; height:14px; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) no-repeat; background-position:-239px -40px; display:block; float:left; margin:6px 4px 0 0;}*/
+.loanDistributionDetailButton:hover{ background:#005bac; color:#fff; cursor:pointer;}
+.loanDistributionDetailButton:hover .loanDistributionDetailButtonIcon01{ background-position:-239px -100px;}
+/*.loanDistributionDetailButtonIcon02{ width:14px; height:14px; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) no-repeat; background-position:-239px -60px; display:block; float:left; margin:6px 4px 0 0;}*/
+.loanDistributionDetailButton:hover .loanDistributionDetailButtonIcon02{ background-position:-239px -120px;}
+.loanTable{ width:100%; border-collapse:collapse; border:1px #e8e8e8 solid; margin-top:10px;}
+.loanTable th{ text-align:center; font-size:13px; background:#f9f9f9; font-weight:normal;}
+.loanTable td{ text-align:left; background:#f9f9f9; padding:8px; font-size:13px;}
+/*.loanTableLineR{ border-right:1px #e8e8e8 solid;}*/
+/*.loanTableLineB{ border-bottom:1px #e8e8e8 solid;}*/
+/*.loanTabCon{}*/
+.loanTabCon ul li{ display:block; width:100%; border-bottom:1px #e8e8e8 solid;}
+.loanTabCon ul li span{ padding-left:9px; display:block; float:left; height:50px; line-height:50px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; position:relative;}
+.loanTabCon .displayN{ display:none;}
+/*.loanTabConInput{ border:1px #005bac solid; width:64px; height:26px; line-height:26px; color:#adadad; padding:0 8px;}*/
+/*.wid70{ width:65px;}*/
+/*.wid100{ width:100px;}*/
+/*.wid110{ width:103px;}*/
+/*.wid120{ width:96px;}*/
+/*.wid140{ width:130px;}*/
+/*.loanTabConI{ width:14px; height:14px; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) no-repeat; background-position:-239px -79px; display:block; float:left; cursor:pointer; margin:18px 3px 0 0;}*/
+/*.loanTabConI2{ width:14px; height:14px; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) no-repeat; background-position:-239px -60px; display:block; float:left; cursor:pointer; margin:18px 3px 0 0;}*/
+/*.loanAdd{ width:20px; height:19px; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) no-repeat; background-position:-12px -151px; display:block; margin-top:15px; float:left; cursor:pointer;}*/
+/*.loanAdd.open{ width:20px; height:19px; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) no-repeat; background-position:-40px -151px; display:block; margin-top:15px; float:left; cursor:pointer;}*/
+/*.loanHide{ padding:0 30px;}*/
+/*.loanHideTit{ color:#005bac; display:block; line-height:35px;}*/
+/*.loanHide ul li{ width:906px;}*/
+/*.loanHide ul li label{ display:block; float:left; line-height:40px; padding-left:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:13px;}*/
+/*.bdBottom{ border-bottom:1px #ededed solid;}*/
+/*.wid1{ width:170px;}*/
+/*.wid3{ width:110px;}*/
+/*.wid4{ width:74px;}*/
+/*.wid5{ width:160px;}*/
+/*.wid6{ width:52px;}*/
+/*.wid7{ width:59px;}*/
+/*.wid8{ width:75px;}*/
+/*.wid9{ width:106px;}*/
+/*.wid10{ width:65px;}*/
+/*.wid11{ width:131px;}*/
+/*.wid12{ width:97px;}*/
+/*.wid13{ width:100px;}*/
+/*.wid14{ width:63px;}*/
+/*.wid15{ width:62px;}*/
+/*.wid16{ width:80px;}*/
+/*.wid17{ width:104px;}*/
+/*.wid18{ width:102px;}*/
+/*.wid19{ width:76px;}*/
+/*.wid20{ width:62px;}*/
+/*.wid21{ width:122px;}*/
+/*.wid22{ width:104px;}*/
+/*.wid23{ width:104px;}*/
+/*.wid24{ width:67px;}*/
+/*.wid25{ width:62px;}*/
+/*.wid26{ width:72px;}*/
+/*.wid27{ width:95px;}*/
+/*.wid28{ width:99px;}*/
+/*.wid29{ width:124px;}*/
+/*.wid30{ width:103px;}*/
+/*.wid31{ width:99px;}*/
+/*.wid32{ width:97px;}*/
+/*.wid33{ width:63px;}*/
+/*.wid34{ width:62px;}*/
+/*.wid160{ width:150px;}*/
+/*.loanHide ul li.wid888{ width:898px;}*/
+.loanG{ padding-left:10px;}
+.loanG span{ margin-left:5px;}
+.loanG span a{ text-decoration:underline;}
+.loanG span a:hover{ text-decoration:underline; color:#005bac; cursor:pointer;}
+/*.borderDiv{*/
+    /*border:1px #f00 solid;*/
+/*}*/
+.loanTabCon ul li.borderN{ border:none;}
+.btn_blue.bg-005bac{ background:#005bac; color:#fff;}
+
+/*.hkTit{ background:#f8f8f8; font-size:16px; height:80px; line-height:80px; padding:0 30px; border:1px #d9d9d9 solid;}*/
+/*.hkTit span{ color:#005bac; font-size:32px;}*/
+/*.hkCon{ padding:20px; border:1px #d9d9d9 solid; position:relative;}*/
+/*.hkbutionDetail{ }*/
+/*.hkleftTit{ font-size:16px; height:42px; display:block;}*/
+/*.hkleftTit label{ display:block; float:left; color:#005bac; font-size:16px;}*/
+/*.hkIcon{ width:20px; height:22px; background:url(//service.cpic.com.cn/res/img/common/left_list.png) no-repeat; background-position:-526px -472px; cursor:pointer; position:relative; margin-top:2px; float:left;}*/
+/*.hkHide{ width:274px; padding:0 20px 10px 20px; background:#444444; position:absolute; left:-78px; top:32px; z-index:80; display:none;}*/
+/*.hkHide span{ width:14px; height:11px; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) no-repeat; background-position:-68px -155px; display:block;margin-top:-11px; margin-left:60px;}*/
+/*.hkHide p{ color:#fff; font-size:12px;}*/
+/*.hkIcon:hover .hkHide{ display:block;}*/
+/*.hkIconArr{ background:url(//service.cpic.com.cn/res/img/common/left_list.png) no-repeat; background-position:-528px -500px; width:18px; height:15px; position:absolute; top:-15px; left:200px;}*/
+/*.csrCon{ background:#fcfcfc; padding:10px 20px; border:1px #dadada solid;}*/
+/*.csrTit{ color:#005bac; display:block; line-height:35px; font-size:16px; border-bottom:1px #dadada solid;}*/
+/*.csrTitConT{ padding:20px 0; margin:0 30px; border-bottom:1px #dadada solid;}*/
+/*.csrTitConB{ padding:20px 0; margin:0 30px;}*/
+/*.csrTitConTL{ width:117px; float:left; width:117px; height:45px;}*/
+.csrTitConTL.widthAuto{ width:auto;}
+/*.csrTitConTLF1{ font-size:22px; display:block; color:#575757;}*/
+/*.csrTitConTR{ float:left; padding:0 20px; height:45px; border-left:1px #dadada solid;}*/
+/*.csrTitConTRF1{ font-size:18px; display:block; color:#575757; float:left; margin-right:5px;}*/
+/*.csrTitConTRB1{ color:#888888;}*/
+/*.csrphone{ border:1px #dadada solid; padding:20px 20px 5px 20px;}*/
+/*.csrphone p{ display:block;}*/
+/*.loanHide02{ padding:0 10px;}*/
+
+.partener{border: 1px solid #FFFFFF;}
+/*.partener-005bac {*/
+    /*border: 1px solid #005bac;*/
+/*}*/
+/*.unClickLoanButton{*/
+    /*background: #ababab;*/
+    /*cursor: not-allowed;*/
+/*}*/
+/*.unClickLoanButton:hover{*/
+    /*background: #ababab;*/
+    /*cursor: not-allowed;*/
+/*}*/
+/* 保单贷还款-end*/
+.newsListIcon {
+    display: inline-block;
+    vertical-align:middle;
+    width:24px;
+    height: 92px;
+    margin-left:24px;
+    background: url("//service.cpic.com.cn/res/img/about/lineD.png") center no-repeat;
+}
+.newsListItem:hover .newsListIcon{
+    width:6px;
+    height:6px;
+    margin-left:0;
+    background:url(../images/left_list.png) no-repeat;
+    background-position:-100px -575px;
+}
+.newsListItem:hover > span,.newsListItem:hover > a{
+    color: #005bac;
+}
+.newsListItem:hover.noHover > span,.newsListItem:hover > a{
+    color: #575757;
+}
+
+.newsListItem .listText {
+    margin-left: 55px;
+}
+.newsListItem .listP {
+    margin-left: 128px;
+}
+
+/* 版本2 */
+.newsListSimple .newsListIcon{
+    width:6px;
+    height:6px;
+    margin-left:0;
+    background:url(../images/left_list.png) no-repeat;
+    background-position:-100px -569px;
+}
+
+.newsListSimple .newsListItem{
+    border-bottom:#e8e8e8 1px solid;
+    padding:10px;
+}
+.newsListSimple .newsListItem:hover .newsListIcon,
+.newsListSimple .newsListItem.open .newsListIcon{
+    background-position:-100px -575px;
+}
+.newsListSimple .newsListItem.noHover:hover .newsListIcon{
+    background-position:0 0;
+}
+.newsListSimple .listText {
+    margin-left: 10px;
+}
+.newsListSimple .listP{
+    float:right;
+}
+
+/* 版本3 */
+.nls .newsListItem.open{
+    border:0;
+}
+
+.nls .newsListItem.open span{
+    color:#005bac;
+}
+
+/*.nls .newsListDetail{*/
+    /*border-bottom:1px #e8e8e8 solid;*/
+    /*padding-top:15px;*/
+    /*padding-bottom:30px;*/
+/*}*/
+
+.nls .newsListDetail.accordion-desc{
+    padding-top:0;
+}
+
+.nls .listP{
+    margin-top:5px;
+}
+.arrowAbout{
+    display:block;
+    width:12px;
+    height:11px;
+    background:url(../images/left_list.png) no-repeat;
+    background-position:-115px -568px;
+}
+
+.arrowAbout.open{
+    background-position:-115px -580px;
+}
+/*.paragraphLong p{*/
+    /*text-indent:2em;*/
+/*}*/
+/*.paragraph p,.paragraph h2{*/
+    /*margin-top: 12px;*/
+/*}*/
+/*.paragraph p{*/
+    /*text-indent:2em;*/
+/*}*/
+.newsList{ margin-top:20px;}
+/*.paraList{*/
+    /*margin-left:20px;*/
+/*}*/
+/*.paraListP{ margin-left:70px;}*/
+/*.paraList li{*/
+    /*list-style:circle;*/
+    /*margin-top:10px;*/
+/*}*/
+/*.guideP{ text-indent:2em;}*/
+/*.lpznTab{ border:1px #ededed solid; height:539px;}*/
+/*.lpznTabCon{ width:322px; height:466px; border-right:1px #ededed solid; border-bottom:1px #ededed solid; float:left;}*/
+/*.brNone{ border-right:none;}*/
+/*.lpznTabConTop{ border-bottom:1px #ededed solid; padding:20px 0 10px 0;}*/
+/*.lpznTabConIcon01{ width:50px; height:42px; background:url(//service.cpic.com.cn/res/img/common/left_list.png) no-repeat; background-position:-149px -562px; display:block; margin:0 auto;}*/
+/*.lpznTabConIcon02{ width:50px; height:42px; background:url(//service.cpic.com.cn/res/img/common/left_list.png) no-repeat; background-position:-97px -606px; display:block; margin:0 auto;}*/
+/*.lpznTabConIcon03{ width:50px; height:42px; background:url(//service.cpic.com.cn/res/img/common/left_list.png) no-repeat; background-position:-158px -606px; display:block; margin:0 auto;}*/
+/*.lpznTabConTit01{ color:#e93543; font-size:16px; text-align:center; display:block; line-height:37px;}*/
+/*.lpznTabConTit02{ color:#ff9e2c; font-size:16px; text-align:center; display:block; line-height:37px;}*/
+/*.lpznTabConTit03{ color:#005bac; font-size:16px; text-align:center; display:block; line-height:37px;}*/
+/*.lpznTabConMid{ padding:15px 20px; height:240px;}*/
+/*.lpznTabConMid span{ line-height:28px; display:block;}*/
+/*.lpznTabConFot{ padding:5px;}*/
+/*.lpznTabFotCon{ background:#f9f9f9; height:43px;}*/
+/*.lpznTabFotCon div{ height:43px; float:left;}*/
+/*.lpznTabFotCon div label{ line-height:43px;}*/
+/*.lpznButton{ width:260px; height:36px; line-height:36px; text-align:center; border:1px #ededed solid; display:block; margin:15px auto;}*/
+/*.lpznButton:hover{ background:#005bac; border:1px #005bac solid; color:#fff;}*/
+/*.lpznArea{ border:1px #d0d0d0 solid;}*/
+/*.lpznArea span{ border-right:1px #d0d0d0 solid; border-bottom:1px #d0d0d0 solid; width:192px; float:left; text-align:center; line-height:40px; display:block;}*/
+/*.lpznArea span:hover{ color:#005bac; background:#f9f9f9; cursor:pointer;}*/
+/*.lpznArea span.borderRightNone{ border-right:none;}*/
+/*.lpznArea span.borderBottomNone{ border-bottom:none;}*/
+
+.claimsReportInputTit{ height:70px; line-height:70px;}
+.claimsReportInputTitS{ line-height:70px; float:left; color:#e83344;}
+.claimsReportInputTitL{ line-height:70px; float:left;}
+.claimsReportInputCon{ border:1px #dfdfdf solid;}
+.claimsReportInputCon h2{ color:#005bac; font-weight:normal; font-size:16px; margin-bottom:20px; margin:20px 0 0 20px;}
+.claimsReportInputConLeft{ width:440px; border-right:1px #dfdfdf solid; float:left; padding:20px; background:#fcfcfc;}
+.claimsReportInputConRight{ width:440px; float:left; padding:20px;}
+.claimsReportInputConLeft h2{ color:#005bac; font-weight:normal; font-size:16px; margin-bottom:20px;}
+.claimsReportInputConRight h2{ color:#005bac; font-weight:normal; font-size:16px; margin-bottom:20px;}
+.claimsReportInputConRight h2 label{ color:#005bac; display:inline-block; margin-right:15px;}
+.claimsReportInputConRight h2 span{ display:inline-block; border:1px solid #adadad; padding:0 10px; font-size:12px;}
+.claimsReportInputConRight h2 span:hover{ cursor:pointer; background:#f8f8f8;}
+.openReportInformationTit{ color:#005bac; border-bottom:1px #dfdfdf solid; font-size:16px; line-height:37px; margin:0 20px;}
+.openReportInformationCon{ margin:0 20px; background:#fafafa; padding:0 25px;}
+.openReportInformationConTit{ font-weight:normal; color:#005bac; padding-top:15px;}
+.openReportInformationTab {
+    border-bottom:1px #e8e8e8 solid;
+}
+.openReportInformationTab ul {
+    padding:8px 0;
+}
+.openReportInformationTab ul li {
+    width:33%;
+    font-size:14px;
+    display:block;
+    float:left;
+    line-height:35px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.openReportInformationTab ul li.openReportWid100{ width:100%;
+    white-space:inherit; line-height:20px; margin-top:7px;}
+.criHeight{ height:500px; overflow:auto;}
+
+/*.telematicsCheck{ background:#f6f6f6; height:128px;padding-top: 30px;}*/
+/*.telematicsCheckCon{ width:426px; height:36px; margin:0 auto; position: relative;}*/
+/*.telematicsCheckInput{ width:228px; height:38px; line-height:38px; float:left; border:#adadad 1px solid; display:block; border-left:none; margin-top:15px; background:#fafafa; margin-left:-5px; padding:0 10px;}*/
+/*.telematicsCheckButton{ width:82px; height:40px; border:#adadad 1px solid; border-left:none; float:left; text-align:center; background:#fff; margin-top:15px; color:#005bac; cursor:pointer;}*/
+/*.telematicsCheckButton:hover{ background:#005bac; color:#fff; border:#005bac 1px solid;}*/
+/*.telematicsCardInfoWrong{margin-left: 102px;}*/
+/*.telematicsLeft{ width:580px; float:left;}*/
+/*.telematicsRight{ width:580px; float:right;}*/
+/*.telematicsLeft h2{ border-bottom:1px #d5d5d5 solid; height:40px; margin-top:20px;}*/
+/*.telematicsRight h2{ border-bottom:1px #d5d5d5 solid; height:40px; margin-top:20px;}*/
+/*.telematicsIcon01{ width:28px; height:24px; background:url(//service.cpic.com.cn/res/img/telematics/telematics.png) no-repeat; background-position:-5px -4px; float:left; margin:8px 5px 0 5px;}*/
+/*.telematicsIcon02{ width:28px; height:24px; background:url(//service.cpic.com.cn/res/img/telematics/telematics.png) no-repeat; background-position:-72px -3px; float:left; margin:8px 5px 0 5px;}*/
+/*.telematicsIcon03{ width:28px; height:24px; background:url(//service.cpic.com.cn/res/img/telematics/telematics.png) no-repeat; background-position:-5px -33px; float:left; margin:8px 5px 0 5px;}*/
+/*.telematicsIcon04{ width:28px; height:24px; background:url(//service.cpic.com.cn/res/img/telematics/telematics.png) no-repeat; background-position:-40px -4px; float:left; margin:8px 5px 0 5px;}*/
+/*.telematicsIcon05{ width:28px; height:24px; background:url(//service.cpic.com.cn/res/img/telematics/telematics.png) no-repeat; background-position:-103px -4px; float:left; margin:8px 5px 0 5px;}*/
+/*.telematicsIcon06{ width:28px; height:24px; background:url(//service.cpic.com.cn/res/img/telematics/telematics.png) no-repeat; background-position:-40px -35px; float:left; margin:8px 5px 0 5px;}*/
+/*.telematicsLeft label{ line-height:40px;}*/
+/*.telematicsRight label{ line-height:40px;}*/
+/*.telematicsCon{ margin-top:10px;}*/
+/*.telematicsCon p{ height:38px; display:block; padding:0 10px;}*/
+/*.telematicsCon p.gray{ background:#fbfbfb;}*/
+/*.telematicsCon img{ display:block; margin-right:20px; float:left;}*/
+.telematicsListHeight{ height:600px; overflow:auto;}
+
+.elecPlyTab{ border-bottom:1px #dfdfdf solid; height:41px;}
+.elecPlyTab a{ height:40px; line-height:40px; display:block; float:left; padding:0 43px; cursor:pointer;}
+.elecPlyTab a.active{ border-bottom:2px #005bac solid; color:#005bac;}
+.elecPlyTab a:hover{ border-bottom:2px #005bac solid; color:#005bac; }
+
+/*.elecUl{ border:1px solid #adadad; width:80px; height:40px; line-height:40px; background:#fdfdfd; border-left:0; color:#005bac; cursor:pointer; margin-bottom:2px; margin-left:-4px;}*/
+/*.elecUl:hover{ background:#fbfbfb;}*/
+
+
+.file{ width:80px; height:39px; line-height:39px; background:#fdfdfd; border-left:0; color:#005bac; cursor:pointer; margin-bottom:2px; margin-left:-4px; position: relative; display:inline-block; text-align:center; border-left:1px solid #adadad;}
+.file:hover{ background:#fbfbfb;cursor: pointer}
+.file input{
+    width:80px;
+    position: absolute;
+    font-size: 26px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer;
+}
+.file input:hover{ cursor: pointer;}
+.uploadInput{height:39px;
+    line-height:39px;
+    border:1px solid #adadad;
+    background:#fdfdfd;
+    margin-top:15px;
+    width:282px;
+}
+.uploadInputCon{
+    width:200px;
+    height:39px;
+    line-height:39px;
+    text-indent:8px;
+    margin-top:-4px;
+}
+/*无框select选项内容文本过长时在content中调用此样式*/
+.selectLongBox{
+    width:100%;
+}
+.selectLongBox .selectLongContList{
+    width:100%;
+    margin-left:2px;
+}
+.selectLongBox .selectLongContList>a{
+    text-align: right;
+    padding-right: 25px;
+}
+
+.chanpinliebiaoHeight{ height:300px; overflow:auto;}
+
+
+
+.diviTable{ width:100%; border-collapse:collapse; border:1px #e8e8e8 solid; margin-top:10px;}
+.diviTable th{ text-align:center; font-weight:normal;}
+.diviTable td{ text-align:left; padding-left:10px; padding:12px 0 12px 8px; background:#005bac; color:#fff;}
+/*.wid35{ width:147px;}*/
+/*.wid36{ width:166px;}*/
+/*.wid37{ width:116px;}*/
+/*.wid38{ width:69px;}*/
+/*.wid39{ width:86px;}*/
+/*.wid40{ width:89px;}*/
+/*.wid41{ width:87px;}*/
+/*.wid42{ width:69px;}*/
+/*.wid43{ width:60px;}*/
+
+/*.wid44{ width:156px;}*/
+/*.wid45{ width:218px;}*/
+/*.wid46{ width:136px;}*/
+/*.wid47{ width:135px;}*/
+/*.wid48{ width:135px;}*/
+/*.wid49{ width:136px;}*/
+
+/*.wid50{ width:184px}*/
+/*.wid51{ width:185px}*/
+/*.wid52{ width:106px}*/
+/*.wid53{ width:119px}*/
+/*.wid54{ width:117px}*/
+/*.wid55{ width:89px}*/
+/*.wid56{ width:101px}*/
+
+/*.wid57{ width:57px}*/
+/*.wid58{ width:114px}*/
+/*.wid59{ width:89px}*/
+/*.wid60{ width:81px}*/
+/*.wid61{ width:90px}*/
+/*.wid62{ width:79px}*/
+/*.wid63{ width:93px}*/
+/*.wid64{ width:90px}*/
+/*.wid65{ width:92px}*/
+/*.wid66{ width:54px}*/
+
+.wid67{ width:66px}
+.wid68{ width:290px}
+.wid69{ width:288px}
+
+.wid71{ width:182px}
+.wid72{ width:268px}
+.wid73{ width:158px}
+.wid74{ width:128px}
+.wid75{ width:189px}
+
+.wid76{ width:270px}
+.wid77{ width:142px}
+.wid78{ width:531px}
+
+.mpButtonIcon01{ width:12px; height:12px; background:url(../images/left_list.png) no-repeat; background-position:-533px -542px; display:block; float:left; margin:6px 4px 0 0;}
+.loanDistributionDetailButton:hover .mpButtonIcon01{ background-position:-533px -524px;}
+.frequencyIcon{ width:20px; height:22px; background:url(../images/left_list.png) no-repeat; background-position:-526px -472px; cursor:pointer; position:absolute; top:24px; left:70px;}
+.frequencyHide{ width:430px; z-index:80; margin-top:22px; margin-left:-57px; display:none;}
+.frequencyHide span{ width:14px; height:11px; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) no-repeat; background-position:-68px -155px; display:block; margin-left:60px;}
+.frequencyHideCon{ background:#444444; padding:10px 15px;}
+.frequencyHideCon p{ color:#fff; font-size:12px;}
+.frequencyIcon:hover .frequencyHide{ display:block;}
+.paymentTcHeight{ height:300px; overflow:auto;}
+
+/* new */
+.tduder{ text-decoration:underline; cursor:pointer; position:relative;}
+.policyTopHover{ width:170px; z-index:80; position:absolute; display:none;}
+.policyTopHover i{ width:14px; height:11px; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) no-repeat; background-position:-68px -155px; display:block; margin-left:60px;}
+.policyTopHoverCon{ background:#444444; padding:10px 15px; color:#fff;}
+.tduder:hover .policyTopHover{ display:block;}
+
+/*.termC{ position:absolute; top:-7px; right:-7px; width:106px; height:105px; background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat; background-position:-5px -305px; cursor:pointer;}*/
+/*.termD{ position:absolute; top:-7px; right:-7px; width:106px; height:105px; background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat; background-position:-124px -305px; cursor:pointer;}*/
+/*.termD:hover .termTc1{ display:block!important;}*/
+/*.termC:hover .termTc2{ display:block!important;}*/
+/*.termTcArr{ width:11px; height:8px; margin-top:-8px; right:28px; background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat; background-position:-203px -271px; position:absolute;}*/
+/*.termTc1{ width:380px; background-color:#4e4e4e; height:32px; line-height:32px; color:#fff; padding:0 10px; left:-290px; bottom:-2px; position:absolute;}*/
+/*.termTc2{ width:340px; background-color:#4e4e4e; height:32px; line-height:32px; color:#fff; padding:0 10px; left:-240px; bottom:-2px; position:absolute;}*/
+
+.btnUnClick{
+    color:#ffffff;
+    background: #ababab;
+    cursor: not-allowed;
+    border: 1px solid #ababab;
+}
+.btnUnClick:hover{
+    color:#ffffff;
+    background: #ababab;
+    cursor: not-allowed;
+    border: 1px solid #ababab;
+}
+
+/*.benefits{ padding:20px 0;}*/
+/*.benefitsTitConTL{ width:162px; float:left; height:45px;}*/
+
+/*.wid79{ width:117px}*/
+/*.wid80{ width:122px}*/
+/*.wid81{ width:106px}*/
+/*.wid82{ width:97px}*/
+/*.wid83{ width:100px}*/
+/*.wid84{ width:98px}*/
+/*.wid85{ width:131px}*/
+/*.heightOver{ height:260px; overflow:auto;}*/
+/*.lifeTcBg{ margin:0 20px;}*/
+/*.lifeTcBgA{ background:#fafafa; padding:10px;}*/
+/*.leftTcTab ul li{ line-height:40px; height:40px; float:left;}*/
+
+.mode{ position:absolute; width:26px; height:26px; background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat; background-position:-249px -310px; display:block; left:260px; top:15px; cursor:pointer;}
+.paymentFrequenceIcon{left:200px;}
+.paymentFrequenceIcon2{left:220px;}
+.overflowHeight{ height:150px; overflow:auto;}
+
+/*.wid86{ width:101px}*/
+/*.wid87{ width:243px}*/
+
+.overview_icon06{
+    width:18px;
+    height:18px;
+    background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;
+    background-position:-222px -279px;
+    display:block;
+    float:left;
+    margin:10px 8px 0 0;
+}
+
+.overview-con-blue-icon04{
+    width:25px;
+    height:25px;
+    background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;
+    background-position:-250px -270px;
+    float:left;
+    display:block;
+    margin-top:6px;
+    margin-right:7px;
+}
+.overview-con-blue-icon05{
+    width:25px;
+    height:25px;
+    background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;
+    background-position:-278px -270px;
+    float:left;
+    display:block;
+    margin-top:6px;
+    margin-right:7px;
+}
+.overview-con-blue-icon06{
+    width:25px;
+    height:25px;
+    background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;
+    background-position:-305px -270px;
+    float:left;
+    display:block;
+    margin-top:6px;
+    margin-right:7px;
+}
+/*.wid88{ width:210px}*/
+
+.specifAgreed{
+    padding: 20px;
+}
+/*保单贷还款*/
+/*.loanAndReturnBillTitIcon{	width:26px; height:26px; display:block; float:left; margin:10px 10px 0 0; background:url(//service.cpic.com.cn/res/img/common/left_list.png) no-repeat;background-position:-69px -533px;}*/
+/*.loanAndReturn{ width: 755px; margin: 0 auto;}*/
+/*.loanAndReturnMiddleBar{width: 705px; height: 220px; margin: 0 auto 150px auto; border-top: 1px solid #E5E5E5; border-bottom: 1px solid #E5E5E5;}*/
+/*新保单列表*/
+/*.policyList_morePolicy{ height: 35px; line-height: 35px; float: right; margin-right: 15px;}*/
+/*.policyList_StatusImgOne{ display: block; width: 47px; height: 25px; float: left;  background: url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;background-position:-315px -300px; position: absolute; top: 3px; right: 0px;}*/
+/*.policyList_StatusImgTwo{ display: block; width: 47px; height: 25px; float: left;  background: url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;background-position:-315px -330px; position: absolute; top: 3px; right: 0px;}*/
+.policyList_emptyPolicy{ padding-top: 50px;}
+.policyList_emptyPolicyTxt{ margin-left: 90px; }
+.policyList_emptyPolicy_checkMoreBlock{height: 80px; background: #FAFAFA; margin: 50px auto 0 auto;}
+.policyList_emptyPolicy_checkMoreBlockTxt{ margin: 5px 0 0 10px ; float: left; }
+.policyList_emptyPolicy_checkMoreBlockTxt .title{ margin: 8px 0 5px 0; cursor: pointer;}
+.policyList_emptyPolicy_checkMoreBlockTxt .title:hover{text-decoration: underline;}
+.policyList_emptyPolicy_checkMoreBlockTxt .intro{width: 312px; line-height: 14px;}
+.policyList_emptyPolicy_checkMoreBlockBtn{width: 85px; height: 26px; line-height: 26px; font-size: 12px; color: #E93543; text-align: center; margin: 28px 15px 0 0; cursor: pointer; background: url(//service.cpic.com.cn/res/img/policy/policy_img.png); background-position: -255px -357px;}
+.policyList_emptyPolicy_checkMoreBlockBtn:hover{background-position: -255px -384px;  color: #FFFFFF;/* background: #E93543;*/}
+.policyList_emptyPolicy_checkMoreBlockImg{display: block; width: 24px; height: 24px; background: url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat;background-position:-285px -325px; margin: 28px 0 0 11px; float: left;}
+/*.policyList_bottomBtnBlk{padding-right: 15px;}*/
+/*.policyList_bottomBtnBlk .button{height: 30px; line-height: 30px; text-align: center; border-radius: 4px; cursor: pointer; float: right;}*/
+/*.policyList_bottomBtnBlk .errorFeedbackBtn{width: 120px; border: 1px solid #E93543; }*/
+/*.policyList_bottomBtnBlk .InsuranceTestBtn{width: 150px; border: 1px solid #005BAC; margin-right: 10px;}*/
+/*.policyList_bottomBtnImg{display: inline-block; width: 16px; height: 11px; margin-right: 3px; background: url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat; }*/
+/*.policyList_errorFeedbackImg {background-position: -285px -310px; }*/
+/*.policyList_InsuranceTestImg{ background-position: -149px -184px; }*/
+/*车险理赔单证*/
+/*.claimDocument_table{ width:1198px; margin: 50px auto; border: 1px solid #E0E0E0;}*/
+/*.claimDocument_table .titleCon{display:block; height: 25px; line-height: 25px; padding:15px 0 15px 25px; text-indent:7px; font-size: 16px; color: #005BAC; border-bottom: 1px solid #E0E0E0;}*/
+.claimDocument_table .titleImg{ display: block; width: 30px; height: 25px; background: url(../images/left_list.png) no-repeat; background-position: -257px -69px; float: left;}
+/*.claimDocument_tableCon{margin: 35px 40px; border: 1px solid #E0E0E0; }*/
+/*.claimDocument_tableCon p{line-height: 20px; padding: 15px 0 15px 45px; font-size: 16px; border-bottom: 1px solid #E0E0E0;}*/
+.claimDocument_tableCon .borderBottomNone{border-bottom: none;}
+/*.claimDocument_tableCon .documentName{ width: 125px;  text-align: center; border-right: 1px solid #E0E0E0; border-bottom: 1px solid #E0E0E0; float: left;}*/
+/*.claimDocument_CommonDocument .documentName{height: 611px; line-height: 611px;}*/
+/*.claimDocument_CommonDocument .documentCon{width: 990px; float: left;}*/
+/*.claimDocument_damageDocument .documentCon{width: 864px; float: left;}*/
+/*.claimDocument_damageDocument .autoDamage .documentName{height: 713px; line-height: 713px;}*/
+/*.claimDocument_damageDocument .goodsDamage .documentName{height: 203px; line-height: 203px;}*/
+/*.claimDocument_prompt{	padding:15px 45px;}*/
+/*.claimDocument_btnBlock{width: 410px; margin: 50px auto;}*/
+/*.claimDocument_btnBlock .button{width: 195px; height: 43px; line-height: 43px; font-size: 16px; text-align: center; cursor: pointer;}*/
+/*.claimDocument_btnBlock .printPage{color: #FFFFFF; background: #005BAC; border: 1px solid #005BAC; float: left;}*/
+/*.claimDocument_btnBlock .closePage{color: #000000; background: #F4F4F4; border: 1px solid #E0E0E0;float: right;}*/
+/*.claimDocument_popUpTxt{ height: 30px; line-height: 30px; text-align: center; font-size: 18px; }*/
+/*.claimDocument_popUpBtn{ display: block; width: 180px; height: 40px; background: #FFFFFF; color: #005BAC; border: 1px solid #005BAC; margin: 50px auto 0 auto; cursor: pointer;}*/
+/*.claimDocument_popUpBtn:hover{background: #005BAC; color: #FFFFFF;}*/
+/*.claimDocument_unSelect{width: 990px; border-bottom: 1px solid #E0E0E0;}*/
+/*.consultComplaint_img{ display: block; width: 350px; height: 650px; margin: 30px 0 30px 200px;}*/
+
+/*税优健康险单证下载        Frece */
+/*.taxDocument_Img{display: block; width: 145px; height: 145px; margin: 30px auto; }*/
+/*.taxDocument_ClientImg{ background: url(//service.cpic.com.cn/res/img/policy/taxDocument.jpg);}*/
+/*.taxDocument_AppImg{background: url(//service.cpic.com.cn/res/img/policy/taxQRcode.jpg);}*/
+/*.taxDocument_Txt{ width: 451px; height: 50px; margin: 0 auto 30px auto;}*/
+/*.taxDocument_Txt a{width: 195px;  padding: 5px 15px; font-size: 16px; color: #005BAC; float: left; }*/
+/*.taxDocument_Txt a:hover{text-decoration: underline;}*/
+/*.taxDocument_Txt a.login{ line-height: 20px; border-right: 1px solid #ADADAD;}*/
+/*.taxDocument_Txt a.manual{line-height: 40px; text-align: center;}*/
+/*.taxDocument_Txt a.appDowoload{ line-height: 20px; border-right: 1px solid #ADADAD; cursor: default;}*/
+/*.taxDocument_Txt a.appDowoload:hover{text-decoration: none;}*/
+
+
+/*loan repay update*/
+
+/*.visTop{ width:964px; height:208px; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) no-repeat; background-position:-12px -183px;}*/
+/*.visTop h2{ color:#005bac; font-size:24px; display:block; padding:36px 0 0 90px;}*/
+/*.visTopCon{ padding:60px 0 0 90px;}*/
+/*.visTopCon i{ width:21px; height:21px; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) no-repeat; background-position:-268px -13px; display:block; float:left; margin-right:15px; margin-top:2px;}*/
+/*.visTopCon label{ color:#005bac; font-size:18px; line-height:24px; display:block; float:left; width:780px;}*/
+/*.visCon{ width:25%; float:left;}*/
+/*.visCondition{ background:#fafafa; padding:40px 0;}*/
+/*.visCon i{ width:99px; height:78px; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) no-repeat; display:block; margin:0 auto;}*/
+/*.visCon i.visConditionIcon01{ background-position:-310px -7px;}*/
+/*.visCon i.visConditionIcon02{ background-position:-419px -7px;}*/
+/*.visCon i.visConditionIcon03{ background-position:-527px -7px;}*/
+/*.visCon i.visConditionIcon04{ background-position:-638px -7px;}*/
+/*.visCon label{ text-align:center; display:block; margin-top:30px; font-size:16px;}*/
+/*.visCon span{ display:block; width:125px; height:36px; line-height:36px; margin:0 auto; border:1px #005bac solid; text-align:center; color:#005bac; margin-top:23px;}*/
+/*.visCon span:hover{ cursor:pointer; color:#fff; background:#005bac;}*/
+/*.visCertification{ width:100%; margin:30px 0; background:#fafafa;}*/
+/*.visCertificationC{ width:850px; margin:0 auto; padding:40px 0;}*/
+/*.visCerCon{ width:130px; float:left;}*/
+/*.visCerArr{ width:13px; height:30px; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) no-repeat; background-position:-268px -46px; display:block; float:left; margin-top:10px;}*/
+/*.visCerCon i{ width:48px; height:53px; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) no-repeat; margin:0 auto; display:block;}*/
+/*.visCerCon i.visCerConIcon01{ background-position:-268px -99px;}*/
+/*.visCerCon i.visCerConIcon02{ background-position:-330px -99px;}*/
+/*.visCerCon i.visCerConIcon03{ background-position:-390px -99px;}*/
+/*.visCerCon i.visCerConIcon04{ background-position:-447px -99px;}*/
+/*.visCerCon i.visCerConIcon05{ background-position:-509px -99px;}*/
+/*.visCerCon i.visCerConIcon06{ background-position:-571px -99px;}*/
+/*.visCerCon label{ width:120px; display:block; margin:0 auto; text-align:center; font-size:16px;}*/
+/*.visCheck {*/
+    /*margin-top:40px;*/
+    /*border:1px #d3d3d3 solid;*/
+    /*padding:0 40px;*/
+/*}*/
+/*.visCheck2 {*/
+    /*margin-top:40px;*/
+    /*border:1px #d3d3d3 solid;*/
+    /*padding:0 10px;*/
+/*}*/
+/*.visCheckC{ height:98px; width:834px; margin:0 auto; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) repeat-x; background-position:-21px -416px;}*/
+/*.visCheckC i{ width:68px; height:68px; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) no-repeat; background-position:-779px -12px; display:block; float:left; margin:15px 0 0 40px;}*/
+/*.visCheckC label{ font-size:16px; height:68px; line-height:68px; display:block; float:left; margin:15px 0 0 15px;}*/
+/*.visCheckFont{ float: left; font-size:16px; margin-left:70px;}*/
+/*.visChecka{ float:right; cursor:pointer; display:block; color:#005bac;}*/
+/*.visCheckF{ width:834px; margin:30px auto;}*/
+/*.visBlue{ color:#005bac; font-size:16px;}*/
+/*.visBlue font{ color:#005bac; font-size:24px;}*/
+/*.visRed{ color:#e83344; font-size:16px;}*/
+/*.visRed font{ color:#e83344; font-size:24px;}*/
+
+/*.visTs{ border-top:1px #e8e8e8 solid; padding:75px 0;}*/
+/*.visTs i{ width:21px; height:21px; background:url(//service.cpic.com.cn/res/img/loanRepayment/repay.png) no-repeat; background-position:-268px -13px; display:block; float:left; margin-right:15px; margin-left:200px;}*/
+/*.visTs label{ font-size:18px; color:#005bac;}*/
+
+/*.wid94{ width:118px}*/
+/*.wid95{ width:146px}*/
+/*.wid88{ width:108px}*/
+/*.wid89{ width:224px}*/
+/*.wid90{ width:123px}*/
+/*.wid91{ width:113px}*/
+/*.wid92{ width:547px}*/
+/*.wid93{ width:167px}*/
+/*.wid96{ width:210px}*/
+/*.housekeeper{ padding:8px;}*/
+.hand{ cursor:pointer;}
+/*.mrB0{ margin-bottom:10px;}*/
+.mr15{ margin-right:15px;}
+.baseinfo{ border-right:1px #e8e8e8 solid; float:left; width:33%; height:70px; margin-top:20px; margin-bottom:10px;}
+.baseinfo:hover{ cursor:pointer;}
+.baseinfo.blline{border-left:1px #e8e8e8 solid;}
+.baseinfo.fr{ float:right;}
+.baseinfo span{ display:block; float:left; font-size:48px; color:#005bac; margin-top:20px; margin-right:15px; margin-left:80px;}
+.baseinfo font{ line-height:70px; display:block; color:#005bac;}
+.baseinfo i{ width:49px; height:49px; background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat; display:block; float:left; margin-top:10px; margin-right:15px; margin-left:80px;}
+.baseinfo i.baseinfoIcon01{ background-position:-277px -258px; position:relative;}
+.baseinfoIcon01Red{ position:absolute; background:url(//service.cpic.com.cn/res/img/policy/policy_img.png) no-repeat; background-position:-332px -262px; width:14px; height:14px; top:2px; right:4px; display:block;}
+.baseinfo i.baseinfoIcon02{ background-position:-281px -315px;}
+.main-tab2 ul li {
+    float:left;
+    display:block;
+    height:40px;
+    line-height:40px;
+    position:relative;
+    overflow:hidden;
+}
+.tcDate{ float:right; text-align:right; margin:0 35px 20px 0; color:#818181;}
+
+.ownerName .telInfo{
+    border-radius:5px;
+    border:1px #005bac solid;
+    display: inline-block;
+    margin-left:10px;
+    background:url(//service.cpic.com.cn/res/img/policy/person.png) no-repeat;
+    background-position: 6px 5px;
+    cursor: pointer;
+}
+.ispan{
+    margin-left:25px;
+    padding: 4px 5px;
+}
+
+.claim-code{
+    float:left;
+    width: 15%;
+    height: 70px;
+    line-height: 70px;
+
+}
+.claim-code input,.claim-code label{
+    cursor: pointer;
+}
+.seclectBg{
+    position:absolute;
+    top: 0px;
+    right: 10px;
+}
+.selectBox,.selectCont,.queryCondition{
+    z-index:10;
+}
+.selectTitle{
+    position:relative;
+}
+.selectTitle.ptxt-c{
+    text-align:center
+}
+.startCondition{
+    position:static;
+}
+/*.marginLeft{*/
+    /**margin-left:-4px;*/
+/*}*/
+._wcon_right{
+    margin: auto;
+    float:inherit;
+}
+#record span{
+    padding:12px;
+}
+.legalPerson{
+    display:block;
+    text-align:center;
+}

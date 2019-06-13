@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.cpic.dao.UserMapper">
+    <select id="selectuserbyuid" resultMap="usermap">
+        select * from users where uid=#{uid}
+    </select>
+    <!--<select id="selectalluser" resultMap="usermap">-->
+    <!--</select>-->
+    <resultMap type="User" id="usermap">
+        <id property="uid" column="uid"/>
+        <association property="certType" column="fkceid" javaType="CertType" select="com.cpic.dao.CertTypeMapper.selectById"/>
+    </resultMap>
+</mapper>

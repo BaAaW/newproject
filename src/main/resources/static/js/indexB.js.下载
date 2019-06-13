@@ -1,0 +1,170 @@
+﻿var tip_tag = ""
+var tip_map = new Map();
+$(function() {
+    bm_sensor.page("服务大厅","服务大厅-首页");
+	var value = $('#ThousandsOfPeople').val();
+	if (value) {
+		setCookie("cpic_service_type", value, 0, "/", ".cpic.com.cn");
+	}
+	var _environment=environment();
+	$('#logout_url').attr("href","//"+_environment+"/pc/views/member/logout.html?sysid=JTXLJ&channel=006&redirect_uri=http://"+location.host);
+    $('#logout_url').on("click",(function(){
+        $.ajax({url: '/common/delSession',type: 'post',data: null});
+    }));
+	$('#btn-user-login-opr1').attr("href","//"+_environment+"/pc/views/ibox/safeboxindex/index.html");
+	$('#btn_login_a').attr("href","//"+_environment+"/pc/views/member/login.html?sysid=JTXLJ&channel=006&saSourceId=saChannelCode_JTXLJ002");
+	$('#btn_register_a').attr("href","//"+_environment+"/pc/views/member/register.html?sysid=JTXLJ&channel=006");
+	isLoginFromIBOX();
+	$(".lineItem").find("figure").each(function (i,item) {
+        var className = $(item).attr("value");
+        initGrid(className,i);
+        $(item).on("mouseover", function () {
+            showHover(className);
+        });
+        $(item).on("mouseout", function () {
+            NoShow();
+        });
+    })
+    $(".tip").each(function (i,item) {
+        $(item).on("mouseover", function () {
+            showItem(item);
+        });
+        $(item).on("mouseout", function () {
+            NoShow();
+        });
+    })
+    $(".tip-mask").on("mouseover", function () {
+        var item = tip_map.get(tip_tag);
+        if(item) {
+            $(".bdcenter").css("padding-bottom", item.padding + "px");
+        }
+        $(".tip-mask").css("display", "block");
+        $(tip_tag).css("display", "block");
+    });
+    $(".normal-list a").each(function (i,item) {
+        $(item).on("click", function () {
+            var str  = $(item).text();
+            if(str){
+                bm_sensor.webClick("服务大厅首页","服务大厅首页-入口","进入:"+str.trim().replace(",",""));
+            }
+        });
+    })
+});
+function initGrid(className,i) {
+    var item = {};
+    var top = 0;
+    var padding = 0;
+    var left = 0;
+    item.name = className;
+    top = parseInt($(className).css("top"));
+    if (isNaN(top)) {
+        top = 0;
+    }
+    item.top = top - 20;
+    var height = parseInt($(".bdcenter").css("height"));
+    if (isNaN(height)) {
+        height = 0;
+    }
+    var _height = parseInt($(className).css("height"));
+    if (isNaN(_height)) {
+        _height = 0;
+    }
+    padding = 170 + top + _height - height;
+    if (padding >= 0) {
+        padding += 30;
+    } else {
+        padding = 0;
+    }
+    item.padding = padding;
+    var index = i % 5;
+    if (index == 0) {
+        left = "6%"
+    }
+    else if (index == 1) {
+        left = "21.5%"
+    }
+    else if (index == 2) {
+        left = "37%"
+    }
+    else if (index == 3) {
+        left = "53%"
+    }
+    else if (index == 4) {
+        left = "68.5%"
+    }
+    item.left = left;
+    tip_map.set(className, item);
+    $(className).attr("figureType", className)
+}
+// var lineOne =["bdcx","searchLipei","searchDZBD","ePolicyPill","healthServer"];
+// var lineTwo =["otherServer","BDD","searchShop","knowledge","InsuranceValue"];
+function showHover(className) {
+    $(".tip").css("display", "none");
+    tip_tag = className;
+    if (className) {
+        var item = tip_map.get(className);
+        if (item) {
+            $(".bdcenter").css("padding-bottom", item.padding + "px");
+            $(".tip-mask").css("top", item.top + "px");
+            $(".tip-mask").css("left", item.left);
+        }
+        $(className).css("display", "block");
+        $(".tip-mask").css("display", "block");
+    }
+}
+function showItem(data) {
+    var figureType = $(data).attr("figureType");
+    var item = tip_map.get(figureType);
+    if(item) {
+        $(".bdcenter").css("padding-bottom", item.padding + "px");
+    }
+    $(data).css("display", "block");
+    $(".tip-mask").css("display", "block");
+}
+function NoShow() {
+    $(".tip").css("display", "none");
+    $(".tip-mask").css("display", "none");
+    $(".bdcenter").css("padding-bottom","0px");
+}
+
+/*
+ * 环境判断
+ * */
+function environment(){
+	var _environment=location.host;
+	var member_url = "";
+    switch(_environment) {
+        case "service.cpic.com.cn" :
+            member_url = "one.cpic.com.cn";
+            break;
+        case "localhost:8443" :
+        case "localhost:8080" :
+        case "service1sit.cpic.com.cn" ://sit:https
+        case "service1sit.cpic.com.cn:8000" :
+            member_url = "onesit.cpic.com.cn";//性能测试环境
+            break;
+    }
+    return member_url;
+}
+
+function isLoginFromIBOX() {
+	var _environment=environment();
+		oauth2CheckLogin({
+			// timeout:1000*5, //非必传项，默认超时时间为60秒
+			// token:"0275c9d1ecbe52fe8f902d493284b7cf",
+			// //非必传项，会员后台接口秘钥，配置需联系会员项目组oauth2CheckLogin.js中有默认值
+			host :_environment, // 会员系统域名，开发、集成测试、性能测试、生产域名参考“第一点”中的红色加粗部分。如不填写则使用oauth2CheckLogin.js中默认配置的生产域名
+			callback : function(data) { // 用户登录情况下回调此方法
+				var loginInfoHtml = "";
+				var userName = data.nickname || data.username;
+				var userNameStr = "";
+				var lengthNum = 0;
+				$('#before-login').css("display","none");
+				$('#index-block-logined').css("display","block");
+				$('#index-block-userName').text(userName);
+			},
+			failCallback : function(data) { // 用户未登录情况下回调此方法
+				$('#index-block-logined').css("display", "none");
+			}
+		})
+	}

@@ -1,0 +1,55 @@
+.width160{
+	width:160px;
+}
+.breadCrumb{
+	
+}
+.height40{
+	height:40px;
+}
+.height20{
+	height:20px;
+}
+.padding10{
+	padding:10px 10px;
+}
+.overview-con-blue-grey {
+    height: 37px;
+    line-height: 37px;
+    color: #005bac;
+    border-bottom: 1px solid #e8e8e8;
+    display: block;
+}
+.overview-con-blue-icon03 {
+    width: 25px;
+    height: 25px;
+    background: url(../images/login/login.png) no-repeat;
+    background-position: -160px -132px;
+    float: left;
+    display: block;
+    margin-top: 6px;
+    margin-right: 7px;
+}
+.seclectBgBack{
+	width: 12px;
+    height: 12px;
+    display: block;
+    text-indent: 200em;
+    overflow: hidden;
+    float: right;
+    margin-top: 13px;
+    margin-right: 12px;
+    background-color: #f00;
+	background: url(../../v2/images/left_list.png) no-repeat;
+    background-position: -70px -54px;
+}
+.mr20{
+	margin-right:20px;
+}
+.ml20{
+	margin-left:20px;
+}
+.listIcon{
+	color: #005BAC;
+	cursor: pointer;
+}

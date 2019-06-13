@@ -1,0 +1,956 @@
+/**
+ * Created by c_yibingjun on 2017/5/16.
+ */
+$(function() {
+    inOut(1);
+    setCookie("cpic_service_type", "保单查询-查询页", 0, "/", "cpic.com.cn");
+    bm_sensor.page("保单查询",pageName);
+    bm_zntj.recommend("",pageName,"1");
+    //用来判断是否是移动端跳转过来的begin
+    function detectMobileBrowser(){
+        if(navigator.userAgent.match(/(iPhone|iPod|Android)/i)){
+            var mobileURL = "//service.cpic.com.cn/xlj/bdcx.html";
+            if(window.location.href.indexOf("10.")>0||window.location.href.indexOf("wwwsit")>0){
+                mobileURL = "//service1sit.cpic.com.cn:8000/xlj/bdcx.html";//sit:https
+            }
+            document.location.href= mobileURL;
+        }
+    }
+    detectMobileBrowser();
+    //end
+
+    //查询页面右侧悬浮框
+    function addMoreSvc() {
+        $.ajax({
+            type: 'get',
+            url:"../static/moreserviceforbdcha.html",
+            dataType:"html",
+            success:function(data) {
+                $("body").append(data)
+            }
+        })
+    };
+    addMoreSvc();
+
+    $(".openContent").css({width:$(document).width(),height:$(document).height()})
+    $("input[type='text']").val('');
+    var userAgent = navigator.userAgent;
+    var isOpera = userAgent.indexOf("Opera") > -1;
+    if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera) {
+        var browser=navigator.appName
+        var b_version=navigator.appVersion
+        var version=b_version.split(";");
+        var trim_Version=version[1].replace(/[ ]/g,"");
+        if(browser=="Microsoft Internet Explorer" && trim_Version=="MSIE7.0")
+        {
+            $("#showhead").show();
+        }
+    }; //判断是否IE浏览器
+
+    //下拉框选值
+    //checkby_phone 身份选择
+    var a = new select(".searchTitle",".searchContent",".searchData",".searchValue");
+    //checkby_poliy 身份选择
+    var b = new select(".poliyTitle",".poliyContent",".poliyData",".poliyValue");
+    //chekby_car 身份查询
+    var c = new select(".car_idTitle",".car_idContent",".car_idData",".car_idValue");
+    ///车牌号查询
+    var d = new select(".carTitle",".carContent",".carData",".carValue");
+
+    // dataCode, errobj, codeType, selectTypeobj
+    function  onfocus(id){
+        $("#"+id).focus();
+    }
+    function plChangeCaptcha(dom) {
+        var currentTime= new Date().getTime();
+        var url =contextPath+'/common/generateCaptcha'+ '?'+ currentTime;
+        $(dom).attr('src', url);
+    }
+    $("#changeGraph").click(function() {
+        plChangeCaptcha("#graphImg");
+    })
+    $('#refresh_icon1').click(function(){
+        plChangeCaptcha("#imagesCode");
+    });
+    $('#refresh_icon2').click(function(){
+        plChangeCaptcha("#carimagesCode");
+    });
+    //点击事件封装函数  chekeby_phone chekeby_poliy  chekeby_car 0 1 2
+    //查询选项a标签对象，对应显示的查询box
+    function showContent(tag_a,index){
+        if(index==0){
+            $(".img_shouji").attr("src","images/shouji_active.png");
+            $(".img_baodan").attr("src","images/baodan.png");
+            $(".img_car").attr("src","images/car.png");
+            $('.chekeby_phone').css('display','block');
+            $('.chekeby_poliy').css('display','none');
+            $('.chekeby_car').css('display','none');
+            $('.policySendSms').css('display','');
+            $('.policySendSmsLim').css('display','none');
+        }else if(index==1){
+            $(".img_shouji").attr("src","images/shouji.png");
+            $(".img_baodan").attr("src","images/baodan_active.png");
+            $(".img_car").attr("src","images/car.png");
+            $('.chekeby_phone').css('display','none');
+            $('.chekeby_poliy').css('display','block');
+            $('.chekeby_car').css('display','none');
+            $('.policySendSms').css('display','none');
+            $('.policySendSmsLim').css('display','');
+        }else if(index==2){
+            $(".img_shouji").attr("src","images/shouji.png");
+            $(".img_baodan").attr("src","images/baodan.png");
+            $(".img_car").attr("src","images/car_active.png");
+            $('.chekeby_phone').css('display','none');
+            $('.chekeby_poliy').css('display','none');
+            $('.chekeby_car').css('display','block');
+            plChangeCaptcha("#carimagesCode");
+        }
+    }
+    $('.class_check').click(function(){
+        var tag_a = $(this);
+        var index = $(this).index();
+        showContent(tag_a,index);
+    });
+
+    function checkinput(dom,obj,search,objname) {
+        var dataCode = dom.find(obj);//input框
+        var codeType = dom.find(obj).attr('codeType');//验证类型
+        var selectTypeobj = $(search);
+        objname['true'] = checkCode(dataCode, dataCode.val(), "errClass", codeType, selectTypeobj);
+        console.log(objname);
+    }
+    function check_codeinput(obj,errobj,search,objname) {
+        var dataCode = $(obj);//input框
+        var errobj = $(errobj);//错误提示信息对象
+        var codeType = dataCode.attr('codeType');//验证类型
+        objname['true'] = checkCode(dataCode, dataCode.val(), "errClass", codeType, '');
+        console.log(objname);
+    }
+    $(".policySendSms").click(function() {
+        var verCode = $(".policyListInput");
+        var verCodeValue = $.trim($(".policyListInput").val());
+        if (!verCode || verCodeValue.length == 0) {
+            verCode.parent().addClass("main_input_red");
+            verCode.parent().next().text("请输入正确的随机验证码");
+            return;
+        } else {
+            verCode.parent().removeClass("main_input_red");
+            verCode.parent().next().text("");
+        }
+        var phone = $("#phonenumber");
+        $.ajax({
+            url: '/policy/sendSmsCode',
+            type: 'post',
+            data: {
+                systemId: 'Web',
+                phoneNum: phone.val(),
+                module: 'policy_',
+                authCode: verCodeValue
+            },
+            beforeSend: function () {
+                $.fn.jqLoading({
+                    text: "蓝鲸正在为您全力加载中..."
+                });
+            },
+            success: function(data) {
+                $(".openContent,.open_blocknew ").css({display: 'none'});
+                if (data.resCode == 1) {
+                    //resCode 返回1，短信发送成功
+                    $(".openContent,.open_blocknew ").css({display: 'none'});
+                    smsTime("#sendcode",60);
+                    dialog("短信验证码发送成功， 请注意查收！");
+                } else {
+                    //resCode 短信发送失败，给出错误信息
+                    // dialog("短信验证码发送失败！");
+                    dialog(data.resMsg);
+                }
+            },
+            complete: function () {
+                $.fn.jqLoading("destroy");
+            },
+            error: function (data) {
+                $.fn.jqLoading("destroy");
+                //                dialog(data.resMsg);
+            }
+
+        });
+    });
+    $(".policySendSmsLim").click(function() {
+        var verCode = $(".policyListInput");
+        var verCodeValue = $.trim($(".policyListInput").val());
+        if (!verCode || verCodeValue.length == 0) {
+            verCode.parent().addClass("main_input_red");
+            verCode.parent().next().text("请输入正确的随机验证码");
+            return;
+        } else {
+            verCode.parent().removeClass("main_input_red");
+            verCode.parent().next().text("");
+        }
+        var phone = $("#phonenumber_p");
+        $.ajax({
+            url: '/policy/sendSmsCodeLIM',
+            type: 'post',
+            data: {
+                systemId: 'Web',
+                phoneNum: phone.val(),
+                module: 'policym2_',
+                authCode: verCodeValue
+            },
+            beforeSend: function () {
+                $.fn.jqLoading({
+                    text: "蓝鲸正在为您全力加载中..."
+                });
+            },
+            success: function(data) {
+                $(".openContent,.open_blocknew ").css({display: 'none'});
+                if (data.resCode == 1) {
+                    //resCode 返回1，短信发送成功
+                    $(".openContent,.open_blocknew ").css({display: 'none'});
+                    smsTime("#sendcode_p",60);
+                    dialog("短信验证码发送成功， 请注意查收！");
+                } else {
+                    //resCode 短信发送失败，给出错误信息
+                    // dialog("短信验证码发送失败！");
+                    dialog(data.resMsg);
+                }
+            },
+            complete: function () {
+                $.fn.jqLoading("destroy");
+            },
+            error: function (data) {
+                $.fn.jqLoading("destroy");
+                //                dialog(data.resMsg);
+            }
+
+        });
+    });
+    $(".open_close ").click(function() {
+        $(".openContent,.open_blocknew").hide()
+    })
+
+    //byphone查询
+    var checkby_phone = $('.chekeby_phone');
+    var phonenumber = {};
+    checkby_phone.find('.input_phone').blur(function(){
+        checkinput(checkby_phone,'.input_phone','',phonenumber)
+    });
+    checkby_phone.find('.input_id').blur(function(){
+        checkinput(checkby_phone,'.input_id','.searchValue',phonenumber)
+    });
+    var name1 = {};
+    $("#code").blur(function(){
+        check_codeinput('#code',".cp_errorcode",'',name1);
+    })
+    var phonenumbershowcode = {};
+    function showimgcode() {
+        checkinput(checkby_phone,'.input_phone','',phonenumbershowcode)
+        if (!phonenumbershowcode['true']) return;
+        plChangeCaptcha("#graphImg")
+        $(".openContent,.open_blocknew").show()
+    }
+    function getCode() {
+        showimgcode();
+    }
+    //获取验证码
+    $("#sendcode").click(getCode);
+    //按手机号查询
+    $("#forphone").click(function() {
+        var checkphone = {};
+        var checkidnum = {};
+        checkinput(checkby_phone, '.input_phone', '', checkphone);
+        checkinput(checkby_phone, '.input_id', '.searchValue', checkidnum);
+        check_codeinput('#code', ".cp_errorcode", '', name1);
+        scPolicyWebClick(0,'按手机号查询保单：点击查询按钮');
+        if (checkidnum['true'] && checkphone['true']) {
+            $.ajax({
+                url: contextPath + '/policy/searchPolicy/prePolicyList',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    systemId: 'Web',
+                    //证件类型
+                    certificateType: $("#idtype").val(),
+                    //证件号
+                    certificateNum: $("#idnum").val(),
+                    //手机号
+                    phoneNum: $("#phonenumber").val(),
+                    //验证码
+                    smsNum: $("#code").val(),
+                    module: 'policy_'
+                },
+                beforeSend: function () {
+                    $.fn.jqLoading({
+                        text: "蓝鲸正在为您全力加载中..."
+                    });
+                    bm_sensor.serverStar("保单查询","按手机号查询");
+                },
+                success: function (data) {
+                    bm_sensor.serverComp("保单查询","按手机号查询","查询完成");
+                    $("#authCode").val('')
+                    if (data.resCode == '1') {
+                        //resCode 返回1，验证成功，页面跳转处理
+                        omEventMsg('保单查询(按手机号查询):查询成功', '保单查询(按手机号查询):查询成功', '服务大厅:保单查询');
+                        goToUrl(contextPath + '/policy/searchPolicy/getPolicyList', "certificateType=" + $("#idtype").val() + "&certificateNum=" + $("#idnum").val() + "&phoneNum=" + data.phoneNo + "&smsNum=" + $("#code").val() + "&lock=" + data.lock)
+                    } else {
+                        omEventMsg('保单查询(按手机号查询):错误消息:' + (data.resMsg || "系统错误"), '保单查询(按手机号查询):查询失败', '服务大厅:保单查询');
+                        //restCode ，验证失败，给出错误信息
+                        dialog(data.resMsg);
+                        //如果有错误信息则执行代码，没有则不执行代码
+/*                        var s = s_gi(s_account);
+                        s.linkTrackVars = 'prop51';
+                        s.prop51 = '服务大厅:按手机号查询:报错信息';
+                        s.tl(this, 'o', '报错信息');*/
+                    }
+                },
+                complete: function () {
+                    $.fn.jqLoading("destroy");
+                },
+                error: function (data) {
+                    omEventMsg('保单查询(按手机号查询):错误消息:' + (data.errMsg || "系统错误"), '保单查询(按手机号查询):查询失败', '服务大厅:保单查询');
+                    $.fn.jqLoading("destroy");
+                    dialog(data.errMsg);
+                }
+            });
+        }
+    })
+
+    //bypoliy查询
+    var chekeby_poliy = $('.chekeby_poliy');
+    var poliynumber={};
+    chekeby_poliy.find('.input_policy').blur(function(){
+        checkinput(chekeby_poliy,'.input_policy','',poliynumber);
+    });
+    chekeby_poliy.find('.input_id').blur(function(){
+        checkinput(chekeby_poliy,'.input_id','.poliyValue',poliynumber);
+    });
+    chekeby_poliy.find('.input_phone').blur(function(){
+        checkinput(chekeby_poliy,'.input_phone','',poliynumber);
+        dealErrP(poliynumber);
+    });
+    var name2 = {};
+    $("#code_p").blur(function(){
+        check_codeinput('#code_p',".cp_errorcode_p",'',name2);
+        dealErrC(name2);
+    })
+
+    function dealErrP(tmp) {
+        if(!tmp['true']){
+            $(".cp_errorcode_p").text("请输入正确的手机号！");
+            $("#phonenumber_p").removeClass("errClass");
+            $("#phonenumber_p").addClass("errClass");
+            $("#cp_errorcode_p").attr("errClass_2","errClass_2");
+        }else{
+            if(!$("#cp_errorcode_p").attr("errClass_1")){
+                $(".cp_errorcode_p").text("");
+            }
+            $("#phonenumber_p").removeClass("errClass");
+            $("#cp_errorcode_p").attr("errClass_2","");
+        }
+    }
+    function dealErrC(tmp) {
+        if(!tmp['true']){
+            $(".cp_errorcode_p").text("请输入正确的手机验证码！");
+            $("#code_p").removeClass("errClass");
+            $("#code_p").addClass("errClass");
+            $("#cp_errorcode_p").attr("errClass_1","errClass_1");
+        }else{
+            if(!$("#cp_errorcode_p").attr("errClass_2")){
+                $(".cp_errorcode_p").text("");
+            }
+            $("#code_p").removeClass("errClass");
+            $("#cp_errorcode_p").attr("errClass_1","");
+        }
+    }
+
+    var phonenumbershowcode_p = {};
+    function showimgcode_p() {
+        checkinput(chekeby_poliy,'.input_phone','',phonenumbershowcode_p)
+        if (!phonenumbershowcode_p['true']) {
+            $(".cp_errorcode_p").text("请输入正确的手机号！");
+            return;
+        }
+        plChangeCaptcha("#graphImg")
+        $(".openContent,.open_blocknew").show()
+    }
+    function getCode_p() {
+        showimgcode_p();
+    }
+    //获取验证码
+    $("#sendcode_p").click(getCode_p);
+    function checkForward() {
+        var tag = true;
+        checkinput(chekeby_poliy, '.input_policy', '', poliynumber);
+        if(!poliynumber['true']){
+            tag = false;
+        }
+        checkinput(chekeby_poliy, '.input_id', '.poliyValue', poliynumber);
+        if(!poliynumber['true']){
+            tag = false;
+        }
+        checkinput(chekeby_poliy, '.input_phone', '', poliynumber);
+        dealErrP(poliynumber);
+        if(!poliynumber['true']){
+            tag = false;
+        }
+        if(!tag){
+            return;
+        }
+        var authCode = {};
+        check_codeinput('#code_p', ".p_errorcode", '', authCode);
+        dealErrC(authCode);
+        var identifyType = $("#identifyType").val();
+        var identifyNum = $("#identifyNum").val();
+        var policyNo = $("#policyNo").val();
+        var phone = $("#phonenumber_p").val();
+        if (authCode['true']) {
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: contextPath + '/policy/searchPolicyByPolicyNo',
+                data: {
+                    identifyType: identifyType,
+                    identifyNum: identifyNum,
+                    policyNo: policyNo,
+                    phone: phone,
+                    authCode: $("#code_p").val(),
+                    systemId: "Web",
+                    iboxToken: token,
+                    module: 'policym2_'
+                },
+                beforeSend: function () {
+                    $.fn.jqLoading({
+                        text: "蓝鲸正在为您全力加载中..."
+                    });
+                    bm_sensor.serverStar("保单查询", "按保单号查询");
+                },
+                success: function (data) {
+                    bm_sensor.serverComp("保单查询", "按保单号查询", "查询完成");
+                    $("#authCode").val('')
+                    plChangeCaptcha("#imagesCode");
+                    var resCode = data.resCode;
+                    var resMsg = data.resMsg;
+                    if (resCode == 1) {
+                        omEventMsg('保单查询(按保单号查询):查询成功', '保单查询(按保单号查询):查询成功', '服务大厅:保单查询');
+                        var lockValue = data.lock;
+                        var ftlName = data.ftlName;
+                        if ('AGUZT99Z0116Q000002W' == policyNo || 'AGUZT99Z0116Q000003W' == policyNo) {
+                            ftlName = 'estateOther';
+                        }
+                        if (ftlName == "lifeShort" || ftlName == "lifeZyxShort") {//寿险短险
+                            goToUrl(contextPath + '/policySchema/lifeOverViewSingleSchema', "policyNo=" + policyNo + "&lock=" + lockValue + "&systemId=Web&searchType=querySimple" + "&identifyType=" + identifyType + "&certificateNum=" + identifyNum);
+                        } else if (ftlName == "lifeLong") {//寿险长险 isValidatePhoneNum是否短信验证标志 ，没有返回按钮 ，查看详情  ，不需要返回标识
+                            goToUrl(contextPath + '/policySchema/lifeLongSchema', "policyNo=" + policyNo + "&lock=" + lockValue + "&systemId=Web&isValidatePhoneNum=1&searchType=querySimple" + "&identifyType=" + identifyType + "&certificateNum=" + identifyNum);
+                        } else if (ftlName == "healthy") {//健康险
+                            goToUrl(contextPath + '/policySchema/healthSchema', "policyNo=" + policyNo + "&lock=" + lockValue + "&systemId=Web&searchType=querySimple" + "&identifyType=" + identifyType + "&certificateNum=" + identifyNum);
+                        } else if (ftlName == "unitLink") {//投连险
+                            goToUrl(contextPath + '/policySchema/lifeLongTermInvestmentSchema', "policyNo=" + policyNo + "&lock=" + lockValue + "&systemId=Web&searchType=querySimple" + "&certificateType=" + identifyType + "&certificateNum=" + identifyNum);
+                        } else if (ftlName == "estateVehicle") {//车险 isValidatePhoneNum是否短信验证标志 ,identifyType增加一个证件类型为预留手机验证的入参
+                            //goToUrl(contextPath+'/policySchema/automobileSchema',"policyNo="+policyNo+"&credentialNo="+identifyNum+"&lock="+lockValue+"&systemId=Web&isValidatePhoneNum=1&searchType=querySimple"+"&identifyType="+identifyType);
+                            //直接跳转到详情页面
+                            goToUrl(contextPath + '/detail/automobieDetail', "policyNo=" + policyNo + "&certificateNum=" + identifyNum + "&lock=" + lockValue + "&systemId=Web&isValidatePhoneNum=1&searchType=querySimple&target=_blank" + "&certificateType=" + identifyType);
+                        } else if (ftlName == "estatePerson") {//产险非车-人意
+                            //弹出层方式来进入补充画面
+                            $("#lifeUnexpectedPolicyNo").html(policyNo);
+                            $("input:hidden[name='h_policyNo']").val(policyNo);
+                            $("input:hidden[name='h_policyType']").val(ftlName);
+                            showInfo(".searchMan", ".open_close", "#showback", function () {
+                                $("#showback").show();
+                            });
+                        } else if (ftlName == "estateFreight" || ftlName == "estateOther") {//产险非车-货运 ,其它
+                            //弹出层方式来进入补充画面
+                            $("#transportAndOtherPolicyNo").html(policyNo);
+                            $("input:hidden[name='h_policyNo']").val(policyNo);
+                            $("input:hidden[name='h_policyType']").val(ftlName);
+                            showInfo(".insuredName", ".open_close", "#showback", function () {
+                                $("#showback").show();
+                            });
+                            //判断是否是保单融合的新险种
+                        } else if (ftlName == "freeInsurance") {
+                            //跳转到寿险免费赠险的手机短信验证码校验页面
+                            var phoneNum = data.phoneNum;
+                            var phone = data.phone;
+                            goToUrl(contextPath + '/policy/newpolicy/validateFreeInsuranceSearch', "policyNo=" + policyNo + "&credentialNo=" + identifyNum + "&lock=" + lockValue + "&systemId=Web&searchType=querySimple&identifyType=" + identifyType + "&phoneNum=" + phoneNum + "&phone=" + phone);
+                        } else if (ftlName == "huBeiAccidentInsurance") {
+                            //跳转到湖北分公司乘意险查询页面
+                            goToUrl(contextPath + '/policy/newpolicy/toHuBeiAccidentSearch', "policyNo=" + policyNo + "&credentialNo=" + identifyNum + "&lock=" + lockValue + "&systemId=Web&searchType=querySimple&identifyType=" + identifyType);
+                        } else if (ftlName == "gxZjAccidentInsurance") {
+                            //跳转到广西，浙江舟山乘意险查询页面
+                            goToUrl(contextPath + '/policy/newpolicy/toGxZjAccidentSearch', "policyNo=" + policyNo + "&credentialNo=" + identifyNum + "&lock=" + lockValue + "&systemId=Web&searchType=querySimple&identifyType=" + identifyType);
+                        }
+                    } else {
+                        omEventMsg('保单查询(按保单号查询):错误消息:' + (resMsg || "系统错误"), '保单查询(按保单号查询):查询失败', '服务大厅:保单查询');
+                        if (resCode == "-999999" || resCode == "000001" || resCode == "000018" || resCode == "000014"
+                            || resCode == "-9180009" || resCode == "-9180014" ) {
+                            dialog(resMsg);
+                        } else if (resCode == "-991009" || resCode == "-990003") {
+                            dialog(resMsg);
+                            onfocus("phonenumber_p");
+                        }else if (resCode == "000015" || resCode == "-991008" || resCode=="-990001" || resCode=="-990101" || resCode=="-991007") {
+                            dialog(resMsg);
+                            onfocus("code_p");
+                        } else if (resCode == "000017" || resCode == "-991003") {
+                            dialog(resMsg);
+                            onfocus("policyNo");
+                        } else if (resCode == "000016" || resCode == "-991006") {
+                            dialog(resMsg);
+                            onfocus("identifyNum");
+                        }
+                    }
+                    //如果有错误信息则执行代码，没有则不执行代码
+/*                    var s = s_gi(s_account);
+                    s.linkTrackVars = 'prop51';
+                    s.prop51 = '服务大厅:按保单号查询:报错信息';
+                    s.tl(this, 'o', '报错信息');*/
+                },
+                complete: function () {
+                    $.fn.jqLoading("destroy");
+                },
+                error: function (data) {
+                    omEventMsg('保单查询(按保单号查询):错误消息:' + (data.errMsg || "系统错误"), '保单查询(按保单号查询):查询失败', '服务大厅:保单查询');
+                    $.fn.jqLoading("destroy");
+                    dialog(data.errMsg);
+                }
+            });
+        }
+    }
+    $("#forpoliy").click(function() {
+        checkForward();
+        scPolicyWebClick(1,'按保单号查询保单：点击查询按钮');
+    })
+    //两个modal-confirm
+    $("#lifeUnexpectedSubBtn").click(function(){
+        checkLifeUnexpectedForward();
+    })
+    $("#transportAndOtherSubBtn").click(function(){
+        checkTransportAndOtherForward();
+    })
+    function checkLifeUnexpectedForward(){
+        var h_policyType = $("input:hidden[name='h_policyType']").val();
+        var lifeUnexpectedPolicyNo =$("#policyNo").val();
+        var searcher = $("input[name='searcher']:checked").val();
+        var holderOrInsuredName = $("#holderOrInsuredName").val();
+        var credentialType  =$("#identifyType").val();
+        var credentialNo = $("#identifyNum").val();
+        var emsg = "请输入正确的投被保人姓名";
+        if(holderOrInsuredName.length==0){
+            dialog(emsg);
+            onfocus("holderOrInsuredName");
+            return;
+        }
+        $.ajax({
+            type:'post',
+            dataType:'json',
+            url:contextPath+'/policy/secondValidate',
+            data:{policyNo:lifeUnexpectedPolicyNo,insuredName:holderOrInsuredName,applicantName:holderOrInsuredName,searcher:searcher,policyType:h_policyType,credentialType:credentialType,credentialNo:credentialNo,systemId:"Web"},
+            beforeSend: function () {
+                $.fn.jqLoading({
+                    text: "蓝鲸全力为您加载中..."
+                });
+            },
+            success:function(data){
+                if(data.resCode==1){
+                    var lockValue = data.lock;
+                    //直接跳转到详情页面
+                    goToUrl(contextPath+'/estateDetail/forwardEstate',
+                        "policyNo="+lifeUnexpectedPolicyNo+"&searcher="+searcher+"&applicantName="+holderOrInsuredName+
+                        "&insuredName="+holderOrInsuredName+"&holderOrInsuredName="+holderOrInsuredName+"&credentialType="+credentialType+"&credentialNo="+credentialNo+
+                        "&lock="+lockValue+"&systemId=Web"+"&searchType=querySimple"+"&isValidatePhoneNum=0&policyType=estatePerson&target=_blank");
+
+                }else{
+                    dialog(data.resMsg);
+                }
+            },
+            complete: function () {
+                $("#holderOrInsuredName").val("");
+                $.fn.jqLoading("destroy");
+            },
+            error: function (data) {
+                $.fn.jqLoading("destroy");
+                dialog(data.errMsg);
+            }
+        });
+    }
+    function checkTransportAndOtherForward(){
+        var h_policyType = $("input:hidden[name='h_policyType']").val();
+        var transportAndOtherPolicyNo = $("#policyNo").val();
+        var transportAndOtherInsuredName = $("#transportAndOtherInsuredName").val();
+        var credentialNo = $("#identifyNum").val();
+        var emsg = "请输入正确的被保人姓名";
+        if(transportAndOtherInsuredName.length==0){
+            dialog(emsg);
+            onfocus("transportAndOtherInsuredName");
+            return;
+        }
+        $.ajax({
+            type:'post',
+            dataType:'json',
+            url:contextPath+'/policy/secondValidate',
+            data:{
+                policyNo:transportAndOtherPolicyNo,
+                insuredName:transportAndOtherInsuredName,
+                policyType:h_policyType,
+                credentialNo:credentialNo,
+                systemId:"Web"
+            },
+            beforeSend: function () {
+                $.fn.jqLoading({
+                    text: "蓝鲸全力为您加载中..."
+                });
+            },
+            success:function(data){
+                if(data.resCode==1){
+                    var toUrl = "";
+                    var params="";
+                    var lockValue = data.lock;
+                    //直接跳转到详情页面
+                    if(h_policyType=="estateFreight"){
+                        toUrl ="/estateDetail/forwardEstate";
+                        params = "policyNo="+transportAndOtherPolicyNo+"&insuredName="+transportAndOtherInsuredName+"&searchType=querySimple"+"&isValidatePhoneNum=0&policyType=estateFreight&target=_blank"+"&credentialType="+$("#identifyType").val()+"&credentialNo="+credentialNo;
+                    }else if(h_policyType=="estateOther"){
+                        toUrl ="/estateDetail/forwardEstate";
+                        params = "policyNo="+transportAndOtherPolicyNo+"&insuredName="+transportAndOtherInsuredName+"&credentialNo="+credentialNo+"&isValidatePhoneNum=0&policyType=estateOther&target=_blank"+"&credentialType="+$("#identifyType").val();
+                    }
+                    goToUrl(contextPath+toUrl,params+"&lock="+lockValue+"&systemId=Web"+"&searchType=querySimple");
+                }else{
+                    dialog("请输入正确的被保人姓名");
+                }
+            },
+            complete: function () {
+                $("#transportAndOtherInsuredName").val("");
+                $.fn.jqLoading("destroy");
+            },
+            error: function (data) {
+                $.fn.jqLoading("destroy");
+                dialog(data.errMsg);
+            }
+        });
+    }
+
+    //车牌验证
+    function checkCodeNo(){
+        var codeNo = $("#codeNo").val();
+        plateOrFrame = $("#plateOrFrame").val();
+
+        if(!codeNo || codeNo.length < 7 || codeNo.length > 17){
+            $(".chekeby_car").find('.input_chepaiid').addClass('errClass');
+            $(".chekeby_car").find('.input_chepaiid').next('div').css('display','block');
+            return false;
+        }else{
+            $(".chekeby_car").find('.input_chepaiid').removeClass('errClass');
+            $(".chekeby_car").find('.input_chepaiid').next('div').css('display','none');
+            var dataValue = $(".chekeby_car").find('.input_chepaiid').val();
+            return dataValue;
+        }
+    }
+    var carnumnberid={};
+    var chekeby_car = $('.chekeby_car');
+    //chekeby_car 身份证验证
+    chekeby_car.find('.input_id').blur(function(){
+        checkinput(chekeby_car,'.input_id','.car_idValue',carnumnberid);
+    });
+    //chekeby_car 车牌号验证
+    chekeby_car.find('.input_chepaiid').blur(function(){
+        checkCodeNo();
+    });
+    //chekeby_car 验证码验证
+    chekeby_car.find('#authCodeVehicle').blur(function(){
+        var dataCode =  $(this);//input框
+        var codeType = $(this).attr('codeType');//验证类型 2
+        name[bl] = checkCode(dataCode, dataCode.val(), "errClass", codeType, '');
+    });
+
+    var plateOrFrame = "";
+    var name_car = {};
+    function checkForwardVehicle(){
+        //车牌验证
+        var c_carnumnber = checkCodeNo();
+        //身份证验证
+        checkinput(chekeby_car,'.input_id','.car_idValue',carnumnberid);//身份验证
+        check_codeinput('#authCodeVehicle',".c_errorcode",'',name_car);
+        var identifyNumVehicle = $("#identifyNumVehicle").val();//身份证号
+        var identiType = $("#identifyTypeVehicle").val(); //身份 类型
+        var codeNo = $("#codeNo").val();//输入的车牌或车架号
+        var authCode = $("#authCodeVehicle").val();//验证码
+        var plateOrFrame = $("#plateOrFrame").val()=="2"?"frameNumber":"plateNumber";//车牌类型（车牌或车架号）
+        if(c_carnumnber && name_car['true'] && carnumnberid['true']){//ajax交互
+            $.ajax({
+                type:'post',
+                dataType:'json',
+                url:contextPath+'/policy/validateVehicle',
+                data:{
+                    identifyNumVehicle:identifyNumVehicle,
+                    plateOrFrame:plateOrFrame,
+                    codeNo:codeNo,
+                    authCode:authCode
+                },
+                beforeSend: function () {
+                    $.fn.jqLoading({
+                        text: "蓝鲸全力为您加载中..."
+                    });
+                    bm_sensor.serverStar("保单查询","按车牌号查询");
+                },
+                success:function(data){
+                    bm_sensor.serverComp("保单查询","按车牌号查询","查询完成");
+                    if(data.resCode=='1'){
+                        omEventMsg('保单查询(按车牌号查询):查询成功','保单查询(按车牌号查询):查询成功','服务大厅:保单查询');
+                        var dTime = (new Date()).getTime();  //存查询信息的时间轴（localstorage键名）
+
+                        $.cookie(dTime+'idType',identiType ,{path: '/' });
+                        $.cookie(dTime+'identifyNumVehicle',strToBase64(identifyNumVehicle) ,{path: '/' });
+                        $.cookie(dTime+'plateOrFrame',plateOrFrame ,{path: '/' });
+                        $.cookie(dTime+'codeNo',codeNo,{path: '/' } );
+                        $.cookie(dTime+'authCode',authCode ,{path: '/' });
+                        $.cookie(dTime+'lock',data.lock,{path: '/' } );
+
+                        window.location.href="/static/policy/newVehicleList.html?dTime="+dTime;
+                    }else{
+                        omEventMsg('保单查询(按车牌号查询):错误消息:'+(data.resMsg || "系统错误"),'保单查询(按车牌号查询):查询失败','服务大厅:保单查询');
+                        $("#authCodeVehicle").val("");
+                        plChangeCaptcha("#carimagesCode");
+                        //change_GraphVehicle();
+                        dialog(data.resMsg);
+                        //如果有错误信息则执行代码，没有则不执行代码
+/*                        var s=s_gi(s_account);
+                        s.linkTrackVars='prop51';
+                        s.prop51='服务大厅:按车牌号查询:报错信息';
+                        s.tl(this,'o','报错信息');*/
+                    }
+                },
+                complete: function () {
+                    $.fn.jqLoading("destroy");
+                },
+                error: function (data) {
+                    omEventMsg('保单查询(按车牌号查询):错误消息:'+(data.errMsg || "系统错误"),'保单查询(按车牌号查询):查询失败','服务大厅:保单查询');
+                    $.fn.jqLoading("destroy");
+                    dialog(data.errMsg);
+                }
+            });
+        }
+    }
+    $("#forcar").click(function() {
+        checkForwardVehicle();
+        scPolicyWebClick(2,'按车牌号查询保单：点击查询按钮');
+    });
+
+})
+
+//OM布玛
+//按手机号查询 - 手机号控件监测
+function PhoneNum_phone(data) {
+    if (data.value == "") {
+        omEventMsg('保单查询(按手机号查询):输入手机号码:手机号码未输入', '保单查询(按手机号查询):输入手机号码', '服务大厅:保单查询');
+    } else {
+        omEventMsg('保单查询(按手机号查询):输入手机号码:手机号码已输入', '保单查询(按手机号查询):输入手机号码', '服务大厅:保单查询');
+    }
+}
+function PhoneNum_phone_p(data) {
+    if (data.value == "") {
+        omEventMsg('保单查询(按保单号查询):输入手机号码:手机号码未输入', '保单查询(按保单号查询):输入手机号码', '服务大厅:保单查询');
+    } else {
+        omEventMsg('保单查询(按保单号查询):输入手机号码:手机号码已输入', '保单查询(按保单号查询):输入手机号码', '服务大厅:保单查询');
+    }
+}
+//按手机号查询 - 证件类型控件监测
+function PhoneNum_type() {
+    if ($('#phonenumber')[0].value == "") {
+        omEventMsg('保单查询(按手机号查询):选择证件类型:手机号码未输入', '保单查询(按手机号查询):选择证件类型', '服务大厅:保单查询');
+    } else {
+        omEventMsg('保单查询(按手机号查询):选择证件类型:手机号码已输入', '保单查询(按手机号查询):选择证件类型', '服务大厅:保单查询');
+    }
+}
+//按手机号查询 - 证件号码控件监测
+function PhoneNum_num() {
+    if ($('#phonenumber')[0].value == "") {
+        omEventMsg('保单查询(按手机号查询):输入证件号码:手机号码未输入', '保单查询(按手机号查询):输入证件号码', '服务大厅:保单查询');
+    } else {
+        omEventMsg('保单查询(按手机号查询):输入证件号码:手机号码已输入', '保单查询(按手机号查询):输入证件号码', '服务大厅:保单查询');
+    }
+}
+//按手机号查询 - 输入验证码控件监测
+function PhoneNum_code(){
+    if($('#phonenumber')[0].value==""&&$('#idnum')[0].value==""){
+        omEventMsg('保单查询(按手机号查询):输入短信验证码:手机号码未输入:证件号码未输入','保单查询(按手机号查询):输入短信验证码','服务大厅:保单查询');
+    }else if($('#phonenumber')[0].value==""&&$('#idnum')[0].value!=""){
+        omEventMsg('保单查询(按手机号查询):输入短信验证码:手机号码未输入:证件号码已输入','保单查询(按手机号查询):输入短信验证码','服务大厅:保单查询');
+    }else if($('#phonenumber')[0].value!=""&&$('#idnum')[0].value==""){
+        omEventMsg('保单查询(按手机号查询):输入短信验证码:手机号码已输入:证件号码未输入','保单查询(按手机号查询):输入短信验证码','服务大厅:保单查询');
+    }else if($('#phonenumber')[0].value!=""&&$('#idnum')[0].value!=""){
+        omEventMsg('保单查询(按手机号查询):输入短信验证码:手机号码已输入:证件号码已输入','保单查询(按手机号查询):输入短信验证码','服务大厅:保单查询');
+    }
+}
+function PhoneNum_code_p(){
+    if($('#phonenumber_p')[0].value==""&&$('#identifyNum')[0].value==""){
+        omEventMsg('保单查询(按保单号查询):输入短信验证码:手机号码未输入:证件号码未输入','保单查询(按保单号查询):输入短信验证码','服务大厅:保单查询');
+    }else if($('#phonenumber_p')[0].value==""&&$('#identifyNum')[0].value!=""){
+        omEventMsg('保单查询(按保单号查询):输入短信验证码:手机号码未输入:证件号码已输入','保单查询(按保单号查询):输入短信验证码','服务大厅:保单查询');
+    }else if($('#phonenumber_p')[0].value!=""&&$('#identifyNum')[0].value==""){
+        omEventMsg('保单查询(按保单号查询):输入短信验证码:手机号码已输入:证件号码未输入','保单查询(按保单号查询):输入短信验证码','服务大厅:保单查询');
+    }else if($('#phonenumber_p')[0].value!=""&&$('#identifyNum')[0].value!=""){
+        omEventMsg('保单查询(按保单号查询):输入短信验证码:手机号码已输入:证件号码已输入','保单查询(按保单号查询):输入短信验证码','服务大厅:保单查询');
+    }
+}
+//按手机号查询 - 获取验证码控件监测
+function PhoneNum_getCode(){
+    if($('#phonenumber')[0].value==""&&$('#idnum')[0].value==""&&$('#code')[0].value==""){
+        omEventMsg('保单查询(按手机号查询):获取短信验证码:手机号码未输入:证件号码未输入:短信验证码未输入','保单查询(按手机号查询):获取短信验证码','服务大厅:保单查询');
+    }else if($('#phonenumber')[0].value!=""&&$('#idnum')[0].value==""&&$('#code')[0].value==""){
+        omEventMsg('保单查询(按手机号查询):获取短信验证码:手机号码已输入:证件号码未输入:短信验证码未输入','保单查询(按手机号查询):获取短信验证码','服务大厅:保单查询');
+    }else if($('#phonenumber')[0].value==""&&$('#idnum')[0].value!=""&&$('#code')[0].value==""){
+        omEventMsg('保单查询(按手机号查询):获取短信验证码:手机号码未输入:证件号码已输入:短信验证码未输入','保单查询(按手机号查询):获取短信验证码','服务大厅:保单查询');
+    }else if($('#phonenumber')[0].value==""&&$('#idnum')[0].value==""&&$('#code')[0].value!=""){
+        omEventMsg('保单查询(按手机号查询):获取短信验证码:手机号码未输入:证件号码未输入:短信验证码已输入','保单查询(按手机号查询):获取短信验证码','服务大厅:保单查询');
+    }else if($('#phonenumber')[0].value==""&&$('#idnum')[0].value!=""&&$('#code')[0].value!=""){
+        omEventMsg('保单查询(按手机号查询):获取短信验证码:手机号码未输入:证件号码已输入:短信验证码已输入','保单查询(按手机号查询):获取短信验证码','服务大厅:保单查询');
+    }else if($('#phonenumber')[0].value!=""&&$('#idnum')[0].value!=""&&$('#code')[0].value==""){
+        omEventMsg('保单查询(按手机号查询):获取短信验证码:手机号码已输入:证件号码已输入:短信验证码未输入','保单查询(按手机号查询):获取短信验证码','服务大厅:保单查询');
+    }else if($('#phonenumber')[0].value!=""&&$('#idnum')[0].value==""&&$('#code')[0].value!=""){
+        omEventMsg('保单查询(按手机号查询):获取短信验证码:手机号码已输入:证件号码未输入:短信验证码已输入','保单查询(按手机号查询):获取短信验证码','服务大厅:保单查询');
+    }else if($('#phonenumber')[0].value!=""&&$('#idnum')[0].value!=""&&$('#code')[0].value!=""){
+        omEventMsg('保单查询(按手机号查询):获取短信验证码:手机号码已输入:证件号码已输入:短信验证码已输入','保单查询(按手机号查询):获取短信验证码','服务大厅:保单查询');
+    }
+}
+function PhoneNum_getCode_p(){
+    if($('#phonenumber_p')[0].value==""&&$('#identifyNum')[0].value==""&&$('#code_p')[0].value==""){
+        omEventMsg('保单查询(按保单号查询):获取短信验证码:手机号码未输入:证件号码未输入:短信验证码未输入','保单查询(按保单号查询):获取短信验证码','服务大厅:保单查询');
+    }else if($('#phonenumber_p')[0].value!=""&&$('#identifyNum')[0].value==""&&$('#code_p')[0].value==""){
+        omEventMsg('保单查询(按保单号查询):获取短信验证码:手机号码已输入:证件号码未输入:短信验证码未输入','保单查询(按保单号查询):获取短信验证码','服务大厅:保单查询');
+    }else if($('#phonenumber_p')[0].value==""&&$('#identifyNum')[0].value!=""&&$('#code_p')[0].value==""){
+        omEventMsg('保单查询(按保单号查询):获取短信验证码:手机号码未输入:证件号码已输入:短信验证码未输入','保单查询(按保单号查询):获取短信验证码','服务大厅:保单查询');
+    }else if($('#phonenumber_p')[0].value==""&&$('#identifyNum')[0].value==""&&$('#code_p')[0].value!=""){
+        omEventMsg('保单查询(按保单号查询):获取短信验证码:手机号码未输入:证件号码未输入:短信验证码已输入','保单查询(按保单号查询):获取短信验证码','服务大厅:保单查询');
+    }else if($('#phonenumber_p')[0].value==""&&$('#identifyNum')[0].value!=""&&$('#code_p')[0].value!=""){
+        omEventMsg('保单查询(按保单号查询):获取短信验证码:手机号码未输入:证件号码已输入:短信验证码已输入','保单查询(按保单号查询):获取短信验证码','服务大厅:保单查询');
+    }else if($('#phonenumber_p')[0].value!=""&&$('#identifyNum')[0].value!=""&&$('#code_p')[0].value==""){
+        omEventMsg('保单查询(按保单号查询):获取短信验证码:手机号码已输入:证件号码已输入:短信验证码未输入','保单查询(按保单号查询):获取短信验证码','服务大厅:保单查询');
+    }else if($('#phonenumber_p')[0].value!=""&&$('#identifyNum')[0].value==""&&$('#code_p')[0].value!=""){
+        omEventMsg('保单查询(按保单号查询):获取短信验证码:手机号码已输入:证件号码未输入:短信验证码已输入','保单查询(按保单号查询):获取短信验证码','服务大厅:保单查询');
+    }else if($('#phonenumber_p')[0].value!=""&&$('#identifyNum')[0].value!=""&&$('#code_p')[0].value!=""){
+        omEventMsg('保单查询(按保单号查询):获取短信验证码:手机号码已输入:证件号码已输入:短信验证码已输入','保单查询(按保单号查询):获取短信验证码','服务大厅:保单查询');
+    }
+}
+//按保单号查询 - 输入保单号控件监测
+function bandanNum_baodan(data) {
+    if (data.value == "") {
+        omEventMsg('保单查询(按保单号查询):输入保单号:保单号未输入', '保单查询(按保单号查询):输入保单号', '服务大厅:保单查询');
+    } else {
+        omEventMsg('保单查询(按保单号查询):输入保单号:保单号已输入', '保单查询(按保单号查询):输入保单号', '服务大厅:保单查询');
+    }
+}
+//按保单号查询 - 选择证件类型控件监测
+function baodanNum_poliyTitle() {
+    if ($('#policyNo')[0].value == "") {
+        omEventMsg('保单查询(按保单号查询):选择证件类型:保单号未输入', '保单查询(按保单号查询):选择证件类型', '服务大厅:保单查询');
+    } else {
+        omEventMsg('保单查询(按保单号查询):选择证件类型:保单号已输入', '保单查询(按保单号查询):选择证件类型', '服务大厅:保单查询');
+    }
+}
+//按保单号查询 - 输入证件号码控件监测
+function baodanNum_poliyNum() {
+    if ($('#policyNo')[0].value == "") {
+        omEventMsg('保单查询(按保单号查询):输入证件号码:保单号未输入', '保单查询(按保单号查询):输入证件号码', '服务大厅:保单查询');
+    } else {
+        omEventMsg('保单查询(按保单号查询):输入证件号码:保单号已输入', '保单查询(按保单号查询):输入证件号码', '服务大厅:保单查询');
+    }
+}
+//按保单号查询 - 输入验证码控件监测
+function baodanNum_codeNum(){
+    if($('#policyNo')[0].value==""&&$('#identifyNum')[0].value==""){
+        omEventMsg('保单查询(按保单号查询):输入图形验证码:保单号未输入:证件号码未输入','保单查询(按保单号查询):输入图形验证码','服务大厅:保单查询');
+    }else if($('#policyNo')[0].value==""&&$('#identifyNum')[0].value!=""){
+        omEventMsg('保单查询(按保单号查询):输入图形验证码:保单号未输入:证件号码已输入','保单查询(按保单号查询):输入图形验证码','服务大厅:保单查询');
+    }else if($('#policyNo')[0].value!=""&&$('#identifyNum')[0].value==""){
+        omEventMsg('保单查询(按保单号查询):输入图形验证码:保单号已输入:证件号码未输入','保单查询(按保单号查询):输入图形验证码','服务大厅:保单查询');
+    }else if($('#policyNo')[0].value!=""&&$('#identifyNum')[0].value!=""){
+        omEventMsg('保单查询(按保单号查询):输入图形验证码:保单号已输入:证件号码已输入','保单查询(按保单号查询):输入图形验证码','服务大厅:保单查询');
+    }
+}
+//按保单号查询 - 刷新验证码控件监测
+function baodanNum_newCodeNum(){
+    if($('#policyNo')[0].value==""&&$('#identifyNum')[0].value==""&&$('#policy_authCode')[0].value==""){
+        omEventMsg('保单查询(按保单号查询):刷新图形验证码:保单号未输入:证件号码未输入:图形验证码未输入','保单查询(按保单号查询):刷新图形验证码','服务大厅:保单查询');
+    }else if($('#policyNo')[0].value!=""&&$('#identifyNum')[0].value==""&&$('#policy_authCode')[0].value==""){
+        omEventMsg('保单查询(按保单号查询):刷新图形验证码:保单号已输入:证件号码未输入:图形验证码未输入','保单查询(按保单号查询):刷新图形验证码','服务大厅:保单查询');
+    }else if($('#policyNo')[0].value==""&&$('#identifyNum')[0].value!=""&&$('#policy_authCode')[0].value==""){
+        omEventMsg('保单查询(按保单号查询):刷新图形验证码:保单号未输入:证件号码已输入:图形验证码未输入','保单查询(按保单号查询):刷新图形验证码','服务大厅:保单查询');
+    }else if($('#policyNo')[0].value==""&&$('#identifyNum')[0].value==""&&$('#policy_authCode')[0].value!=""){
+        omEventMsg('保单查询(按保单号查询):刷新图形验证码:保单号未输入:证件号码未输入:图形验证码已输入','保单查询(按保单号查询):刷新图形验证码','服务大厅:保单查询');
+    }else if($('#policyNo')[0].value!=""&&$('#identifyNum')[0].value!=""&&$('#policy_authCode')[0].value==""){
+        omEventMsg('保单查询(按保单号查询):刷新图形验证码:保单号已输入:证件号码已输入:图形验证码未输入','保单查询(按保单号查询):刷新图形验证码','服务大厅:保单查询');
+    }else if($('#policyNo')[0].value!=""&&$('#identifyNum')[0].value==""&&$('#policy_authCode')[0].value!=""){
+        omEventMsg('保单查询(按保单号查询):刷新图形验证码:保单号已输入:证件号码未输入:图形验证码已输入','保单查询(按保单号查询):刷新图形验证码','服务大厅:保单查询');
+    }else if($('#policyNo')[0].value==""&&$('#identifyNum')[0].value!=""&&$('#policy_authCode')[0].value!=""){
+        omEventMsg('保单查询(按保单号查询):刷新图形验证码:保单号未输入:证件号码已输入:图形验证码已输入','保单查询(按保单号查询):刷新图形验证码','服务大厅:保单查询');
+    }else if($('#policyNo')[0].value!=""&&$('#identifyNum')[0].value!=""&&$('#policy_authCode')[0].value!=""){
+        omEventMsg('保单查询(按保单号查询):刷新图形验证码:保单号已输入:证件号码已输入:图形验证码已输入','保单查询(按保单号查询):刷新图形验证码','服务大厅:保单查询');
+    }
+}
+
+//按车牌号查询 - 输入车牌号控件监测
+function carNum_carNum(data) {
+    if (data.value == "") {
+        omEventMsg('保单查询(按车牌号查询):输入车牌号:车牌号未输入', '保单查询(按车牌号查询):输入车牌号', '服务大厅:保单查询');
+    } else {
+        omEventMsg('保单查询(按车牌号查询):输入车牌号:车牌号已输入', '保单查询(按车牌号查询):输入车牌号', '服务大厅:保单查询');
+    }
+}
+//按车牌号查询 - 选择证件类型控件监测
+function carNum_idTitle() {
+    if ($('#codeNo')[0].value == "") {
+        omEventMsg('保单查询(按车牌号查询):选择证件类型:车牌号未输入', '保单查询(按车牌号查询):选择证件类型', '服务大厅:保单查询');
+    } else {
+        omEventMsg('保单查询(按车牌号查询):选择证件类型:车牌号已输入', '保单查询(按车牌号查询):选择证件类型', '服务大厅:保单查询');
+    }
+}
+//按车牌号查询 - 输入证件号控件监测
+function carNum_idNum() {
+    if ($('#codeNo')[0].value == "") {
+        omEventMsg('保单查询(按车牌号查询):输入证件号码:车牌号未输入', '保单查询(按车牌号查询):输入证件号码', '服务大厅:保单查询');
+    } else {
+        omEventMsg('保单查询(按车牌号查询):输入证件号码:车牌号已输入', '保单查询(按车牌号查询):输入证件号码', '服务大厅:保单查询');
+    }
+}
+//按车牌号查询 - 输入验证码控件监测
+function carNum_codeNum(){
+    if($('#codeNo')[0].value==""&&$('#identifyNumVehicle')[0].value==""){
+        omEventMsg('保单查询(按车牌号查询):输入图形验证码:车牌号未输入:证件号码未输入','保单查询(按车牌号查询):输入图形验证码','服务大厅:保单查询');
+    }else if($('#codeNo')[0].value!=""&&$('#identifyNumVehicle')[0].value==""){
+        omEventMsg('保单查询(按车牌号查询):输入图形验证码:车牌号已输入:证件号码未输入','保单查询(按车牌号查询):输入图形验证码','服务大厅:保单查询');
+    }else if($('#codeNo')[0].value==""&&$('#identifyNumVehicle')[0].value!=""){
+        omEventMsg('保单查询(按车牌号查询):输入图形验证码:车牌号未输入:证件号码已输入','保单查询(按车牌号查询):输入图形验证码','服务大厅:保单查询');
+    }else if($('#codeNo')[0].value!=""&&$('#identifyNumVehicle')[0].value!=""){
+        omEventMsg('保单查询(按车牌号查询):输入图形验证码:车牌号已输入:证件号码已输入','保单查询(按车牌号查询):输入图形验证码','服务大厅:保单查询');
+    }
+}
+//按车牌号查询 - 刷新验证码控件监测
+function carNum_newcodeNum(){
+    if($('#codeNo')[0].value==""&&$('#identifyNumVehicle')[0].value==""&&$('#authCodeVehicle')[0].value==""){
+        omEventMsg('保单查询(按车牌号查询):刷新图形验证码:车牌号未输入:证件号码未输入:图形验证码未输入','保单查询(按车牌号查询):刷新图形验证码','服务大厅:保单查询');
+    }else if($('#codeNo')[0].value!=""&&$('#identifyNumVehicle')[0].value==""&&$('#authCodeVehicle')[0].value==""){
+        omEventMsg('保单查询(按车牌号查询):刷新图形验证码:车牌号已输入:证件号码未输入:图形验证码未输入','保单查询(按车牌号查询):刷新图形验证码','服务大厅:保单查询');
+    }else if($('#codeNo')[0].value==""&&$('#identifyNumVehicle')[0].value!=""&&$('#authCodeVehicle')[0].value==""){
+        omEventMsg('保单查询(按车牌号查询):刷新图形验证码:车牌号未输入:证件号码已输入:图形验证码未输入','保单查询(按车牌号查询):刷新图形验证码','服务大厅:保单查询');
+    }else if($('#codeNo')[0].value==""&&$('#identifyNumVehicle')[0].value==""&&$('#authCodeVehicle')[0].value!=""){
+        omEventMsg('保单查询(按车牌号查询):刷新图形验证码:车牌号未输入:证件号码未输入:图形验证码已输入','保单查询(按车牌号查询):刷新图形验证码','服务大厅:保单查询');
+    }else if($('#codeNo')[0].value!=""&&$('#identifyNumVehicle')[0].value!=""&&$('#authCodeVehicle')[0].value==""){
+        omEventMsg('保单查询(按车牌号查询):刷新图形验证码:车牌号已输入:证件号码已输入:图形验证码未输入','保单查询(按车牌号查询):刷新图形验证码','服务大厅:保单查询');
+    }else if($('#codeNo')[0].value!=""&&$('#identifyNumVehicle')[0].value==""&&$('#authCodeVehicle')[0].value!=""){
+        omEventMsg('保单查询(按车牌号查询):刷新图形验证码:车牌号已输入:证件号码未输入:图形验证码已输入','保单查询(按车牌号查询):刷新图形验证码','服务大厅:保单查询');
+    }else if($('#codeNo')[0].value==""&&$('#identifyNumVehicle')[0].value!=""&&$('#authCodeVehicle')[0].value!=""){
+        omEventMsg('保单查询(按车牌号查询):刷新图形验证码:车牌号未输入:证件号码已输入:图形验证码已输入','保单查询(按车牌号查询):刷新图形验证码','服务大厅:保单查询');
+    }else if($('#codeNo')[0].value!=""&&$('#identifyNumVehicle')[0].value!=""&&$('#authCodeVehicle')[0].value!=""){
+        omEventMsg('保单查询(按车牌号查询):刷新图形验证码:车牌号已输入:证件号码已输入:图形验证码已输入','保单查询(按车牌号查询):刷新图形验证码','服务大厅:保单查询');
+    }
+}// 神策页面点击事件
+function scPolicyWebClick(mainOperationCode,elementContent){
+    var mainOperation = '';
+    if(mainOperationCode==0){
+        mainOperation = '按手机号查询';
+    }else if(mainOperationCode==1){
+        mainOperation = '按保单号查询';
+    }else if(mainOperationCode==2){
+        mainOperation = '按车牌号查询';
+    }else{
+        mainOperation = mainOperationCode;
+    }
+    bm_sensor.webClick('服务大厅:保单查询',mainOperation,elementContent);
+}

@@ -1,0 +1,185 @@
+/**
+ * Created by c_yibingjun on 2017/5/31.
+ */
+//页面级
+
+function insertOm(pageName,prop50){
+/*    s.pageName = pageName;
+    var strArray = pageName.split(":");
+    s.channel = strArray[0];
+    s.prop50=prop50;
+
+    s.prop1 = strArray[0] +":"+ strArray[1];
+
+    if(strArray.length == 3){
+        s.prop2 = pageName;
+    }
+
+    if(strArray.length == 4){
+        s.prop2 = strArray[0] + ":" +strArray[1] + ":" + strArray[2];
+        s.prop3 = pageName;
+    }
+
+    if(strArray.length == 5){
+        s.prop2 = strArray[0] + ":" +strArray[1] + ":" + strArray[2];
+        s.prop3 = strArray[0] + ":" +strArray[1] + ":" + strArray[2] + ":" + strArray[3];
+        s.prop4 = pageName;
+    }
+
+    if(strArray.length == 6){
+        s.prop2 = strArray[0] + ":" +strArray[1] + ":" + strArray[2];
+        s.prop3 = strArray[0] + ":" +strArray[1] + ":" + strArray[2] + ":" + strArray[3];
+        s.prop4 = strArray[0] + ":" +strArray[1] + ":" + strArray[2] + ":" + strArray[3] + ":" + strArray[4];
+        s.prop5 = pageName;
+    }
+
+    var s_code = s.t();if(s_code)document.write(s_code);*/
+}
+
+//在线服务数据监控方案（omniture）
+function insertLog(desc){
+/* var s=s_gi(s_account);
+ s.linkTrackVars='prop21,eVar27';
+ s.prop21=desc;
+ //s.eVar27=getuuid();
+ s.tl(this,'o', '控件监控');*/
+ }
+
+//OM部署tab键、提交量、本页面的完成量和弹出框
+function insertLogOm(name){
+/*    var s=s_gi(s_account);
+    s.linkTrackVars='prop50';
+    s.prop50=name;
+    s.tl(this,'o',name);*/
+}
+//点查找
+/*onfocus="insertLog('一键查询（查询所有保单）点击次数');"
+ onclick="insertLogOm('查询所有保单-提交量');"*/
+/*insertLogOm('服务大厅:按手机号查询');
+ insertLogOm('服务大厅:按保单号查询');
+ insertLogOm('服务大厅:按车牌号查询');*/
+
+//点查询类型(保单/手机号/车牌号)
+/*
+ onclick="insertLog('查询所有保单(tab键切换次数)');insertLogOm('查询所有保单-tab访问量');"
+ */
+
+//8.4 页面改造新加
+function newinsertLogOm(name,watch){
+/*    var s=s_gi(s_account);
+    s.linkTrackVars='prop21';
+    s.prop21=name;
+    s.tl(this,'o',watch);*/
+}
+
+function newcontOm(name,watch){
+/*    var s=s_gi(s_account);
+    s.linkTrackVars='prop50';
+    s.prop50=name;
+    s.tl(this,'o',watch);*/
+}
+//服务大厅控件监测
+//6.15理赔进度查询
+function newLiPeicontOm1(name1,name2,watch){
+/*	var s=s_gi(s_account);
+	s.linkTrackVars='prop51,prop50';
+	s.prop51=name1;
+	s.prop50=name2;
+	s.tl(this,'o',watch);*/
+}
+function newLiPeicontOm(name1,name2,watch){
+/*	var s=s_gi(s_account);
+	s.linkTrackVars='prop51,prop50';
+	s.prop50=name1;
+	s.prop51=name2;
+	s.tl(this,'o',watch);*/
+}
+//8.18车险一站式
+//校验
+function carOm(type,name){
+/*	var s=s_gi(s_account);
+	s.linkTrackVars="prop21";
+	s.prop21="车险一站式:"+type+":"+name; 
+	s.tl(this,"o","车险一站式");*/
+}
+//理赔查询
+function searchOm(type){
+/*	var s=s_gi(s_account);
+	s.linkTrackVars="prop21,prop50";
+	s.prop21="车险一站式:"+type+"-提交量";
+	s.prop50="车险一站式:理赔查询-提交量";
+	s.tl(this,"o","车险一站式");*/
+}
+//保单查询
+function policysearchOm(){
+/*	var s=s_gi(s_account);
+	s.linkTrackVars="prop50, prop21";
+	s.prop21="车险一站式:保单查询-提交量";
+	s.prop50="车险一站式:保单查询-提交量";
+	s.tl(this,"o","车险一站式:保单查询-提交量");*/
+}
+
+//电子保单补寄
+function emailSend(name){
+/*	if(location.href.indexOf('porce')>-1){
+		var s=s_gi(s_account);
+		s.linkTrackVars="prop50";
+		s.prop50="服务大厅:车险一站式:保单查询:详情页("+name+"):电子保单补寄";
+		s.tl(this,"o","车险一站式");
+
+	}else{
+		var s=s_gi(s_account);
+		s.linkTrackVars="prop50";
+		s.prop50="服务大厅:保单查询:详情页("+name+"):电子保单补寄";
+		s.tl(this,"o","车险一站式");
+
+	}*/
+}
+//异议反馈
+function response(name){
+/*	if(location.href.indexOf('porce')>-1){
+		var s=s_gi(s_account);
+		s.linkTrackVars="prop50";
+		s.prop50="服务大厅:车险一站式:保单查询:详情页("+name+"):异议反馈";
+		s.tl(this,"o","车险一站式");
+	}else{
+		var s=s_gi(s_account);
+		s.linkTrackVars="prop50";
+		s.prop50="服务大厅:车险一站式:保单查询:详情页("+name+"):异议反馈";
+		s.tl(this,"o","车险一站式");
+	}*/
+}
+//9/29 网点预约 控件  查询应备资料
+function storeInsertOM(name,type){
+/*    var s=s_gi(s_account);
+    s.linkTrackVars='prop50';
+    s.prop50=name;
+    s.tl(this,'o',type);*/
+}
+
+function addScriptNew(){
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = '//a2cdn3.8686c.com/sensorsdata/cpic.sd.js';
+    head.appendChild(script);
+}
+addScriptNew();
+
+window.onload=function(){
+	var headnew = document.getElementsByTagName('head')[0];
+	var scriptnew = document.createElement('script');
+	scriptnew.type = 'text/javascript';
+	scriptnew.src = '/res/js/newcommon/scCommon/scCommon_one.js';
+	headnew.appendChild(scriptnew);	 
+}
+
+function fwdt_page(pageName) {
+    // if (sen_tag) {
+    //     sa.track("page",{
+    //         pageChannel:'FWDT',
+    //         process:pageName,
+    //         pageName:pageName
+    //     });
+    // }
+}

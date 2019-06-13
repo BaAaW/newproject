@@ -1,0 +1,351 @@
+//var curTabText="使用报案号/赔案号查询";
+$(function() {
+	inOut(2);
+
+	bm_sensor.page("理赔进度查询", "服务大厅:查理赔:理赔进度查询");
+	bm_zntj.recommend({"serviceName":"服务大厅-理赔查询","serviceCode":"2"});
+
+
+	$('.searchContent').on('click',function(e){
+		newcontOm('理赔进度查询(使用保单号查询):证件类型:已选择','服务大厅:理赔进度查询');
+	})
+
+	setCookie("cpic_service_type", "理赔查询-查询页", 0, "/", "cpic.com.cn")
+
+	//使用保单号查询-下拉框
+	selectShow(".searchTitle",".searchContent",".searchData",".searchValue");
+	//使用赔案号查询-下拉框
+	selectShow(".reportTitle",".reportContent",".reportData",".reportValue");
+	// 按理赔的验证码获取
+//	curTabText="使用报案号/赔案号查询";
+	generateValiCode('reportCodeImg');
+	// 按保单号验证码获取
+	generateValiCode('policyCodeImg');
+//	$('.tabs a').click(function(e){
+//	if($(this).text()=="使用保单号查询" && curTabText !="使用保单号查询"){
+//		curTabText = "使用保单号查询";
+//		generateValiCode('policyCodeImg');
+//	}
+//	else if($(this).text()=="使用报案号/赔案号查询" && curTabText !="使用报案号/赔案号查询"){
+//		curTabText = "使用报案号/赔案号查询";
+//		generateValiCode('reportCodeImg');
+//	}
+//	
+//    });
+	// 按保单号查询的验证码刷新
+	$('#refreshPolicyCode').click(function(e){
+		generateValiCode('policyCodeImg');
+	});
+	// 按报案号查询的验证码刷新
+	$('#refreshReportCode').click(function(e){
+		generateValiCode('reportCodeImg');
+	});
+	// 按保单号查询的验证码刷新
+	$('#policyCodeImg').click(function(e){
+		generateValiCode('policyCodeImg');
+	});
+	// 按报案号查询的验证码刷新
+	$('#reportCodeImg').click(function(e){
+		generateValiCode('reportCodeImg');
+	});
+	// 保单号查询
+	$('#policyBtn').click(function(e){
+		var checkCard = checkCertificateNum(document.getElementById('ploicyCertificateNum'),'.searchValue');
+		var checkPolicy = checkPolicyNo(document.getElementById('policNo'));
+		var vailCode = checkValiCode(document.getElementById('policyValiCode'));
+
+		var vgcRequest ={};
+		vgcRequest.validateCode= vailCode;
+		if(checkCard !=false  && checkPolicy!=false  && vailCode !==false){
+
+			vgcRequest.moduleKey="c_policy";
+			//遮罩加载
+			$.fn.jqLoading('openLayer');
+			$.ajax({
+				url: contextPath+'/common/validataGenerateCaptcha',
+				type: 'post',
+				data: vgcRequest,
+				success: function(data) {
+
+					$.fn.jqLoading('destroy');
+					if(data.resCode != 1){
+						omEventMsg('理赔进度查询(使用保单号查询):错误消息:'+(data.resMsg || "系统错误"),'理赔进度查询(查询所有保单):查询失败','服务大厅:理赔进度查询');
+						generateValiCode('policyCodeImg');
+						dialog(data.resMsg);
+					}
+					else{
+						omEventMsg('理赔进度查询(使用保单号查询):查询成功','理赔进度查询(查询所有保单):查询成功','服务大厅:理赔进度查询');
+						var policyParam ={};
+						policyParam.certificateType = $('#policyForm input[name="certificateType"]').val();
+						policyParam.certificateNum=checkCard;
+						policyParam.policyNo =checkPolicy;
+						policyParam.validateCode=vailCode;
+						bm_sensor.serverStar("理赔进度查询","按保单号查询");
+						$.StandardPost(contextPath+"/searchClaims/claimsList",policyParam);
+					}
+
+				},
+				error:function(e){
+					omEventMsg('理赔进度查询(使用保单号查询):错误消息:'+(e.statusText || "图片验证码校验失败"),'理赔进度查询(查询所有保单):查询失败','服务大厅:理赔进度查询');
+					generateValiCode('policyCodeImg');
+					$.fn.jqLoading('destroy');
+					dialog('图片验证码校验失败。');
+				}
+			});
+
+
+		}
+	});
+	// 报案号查询
+	$('#reportBtn').click(function(e){
+
+		var checkCard = checkCertificateNum(document.getElementById('reportCertificateNum'),'.reportValue');
+		var checkReport = checkReportNo(document.getElementById('reportNo'));
+		var vailCode = checkValiCode(document.getElementById('reportValiCode'));
+		var vgcRequest ={};
+		vgcRequest.validateCode=vailCode ;
+		if(checkCard !=false  && checkReport !=false && vailCode !==false){
+			vgcRequest.moduleKey="c_report";
+			$.ajax({
+				url: contextPath+'/common/validataGenerateCaptcha',
+				type: 'post',
+				data: vgcRequest,
+				success: function(data) {
+					if(data.resCode != 1){
+						omEventMsg('理赔进度查询(使用报案号/赔案号查询):错误消息:'+(data.resMsg || "系统错误"),'理赔进度查询(查询所有保单):查询失败','服务大厅:理赔进度查询');
+						generateValiCode('reportCodeImg');
+						dialog(data.resMsg);
+					}
+					else{
+						var reportParam ={};
+						reportParam.certificateType = $('#reportForm input[name="certificateType"]').val();
+						reportParam.certificateNum=checkCard;
+						reportParam.reportNo =checkReport;
+						reportParam.validateCode=vailCode;
+						omEventMsg('理赔进度查询(使用报案号/赔案号查询):查询成功','理赔进度查询(查询所有保单):查询成功','服务大厅:理赔进度查询');
+						bm_sensor.serverStar("理赔进度查询","按赔/报案号查询");
+						$.StandardPost(contextPath+"/searchClaims/claimsList",reportParam);
+					}
+				},
+				error:function(e){
+					omEventMsg('理赔进度查询(使用报案号/赔案号查询):错误消息:'+(e.statusText || "图片验证码校验失败"),'理赔进度查询(查询所有保单):查询失败','服务大厅:理赔进度查询');
+					generateValiCode('reportCodeImg');
+					dialog('图片验证码校验失败。');
+				}
+			});
+		}
+	});
+});
+
+/**
+ * 生产验证码
+ * @param target 验证码显示的目标元素ID
+ */
+function generateValiCode(target){
+	var moduleKey="";
+	if(target=="policyCodeImg"){
+		moduleKey="c_policy";
+	}
+	else if(target=="reportCodeImg"){
+		moduleKey="c_report";
+	}
+	$('#'+target).attr('src',contextPath+'images/generateCaptcha?moduleKey='+moduleKey+"&r="+new Date().getTime());
+}
+//控件监测
+function focusValicode(){
+	if($('#reportNo')[0].value==""&&$('#reportCertificateNum')[0].value==""){
+		omEventMsg('理赔进度查询(使用报案号/赔案号查询):输入图形验证码:报案号码未输入:证件号码未输入','理赔进度查询(使用报案号/赔案号查询):输入图形验证码','服务大厅:理赔进度查询');
+	}else if($('#reportNo')[0].value==""&&$('#reportCertificateNum')[0].value!=""){
+		omEventMsg('理赔进度查询(使用报案号/赔案号查询):输入图形验证码:报案号码未输入:证件号码已输入','理赔进度查询(使用报案号/赔案号查询):输入图形验证码','服务大厅:理赔进度查询');
+	}else if($('#reportNo')[0].value!=""&&$('#reportCertificateNum')[0].value==""){
+		omEventMsg('理赔进度查询(使用报案号/赔案号查询):输入图形验证码:报案号码已输入:证件号码未输入','理赔进度查询(使用报案号/赔案号查询):输入图形验证码','服务大厅:理赔进度查询');
+	}else if($('#reportNo')[0].value!=""&&$('#reportCertificateNum')[0].value!=""){
+		omEventMsg('理赔进度查询(使用报案号/赔案号查询):输入图形验证码:报案号码已输入:证件号码已输入','理赔进度查询(使用报案号/赔案号查询):输入图形验证码','服务大厅:理赔进度查询');
+	}
+}
+/**
+ * 校验证件号
+ * @param data
+ */
+function checkfocusCertificateNum(data){
+	if(data.value==""){
+		omEventMsg('理赔进度查询(使用报案号/赔案号查询):输入证件号码:证件号码未输入','理赔进度查询(使用报案号/赔案号查询):输入证件号码','服务大厅:理赔进度查询');
+	}else{
+		omEventMsg('理赔进度查询(使用报案号/赔案号查询):输入证件号码:证件号码已输入','理赔进度查询(使用报案号/赔案号查询):输入证件号码','服务大厅:理赔进度查询');
+	}
+}
+function checkCertificateNum(data,seleteType) {
+
+	var flag= checkCode(data, data.value, "main_input_red", 0, seleteType);
+	if(flag == undefined || flag == false){
+		return false;
+	}
+	return flag;
+}
+/**
+ * 保单号验证
+ * @param data
+ */
+function checkPolicyNo(data) {
+
+	var flag= checkCode(data, data.value, "main_input_red", 3, null);
+	if(flag == undefined || flag == false){
+		return false;
+	}
+	return flag;
+
+}
+/**
+ * 赔案号验证
+ * @param data
+ */
+function MOcheckFocusReportNo(){
+	if($('#reportNo')[0].value==""&&$('#reportCertificateNum')[0].value==''){
+		omEventMsg('理赔进度查询(使用报案号/赔案号查询):输入报案号:报案号码未输入:证件号码未输入','理赔进度查询(使用报案号/赔案号查询):输入报案号','服务大厅:理赔进度查询');
+	}else if($('#reportNo')[0].value!=""&&$('#reportCertificateNum')[0].value==''){
+		omEventMsg('理赔进度查询(使用报案号/赔案号查询):输入报案号:报案号码已输入:证件号码未输入','理赔进度查询(使用报案号/赔案号查询):输入报案号','服务大厅:理赔进度查询');
+	}else if($('#reportNo')[0].value==""&&$('#reportCertificateNum')[0].value!=''){
+		omEventMsg('理赔进度查询(使用报案号/赔案号查询):输入报案号:报案号码未输入:证件号码已输入','理赔进度查询(使用报案号/赔案号查询):输入报案号','服务大厅:理赔进度查询');
+	}else if($('#reportNo')[0].value!=""&&$('#reportCertificateNum')[0].value!=''){
+		omEventMsg('理赔进度查询(使用报案号/赔案号查询):输入报案号:报案号码已输入:证件号码已输入','理赔进度查询(使用报案号/赔案号查询):输入报案号','服务大厅:理赔进度查询');
+	}
+}
+function checkReportNo(data) {
+	var flag= checkCode(data, data.value, "main_input_red", 4, null);
+	if(flag == undefined || flag == false){
+		return false;
+	}
+	return flag;
+}
+/**
+ * 验证码非空检验
+ * @param data
+ */
+function checkValiCode(data) {
+	var errClass='main_input_red';
+	$(data).parent().removeClass(errClass);
+
+	var valiCode= data.value;
+	var dataValue = valiCode.replace(/(^\s*)|(\s*$)/g, "");
+	if (dataValue.length == 0) {
+		//为空时，给出错误提示
+		$(data).parent().addClass(errClass);
+		$(data).next().text("不允许为空，请输入内容！");
+		return false;
+	}
+	var reg = new RegExp(/^[a-zA-Z0-9]{4}$/);
+	if(!reg.test(dataValue)){
+		$(data).parent().addClass(errClass);
+		$(data).next().text("请输入正确的验证码！");
+		return false;
+	}else{
+		$(data).next().text("");
+	}
+
+	return data.value;
+};
+
+function OMcode(){
+	if($('#reportCertificateNum')[0].value==""&&$('#reportNo')[0].value==""){
+		omEventMsg('理赔进度查询(使用报案号/赔案号查询):输入图形验证码:报案号码未输入:证件号码未输入','理赔进度查询(使用报案号/赔案号查询):输入图形验证码','服务大厅:理赔进度查询');
+	}else if($('#reportCertificateNum')[0].value!=""&&$('#reportNo')[0].value==""){
+		omEventMsg('理赔进度查询(使用报案号/赔案号查询):输入图形验证码:报案号码已输入:证件号码未输入','理赔进度查询(使用报案号/赔案号查询):输入图形验证码','服务大厅:理赔进度查询');
+	}else if($('#reportCertificateNum')[0].value==""&&$('#reportNo')[0].value!=""){
+		omEventMsg('理赔进度查询(使用报案号/赔案号查询):输入图形验证码:报案号码未输入:证件号码已输入','理赔进度查询(使用报案号/赔案号查询):输入图形验证码','服务大厅:理赔进度查询');
+	}else if($('#reportCertificateNum')[0].value!=""&&$('#reportNo')[0].value!=""){
+		omEventMsg('理赔进度查询(使用报案号/赔案号查询):输入图形验证码:报案号码已输入:证件号码已输入','理赔进度查询(使用报案号/赔案号查询):输入图形验证码','服务大厅:理赔进度查询');
+	}
+}
+
+//点击刷新验证码，监测控件
+function clickFocus(){
+	if($('#reportNo')[0].value==""&&$('#reportCertificateNum')[0].value==""&&$('#reportValiCode')[0].value==""){
+		omEventMsg('理赔进度查询(使用报案号/赔案号查询):刷新图形验证码:报案号码未输入:证件号码未输入:图形验证码未输入','理赔进度查询(使用报案号/赔案号查询):刷新图形验证码','服务大厅:理赔进度查询');
+	}else if($('#reportNo')[0].value!=""&&$('#reportCertificateNum')[0].value==""&&$('#reportValiCode')[0].value!=""){
+		omEventMsg('理赔进度查询(使用报案号/赔案号查询):刷新图形验证码:报案号码已输入:证件号码未输入:图形验证码已输入','理赔进度查询(使用报案号/赔案号查询):刷新图形验证码','服务大厅:理赔进度查询');
+	}else if($('#reportNo')[0].value==""&&$('#reportCertificateNum')[0].value!=""&&$('#reportValiCode')[0].value==""){
+		omEventMsg('理赔进度查询(使用报案号/赔案号查询):刷新图形验证码:报案号码未输入:证件号码已输入:图形验证码未输入','理赔进度查询(使用报案号/赔案号查询):刷新图形验证码','服务大厅:理赔进度查询');
+	}else if($('#reportNo')[0].value==""&&$('#reportCertificateNum')[0].value==""&&$('#reportValiCode')[0].value!=""){
+		omEventMsg('理赔进度查询(使用报案号/赔案号查询):刷新图形验证码:报案号码未输入:证件号码未输入:图形验证码已输入','理赔进度查询(使用报案号/赔案号查询):刷新图形验证码','服务大厅:理赔进度查询');
+	}else if($('#reportNo')[0].value!=""&&$('#reportCertificateNum')[0].value!=""&&$('#reportValiCode')[0].value==""){
+		omEventMsg('理赔进度查询(使用报案号/赔案号查询):刷新图形验证码:报案号码已输入:证件号码已输入:图形验证码未输入','理赔进度查询(使用报案号/赔案号查询):刷新图形验证码','服务大厅:理赔进度查询');
+	}else if($('#reportNo')[0].value!=""&&$('#reportCertificateNum')[0].value==""&&$('#reportValiCode')[0].value!=""){
+		omEventMsg('理赔进度查询(使用报案号/赔案号查询):刷新图形验证码:报案号码已输入:证件号码未输入:图形验证码已输入','理赔进度查询(使用报案号/赔案号查询):刷新图形验证码','服务大厅:理赔进度查询');
+	}else if($('#reportNo')[0].value==""&&$('#reportCertificateNum')[0].value!=""&&$('#reportValiCode')[0].value!=""){
+		omEventMsg('理赔进度查询(使用报案号/赔案号查询):刷新图形验证码:报案号码未输入:证件号码已输入:图形验证码已输入','理赔进度查询(使用报案号/赔案号查询):刷新图形验证码','服务大厅:理赔进度查询');
+	}else if($('#reportNo')[0].value!=""&&$('#reportCertificateNum')[0].value!=""&&$('#reportValiCode')[0].value!=""){
+		omEventMsg('理赔进度查询(使用报案号/赔案号查询):刷新图形验证码:报案号码已输入:证件号码已输入:图形验证码已输入','理赔进度查询(使用报案号/赔案号查询):刷新图形验证码','服务大厅:理赔进度查询');
+	}
+}
+
+//使用保单号 -证件号控件监测
+function PolicyNo_zhengjianhao(data){
+	if(data.value==""){
+		omEventMsg('理赔进度查询(使用保单号查询):输入证件号码:证件号码未输入','理赔进度查询(使用保单号查询):输入证件号码','服务大厅:理赔进度查询');
+	}else{
+		omEventMsg('理赔进度查询(使用保单号查询):输入证件号码:证件号码已输入','理赔进度查询(使用保单号查询):输入证件号码','服务大厅:理赔进度查询');
+	}
+}
+//使用保单号 -保单号控件监测
+function PolicyNo_baodanhao(data){
+	if(data.value==""&&$('#ploicyCertificateNum')[0].value==""){
+		omEventMsg('理赔进度查询(使用保单号查询):输入保单号:保单号码未输入:证件号码未输入','理赔进度查询(使用保单号查询):输入保单号','服务大厅:理赔进度查询');
+	}else if(data.value==""&&$('#ploicyCertificateNum')[0].value!=""){
+		omEventMsg('理赔进度查询(使用保单号查询):输入保单号:保单号码未输入:证件号码已输入','理赔进度查询(使用保单号查询):输入保单号','服务大厅:理赔进度查询');
+	}else if(data.value!=""&&$('#ploicyCertificateNum')[0].value==""){
+		omEventMsg('理赔进度查询(使用保单号查询):输入保单号:保单号码已输入:证件号码未输入','理赔进度查询(使用保单号查询):输入保单号','服务大厅:理赔进度查询');
+	}else if(data.value!=""&&$('#ploicyCertificateNum')[0].value!=""){
+		omEventMsg('理赔进度查询(使用保单号查询):输入保单号:保单号码已输入:证件号码已输入','理赔进度查询(使用保单号查询):输入保单号','服务大厅:理赔进度查询');
+	}
+}
+//使用保单号-图形验证码控件监测
+function PolicyNo_yanzhengma(){
+	if($('#policNo')[0].value==""&&$('#ploicyCertificateNum')[0].value==""){
+		omEventMsg('理赔进度查询(使用保单号查询):输入图形验证码:保单号码未输入:证件号码未输入','理赔进度查询(使用保单号查询):输入图形验证码','服务大厅:理赔进度查询');
+	}else if($('#policNo')[0].value!=""&&$('#ploicyCertificateNum')[0].value==""){
+		omEventMsg('理赔进度查询(使用保单号查询):输入图形验证码:保单号码已输入:证件号码未输入','理赔进度查询(使用保单号查询):输入图形验证码','服务大厅:理赔进度查询');
+	}else if($('#policNo')[0].value==""&&$('#ploicyCertificateNum')[0].value!=""){
+		omEventMsg('理赔进度查询(使用保单号查询):输入图形验证码:保单号码未输入:证件号码已输入','理赔进度查询(使用保单号查询):输入图形验证码','服务大厅:理赔进度查询');
+	}else if($('#policNo')[0].value!=""&&$('#ploicyCertificateNum')[0].value!=""){
+		omEventMsg('理赔进度查询(使用保单号查询):输入图形验证码:保单号码已输入:证件号码已输入','理赔进度查询(使用保单号查询):输入图形验证码','服务大厅:理赔进度查询');
+	}
+}
+//使用保单号-刷新验证码控件监测
+function PolicyNo_newyanzhengma(){
+	if($('#policNo')[0].value==""&&$('#ploicyCertificateNum')[0].value==""&&$('#policyValiCode')[0].value==""){
+		omEventMsg('理赔进度查询(使用保单号查询):刷新图形验证码:保单号码未输入:证件号码未输入:图形验证码未输入','理赔进度查询(使用保单号查询):刷新图形验证码','服务大厅:理赔进度查询');
+	}else if($('#policNo')[0].value==""&&$('#ploicyCertificateNum')[0].value==""&&$('#policyValiCode')[0].value!=""){
+		omEventMsg('理赔进度查询(使用保单号查询):刷新图形验证码:保单号码未输入:证件号码未输入:图形验证码已输入','理赔进度查询(使用保单号查询):刷新图形验证码','服务大厅:理赔进度查询');
+	}else if($('#policNo')[0].value==""&&$('#ploicyCertificateNum')[0].value!=""&&$('#policyValiCode')[0].value==""){
+		omEventMsg('理赔进度查询(使用保单号查询):刷新图形验证码:保单号码未输入:证件号码已输入:图形验证码未输入','理赔进度查询(使用保单号查询):刷新图形验证码','服务大厅:理赔进度查询');
+	}else if($('#policNo')[0].value==""&&$('#ploicyCertificateNum')[0].value!=""&&$('#policyValiCode')[0].value!=""){
+		omEventMsg('理赔进度查询(使用保单号查询):刷新图形验证码:保单号码未输入:证件号码已输入:图形验证码已输入','理赔进度查询(使用保单号查询):刷新图形验证码','服务大厅:理赔进度查询');
+	}else if($('#policNo')[0].value!=""&&$('#ploicyCertificateNum')[0].value!=""&&$('#policyValiCode')[0].value==""){
+		omEventMsg('理赔进度查询(使用保单号查询):刷新图形验证码:保单号码已输入:证件号码已输入:图形验证码未输入','理赔进度查询(使用保单号查询):刷新图形验证码','服务大厅:理赔进度查询');
+	}else if($('#policNo')[0].value!=""&&$('#ploicyCertificateNum')[0].value==""&&$('#policyValiCode')[0].value!=""){
+		omEventMsg('理赔进度查询(使用保单号查询):刷新图形验证码:保单号码已输入:证件号码未输入:图形验证码已输入','理赔进度查询(使用保单号查询):刷新图形验证码','服务大厅:理赔进度查询');
+	}else if($('#policNo')[0].value!=""&&$('#ploicyCertificateNum')[0].value==""&&$('#policyValiCode')[0].value==""){
+		omEventMsg('理赔进度查询(使用保单号查询):刷新图形验证码:保单号码已输入:证件号码未输入:图形验证码未输入','理赔进度查询(使用保单号查询):刷新图形验证码','服务大厅:理赔进度查询');
+	}else if($('#policNo')[0].value!=""&&$('#ploicyCertificateNum')[0].value!=""&&$('#policyValiCode')[0].value!=""){
+		omEventMsg('理赔进度查询(使用保单号查询):刷新图形验证码:保单号码已输入:证件号码已输入:图形验证码已输入','理赔进度查询(使用保单号查询):刷新图形验证码','服务大厅:理赔进度查询');
+	}
+}
+function OMnewcode(){
+	if($('.tabs.tabsLeft').find('a.active')[0].text=="使用报案号/赔案号查询"){
+		clickFocus();
+	}else{
+		PolicyNo_newyanzhengma();
+	}
+}
+// 神策页面点击事件
+function ScClaimWebClick(mainOperationCode,elementContent){
+	var mainOperation = '';
+	if(mainOperationCode==0){
+		mainOperation = '使用报案号/赔案号查询';
+	}else if(mainOperationCode==1){
+		mainOperation = '使用保单号查询';
+	}else{
+		mainOperation = mainOperationCode;
+	}
+	bm_sensor.webClick('服务大厅:查理赔:理赔进度查询',mainOperation,elementContent);
+}

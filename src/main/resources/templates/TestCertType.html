@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form th:action="@{addcerttype}">
+        证件类型:<input name="ctname">
+        <input type="submit" value="提交">
+    </form>
+    =============<br>
+    <form th:action="@{addproduct}">
+        保险产品名：<input name="pname">
+        保险产品描述：<input name="description">
+        保险期限：<input name="duration">
+        单位(默认年)：<input name="unit">
+        年龄下限：<input name="minage">
+        年龄上限：<input name="maxage">
+        销售区域：<input name="salearea">
+        <input type="submit" value="提交">
+    </form>
+</body>
+</html>

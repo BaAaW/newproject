@@ -1,0 +1,710 @@
+$("#codeNo").val("");
+$("#poliyNumVehicle").val("")
+$("#refresh_icon2").val("")
+
+var _ajaxCount=0,
+_ajaxComplete=0;
+$(document).ajaxSend(function(){
+//ajaxStart只会执行一次， 但是你必须要知道有多少次ajax同时在执行，必须等全部执行完成后才能关闭loading
+//使用ajaxSend可以知道目前正在请求的ajax数量
+	_ajaxCount++;
+	$.fn.jqLoading({
+		text: "蓝鲸全力为您加载中..."
+	});
+});
+$(document).ajaxComplete(function(){
+	console.log(_ajaxComplete,_ajaxCount);
+	if(++_ajaxComplete>=_ajaxCount){
+		$.fn.jqLoading("destroy");
+	}
+});
+//下拉框选值
+
+
+//下拉框 传参：值，选项
+function newSelectShow(obj, sub, data, value) { //去除下拉框效果
+	var obj = $(obj);
+	var sub = $(sub);
+	var data = $(data);
+	var value = $(value);
+	obj.click(function() {
+		$(sub).stop().toggle();
+	});
+	obj.parents().siblings().click(function() {
+		$(sub).stop().hide()
+	});
+	sub.children().click(function() {
+		data.text($(this).text());
+		value.val($(this).attr("data"));
+		$(sub).hide();
+	})
+}
+
+
+//理赔查询 报案号、赔按号、保单号选择
+var d = new newSelectShow(".reportTitle",".reportContent",".reportData",".reportValue");
+
+$(".reportContent").find('a').on('click',function(){
+    var type = $("#reportValue").val();
+    if(type == 1){ //选的保单号
+        $("#reportNo").attr('placeholder','请输入您的保单号')
+    }else{  //赔案号
+        $("#reportNo").attr('placeholder','请输入您的报案号/赔案号')
+    }
+});
+//理赔查询 身份选择
+var a = new newSelectShow(".claimTitle",".claimContent",".claimData",".claimValue");
+
+//保单查询 身份选择
+var b = new newSelectShow(".poliyTitle",".poliyContent",".poliyData",".poliyValue");
+
+//车牌号/车架号选择
+var d = new newSelectShow(".carTitle",".carContent",".carData",".carValue");
+
+//变更车牌 身份选择
+var c = new newSelectShow(".licenseTitle",".licenseContent",".licenseData",".licenseValue");
+
+/**
+ * 保单号 /报案号/赔案号  验证
+ * @param data
+ */
+function checkClaim(data) {
+   var repType =  $("#reportValue").val(); // 1 保单号   2 赔案号、报案号
+    var repResult = "";//保存验证后的结果
+    if(repType == "1"){
+        repResult = checkCode(data, data.value, "main_input_red", 3, null);
+    }else if(repType == "2"){
+        repResult = checkCode(data, data.value, "main_input_red", 4, null)
+    }
+    return  repResult;
+}
+
+ //校验证件号
+function checkCertificateNum(data,seleteType) {
+    var flag= checkCode(data, data.value, "main_input_red", 0, seleteType);
+    if(flag === false ||flag == undefined){
+        return false;
+    }else{
+        return true;
+    }
+}
+
+/**
+ * 验证码非空检验
+ * @param data
+ */
+function checkValiCode(data) {
+    var errClass='main_input_red';
+    $(data).parent().removeClass(errClass);
+
+    var valiCode= data.value;
+    var dataValue = valiCode.replace(/(^\s*)|(\s*$)/g, "");
+    if (dataValue.length == 0) {
+        //为空时，给出错误提示
+        $(data).parent().addClass(errClass);
+        $(data).next().text("请输入正确的验证码！");
+        return false;
+    }
+    var reg = new RegExp(/^[a-zA-Z0-9]{4}$/);
+    if(!reg.test(dataValue)){
+        $(data).parent().addClass(errClass);
+        $(data).next().text("请输入正确的验证码！");
+        return false;
+    }else{
+        $(data).next().text("");
+    }
+    return dataValue;
+};
+
+//chekeby_car 车牌号验证
+$('#codeNo').blur(function(){
+    checkCodeNo();
+});
+//车牌验证
+function checkCodeNo(){
+    var obj = $("#codeNo");
+    var codeNo = obj.val();
+    var plateOrFrame = $("#plateOrFrame").val(); // 1 车牌 2车架号
+    if(!codeNo || codeNo.length < 7 || codeNo.length > 17){
+        obj.addClass('main_input_red');
+        plateOrFrame==1?obj.next('div').html('请输入您的正确的车牌号'):obj.next('div').html('请输入您的正确的车架号');
+        return false;
+    }else{
+        obj.removeClass('main_input_red');
+        obj.next('div').html('');
+        return codeNo;
+    }
+}
+
+//保单号校验
+
+    function policyNum(){
+        var dataValue = $("#policyNo").val();
+        if (dataValue.length == 15 || dataValue.length == 16 || dataValue.length == 18 || dataValue.length == 20 || dataValue.length == 25 || dataValue.length == 26) {
+            $("#policyNo").removeClass('main_input_red');
+            $(".prompt_phone").css('display','none');
+            return dataValue;
+        } else {
+            $("#policyNo").addClass('main_input_red');
+            $(".prompt_phone").css('display','block');
+            return false;
+        }
+    }
+//短信验证
+
+    function noteCode(){
+        var dataValue = $("#mobileCode").val();
+        if (dataValue.length == 6) {
+            $("#mobileCode").removeClass('main_input_red');
+            $(".mobileCodeWrong").css('display','none');
+            return dataValue;
+        } else {
+            $("#mobileCode").addClass('main_input_red');
+            $(".mobileCodeWrong").css('display','block');
+            return false;
+        }
+    }
+
+    //理赔一件查找 --S
+    $("#policyBtn").click(function(){
+        claimsChecking()
+    })
+    function claimsChecking(){
+        var checkReport= checkClaim(document.getElementById('reportNo')); //报案号、赔案号 保单号
+        var checkCard = checkCertificateNum(document.getElementById('policyCertificateNum'),'.claimValue') ; //证件号
+        var vailCode = checkValiCode(document.getElementById('reportValiCode'));  //随机验证码
+        if(checkReport&&checkCard&&vailCode){
+            console.log("都填写了")
+            claimAjax()        //调去理赔接口
+        }else{
+            console.log("有没有填写的")
+        }
+    }
+    //理赔一件查找  --E
+
+    //保单一件查找  --S
+        $("#forcar").click(function(){
+            policyChecking()
+        })
+        function policyChecking(){
+            var CodeNo= checkCodeNo(); //车牌号 车架号
+            var poliyNumVehicle = checkCertificateNum(document.getElementById('poliyNumVehicle'),'.poliyValue') ; //证件号
+            var refresh = checkValiCode(document.getElementById('refresh_icon2'));  //随机验证码
+
+            if(CodeNo&&poliyNumVehicle&&refresh){
+                console.log("都填写了")
+                poliyAjax()              //保单查询 接口
+            }else{
+                console.log("有没有填写的")
+            }
+        }
+    //保单一件查找  --E
+
+    // 变更车牌一件查找  --S
+        $("#licenseChange").click(function(){
+            licenseChecking()
+        })
+        function licenseChecking(){
+            var policyNumber = policyNum();  //保单号
+            var cardType = certificateTypeReport();  //证件类型
+            var cardNum = checkCertificateNum(document.getElementById('licenseNumVehicle'),'.licenseValue');  //证件号
+            var telphone = cellphone();     //手机号
+            var smsCode = noteCode();  //短信验证码
+
+            if(policyNumber&&cardType&&cardNum&&telphone&&smsCode){
+                queryPlateNumber()
+            }else{
+                //console.log("有没有填写的");
+                return false;
+            }
+        }
+    //变更车牌一件查找  --E
+
+        //证件类型select
+       function certificateTypeReport() {
+            var certificateType = $(".certificateTypeValue").val();
+            return certificateType;
+        };
+
+    //理赔查询里面 保单类型的验证码 页面刚进入图形证码
+        generateValiCode('.newPolicyCodeImg');
+
+    // 按保单号验证码获取
+        plChangeCaptcha("#policyCodeImg");
+
+    // 按报案号查询的验证码刷新
+    $('#refreshReportCode').click(function(e){
+    	var TypeName = $("#reportValue").val();
+        claimValidCode(TypeName);
+    });
+    // 按保单号查询的验证码刷新
+    $('#authCodeVehicle').click(function(e){
+        plChangeCaptcha("#policyCodeImg");
+    });
+    // 按理赔查询的验证码刷新
+    $('#reportCodeImg').click(function(e){
+    	var TypeName = $("#reportValue").val();
+        claimValidCode(TypeName);
+    });
+
+//手机号输入框失去焦点时，自动验证
+var cellphone = function(){
+    var phone = $(".phoneNum").val();
+    if(phone){
+        $(".phoneNum").removeClass("main_input_red");
+        $(".phoneWrong").text("");
+        var num = checkCode($(".phoneNum"), $(".phoneNum").val(), "main_input_red", 1);  //校验手机号
+        return num;
+    }else{
+        $(".phoneNum").addClass("main_input_red");
+        $(".phoneWrong").text("请输入正确的手机号！");
+        return false;
+    }
+};
+    /**
+     * 验证码
+     * @param target 验证码显示的目标元素ID
+     */
+    function generateValiCode(target){
+        var moduleKey="";
+        if(target=="#policyCodeImg"){
+            moduleKey="c_policy";
+        }
+        else if(target=="#reportCodeImg"){
+            moduleKey="c_report";
+        }else if(target==".newPolicyCodeImg"){
+            moduleKey="c_policy";
+        }
+        $(target).attr('src','/common/generateCaptcha?moduleKey='+moduleKey+"&r="+new Date().getTime());
+    }
+
+        //理赔查询ajax请求 --S
+            function claimAjax(){
+                var repType =  $("#reportValue").val(); // 1 保单号   2 赔案号、报案号
+                var checkReport= $("#reportNo").val(); //报案号/赔案号/保单号
+                var checkCard = $('#policyCertificateNum').val();
+                var vailCode = $("#reportValiCode").val();  //随机验证码
+                var vgcRequest ={};
+                if(repType == "1"){
+                    vgcRequest.moduleKey="c_policy";
+                }else if(repType == "2"){
+                    vgcRequest.moduleKey="c_report";
+                }
+                    vgcRequest.validateCode=vailCode;
+                    $.ajax({
+                        url: '/common/validataGenerateCaptcha',
+                        type: 'post',
+                        data: vgcRequest,
+                        success: function(data){
+                                 console.log(data);
+                            if(data.resCode != 1){
+                                $("#reportValiCode").val("");        //验证码输入框清空
+                                claimValidCode(repType); //刷新验证码*/
+                                /*generateValiCode('.newPolicyCodeImg');   //刷新验证码*/
+                                dialog(data.resMsg);
+                            }else{
+                            	var reportParam ={};
+                                reportParam.certificateType = $("#reportForm").val();
+                                if(repType == "1"){
+                                    reportParam.policyNo =checkReport;
+                                }else if(repType == "2"){
+                                    reportParam.reportNo =checkReport;
+                                }
+                                reportParam.certificateNum=checkCard;
+                                reportParam.validateCode=vailCode;
+                                reportParam._target='_blank'; //新页面打开
+                                resertSearchData('#reportValiCode','C',repType)//清空验证码值并刷新
+                                $.StandardPost("/searchClaims/claimsList",reportParam);
+                            }
+                        },
+                        complete: function () {
+                           
+                        },
+                        error:function(data){
+                            claimValidCode(repType);//刷新验证码*/
+                            /*generateValiCode('.newPolicyCodeImg');  //刷新验证码*/
+                            dialog(data.resMsg);
+                        }
+                    })
+            };
+        //理赔查询ajax请求 --E
+
+        //保单查询ajax请求 --S
+        function poliyAjax(){
+            var plateOrFrame = "";
+            var carnumnberid = {};
+            var name_car = {};
+                var identifyNumVehicle = $("#poliyNumVehicle").val();//身份证号
+                var identiType = $(".poliyValue").val(); //身份 类型
+                var codeNo = $("#codeNo").val();//输入的车牌或车架号
+                var authCode = $("#refresh_icon2").val();//验证码
+                var plateOrFrame = $("#plateOrFrame").val()=="2"?"frameNumber":"plateNumber";//车牌类型（车牌或车架号）
+                var origin=location.href.indexOf('car_oneStop')>-1?"car":"";
+                    $.ajax({
+                        type:'post',
+                        dataType:'json',
+                        url:'/policy/validateVehicle',
+                        data:{
+                            identifyNumVehicle:identifyNumVehicle,
+                            plateOrFrame:plateOrFrame,
+                            codeNo:codeNo,
+                            authCode:authCode
+                        },
+                        success:function(data){
+                            if(data.resCode=='1'){
+                            	var dTime = (new Date()).getTime();  //存查询信息的时间轴（localstorage键名）
+                    			
+                    			$.cookie(dTime+'idType',identiType ,{path: '/' });
+                    			$.cookie(dTime+'identifyNumVehicle',strToBase64(identifyNumVehicle) ,{path: '/' });
+                    			$.cookie(dTime+'plateOrFrame',plateOrFrame ,{path: '/' });
+                    			$.cookie(dTime+'codeNo',codeNo,{path: '/' } );
+                    			$.cookie(dTime+'authCode',authCode ,{path: '/' });
+                    			$.cookie(dTime+'lock',data.lock,{path: '/' } );
+
+                    			resertSearchData('#refresh_icon2','P') //清空验证码值并刷新
+                                goToUrl('/static/policy/newVehicleList.html?dTime='+dTime+"&origin="+origin,"_target=_blank");
+                            }else{
+                                $("#refresh_icon2").val("");        //验证码输入框清空
+                                plChangeCaptcha("#policyCodeImg");  //验证码刷新
+                                dialog(data.resMsg);
+                            }
+                        },
+                        complete: function () {
+                        
+                        },
+                        error: function (data) {
+                            plChangeCaptcha("#policyCodeImg");  //验证码刷新
+                            dialog(data.resMsg);
+                        }
+                    });
+        };
+        //保单查询ajax请求  --E
+
+    var policyNo_="";
+    var coverageName_ = "";
+    var inceptionDate_= "";
+    var planEndDate_ = "";
+    var branchCode_ = "";
+    var tempPlateNo_ = "";
+    var userCode_ = "";
+    var uniqueUserId_= "";
+    var efficientDate_ = "";
+//临时车牌信息变更查询   --S
+   function queryPlateNumber(){
+       var cardType  = certificateTypeReport();  //证件类型
+       var policyNumber= policyNum(); //保单号
+       var cardNum = checkCertificateNum(document.getElementById('licenseNumVehicle'),'.licenseValue') ; //证件号
+       var telphone = cellphone()   //手机号
+       var smsCode = noteCode();//短信验证码
+
+    if(cardType && policyNumber && cardNum && telphone && smsCode){
+        $.ajax({
+            url: '/plateNumber/initRst',
+            type: 'post',
+            data: {	systemId: "Web",
+                module: 'vehicle_',
+                policyNo: policyNumber,
+                certificateType: cardType,
+                certificateNum: cardNum,
+                phoneNum:telphone,
+                mobileCode:smsCode
+            },
+           
+            success: function(data) {
+                if(data.resCode == 1){
+                    policyNo_=data.policyNo;
+                    coverageName_ = data.coverageName;
+                    inceptionDate_= data.inceptionDate;
+                    planEndDate_ = data.planEndDate;
+                    branchCode_ = data.branchCode;
+                    tempPlateNo_ = data.tempPlateNo;
+                    userCode_ = data.userCode;
+                    uniqueUserId_= data.uniqueUserId;
+                    efficientDate_ = data.efficientDate;
+                    if(tempPlateNo_.indexOf("LS")>=0){
+                        goToUrl('/plateNumber/submit_onecar',
+                            "policyNo="+policyNo_+
+                            "&coverageName="+coverageName_+
+                            "&inceptionDate="+inceptionDate_+
+                            "&planEndDate="+planEndDate_+
+                            "&branchCode="+branchCode_+
+                            "&tempPlateNo="+tempPlateNo_+
+                            "&userCode="+userCode_+
+                            "&uniqueUserId="+uniqueUserId_+
+                            "&efficientDate="+efficientDate_
+                        );
+                    }else{
+                        goToPage();
+                    }
+                }else{
+                    dialog(data.resMsg);
+                }
+
+            },
+            complete: function() {
+
+
+            },
+            error: function(data) {
+              
+                dialog("系统繁忙，请稍后再试！");
+
+            }
+        });
+    }
+};
+function goToPage(){
+	 goToUrl('/plateNumber/submit_onecar',
+        "policyNo="+policyNo_+
+        "&coverageName="+coverageName_+
+        "&inceptionDate="+inceptionDate_+
+        "&planEndDate="+planEndDate_+
+        "&branchCode="+branchCode_+
+        "&tempPlateNo="+tempPlateNo_+
+        "&userCode="+userCode_+
+        "&uniqueUserId="+uniqueUserId_+
+        "&efficientDate="+efficientDate_
+    );
+}
+//临时车牌信息变更查询   --E
+
+
+    //点击发送短信获取验证码 --S
+       $("#sendcode").click(function(){
+                    var policyNumber= policyNum(); //保单号
+                    var cardNum = checkCertificateNum(document.getElementById('licenseNumVehicle'),'.licenseValue') ; //证件号
+                    var telphone = cellphone()   //手机号
+                    var cardType  = certificateTypeReport();  //证件类型
+
+                    if(policyNumber&&cardNum&&telphone&&cardType){
+                        //验证是否为太保客户，如是弹出随机验证码层
+                        verifyUser();
+                    }else{
+                        return false;
+                    }
+                })
+
+        function showimgcode() {
+            checkinput(checkby_phone,'.input_phone','',phonenumbershowcode)
+            if (!phonenumbershowcode['true']) return;
+            plChangeCaptcha("#graphImg")
+            $(".openContent,.open_blocknew").show()
+        }
+    //点击发送短信获取验证码 --E
+
+    //验证是太保客户弹框 ——S
+        function  showInfoDiv(){
+            changeGraph();
+            $("#authCode").val("")
+            $(".openContent,.open_blocknew").show()   //弹窗显示
+            $(".main-input-dxyz").removeClass("main_input_red");
+        }
+    //验证时太保客户调弹框 ——E
+
+    //验证是否为太保客户
+     function verifyUser() {
+    //var cardType = certificateTypeReport();  //证件类型
+    //var cardNum = certificateNumReport();  //证件号
+    //var telphone = cellphone();           // 手机号
+    //var policyNumber = policyNum();      //保单号
+
+    var policyNumber= policyNum(); //保单号
+    var cardNum = checkCertificateNum(document.getElementById('licenseNumVehicle'),'.licenseValue') ; //证件号
+    var telphone = cellphone()   //手机号
+    var cardType  = certificateTypeReport();  //证件类型
+
+    $.ajax({
+        url:  '/plateNumber/verifyRst',
+        type: 'post',
+        data: {
+            systemId: 'Web',
+            certificateType:cardType,
+            certificateNum:cardNum,
+            phoneNum: telphone,
+            policyNo: policyNumber
+        },
+       
+        success: function(data) {
+            if (data.resCode == 1) {
+                showInfoDiv();
+            } else {
+                dialog(data.resMsg);
+            }
+        },
+        complete: function() {
+           
+        },
+        error: function(data) {
+           
+            dialog("系统繁忙，请稍后再试！");
+        }
+    });
+};
+
+    //点击关闭弹窗
+    $(".open_close ").click(function() {
+        $(".openContent,.open_blocknew").hide()
+    })
+
+    // 在弹出层点击确认后发送短信验证码
+    $("#sureSendCode").click(function() {
+        var checkVCode = checkValiCode(document.getElementById("authCode"))
+        if(checkVCode){
+            $(".openContent,.open_blocknew").hide()
+            sendPhoneCode() //发送短信
+        }
+    });
+
+       // 在IDS系统中查询数据
+        $("#plateNumberQuery").click(function() {
+            queryPlateNumber();
+        });
+
+
+//发送短信验证码
+  function sendPhoneCode() {
+    var telphone = cellphone();
+    var verCodeValue = $.trim($("#authCode").val());
+    //验证手机号码，通过即发送短信验证码
+
+    if(telphone){
+        $.ajax({
+            url:'/plateNumber/sendSmsCode',
+            type: 'post',
+            data: {
+                systemId: 'Web',
+                phoneNum: telphone,
+                module: 'vehicle_',
+                authCode: verCodeValue
+            },
+            success: function(data) {
+                if (data.resCode == 1) {
+                    //resCode 返回1，短信发送成功
+                    smsTime("#sendcode",60);
+                    dialog("短信验证码发送成功， 请注意查收！");
+                } else {
+                    //resCode 短信发送失败，给出错误信息
+                    dialog(data.resMsg);
+                }
+                $(".showInfo").remove();
+                $(".verificationCode").css({visibility: 'hidden',top: '50%',left: '50%'});
+            }
+        });
+    }
+};
+//错误信息
+function hideErrmsg(errId,inputId){
+    $("#"+errId).html("");
+    $("#"+inputId).removeClass("main_input_red");
+};
+//变换图形验证码
+function changeGraph() {
+    hideErrmsg("authCodeError", "authCodeErrorC");
+    var currentTime = new Date().getTime();
+    var url =  '/common/generateCaptchaByMoudle?module=vehicle_&systemId=Web&' + currentTime;
+    $('#graphImg').attr('src', url);
+
+}
+//切换随机验证码
+$('#changeGraph').click(function(){
+    changeGraph();
+})
+
+//保单查询 随机码
+function plChangeCaptcha(dom) {
+    var currentTime= new Date().getTime();
+    var url ='/common/generateCaptcha'+ '?'+ currentTime;
+    $(dom).attr('src', url);
+}
+
+// //倒计时
+// function smsTime(tagName, setTime) {
+//     var obj = $(tagName);
+//     var t = setTime;
+//     var str = '秒后重新获取';
+//     var time;
+//     deadline();
+//
+//     function deadline() {
+//         obj.unbind("click");
+//         obj.text(t + str).addClass("dx-font-setTime");
+//         time = setTimeout(autoplay, 1000);
+//     }
+//
+//     function autoplay() {
+//         t--;
+//         obj.text('发送验证码').removeClass("dx-font-setTime");
+//         if (t < 0) {
+//             clearTimeout(time);
+//             t = setTime;
+//             obj.bind("click", showInfoDiv);
+//         } else {
+//             obj.text(t + str).addClass("dx-font-setTime");
+//             time = setTimeout(autoplay, 1000);
+//         }
+//     }
+// }
+// //过滤html特殊字符
+// function encodeHTML(param){
+//     return String(param).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+// };
+// //封装参数 form Post 提交
+// function goToUrl(url,params){
+//     var myForm = document.createElement("form");
+//     myForm.method="post";
+//     myForm.action=url;
+//     if(params !='undefined' && params!=null){
+//         var items = params.split("&");
+//         var item = null;
+//         for(var i=0;i<items.length;i++){
+//             item = items[i].split("=");
+//             var input = document.createElement("input");
+//             input.type = "hidden";
+//             input.name = item[0];
+//             if("_target" == item[0]){
+//                 myForm.target = item[1];
+//             }
+//             input.value = encodeHTML(item[1]);
+//             myForm.appendChild(input);
+//         }
+//     }
+//     document.body.appendChild(myForm);
+//
+//     myForm.submit();
+//     document.body.removeChild(myForm);
+// };
+
+//理赔查询 按保单号/车架号 刷新图形验证码
+
+function claimValidCode(type){
+    if(type==1){
+//		使用保单号;
+        generateValiCode('.newPolicyCodeImg');
+        console.log("保单号")
+    }
+    if(type==2){
+//		使用报案号/赔案号查询;
+        generateValiCode('#reportCodeImg');
+        console.log("报案号/赔案号")
+    }
+}
+//保单号 --车牌号/车架号切换类型 刷新验证码
+$(".reportContent").click("body", function(){
+	var TypeName = $("#reportValue").val();
+    claimValidCode(TypeName);
+});
+
+//成功跳转新页面 原页面查询数据清空
+function resertSearchData(obj,searchType,reType){//obj: 验证码input框  searchType：保单号或理赔查询  reType： 理赔查询：类型
+	$(obj).val('');
+	if(searchType=='P'){
+		plChangeCaptcha("#policyCodeImg");//保单查询  刷新图形验证码
+	}else if(searchType=='C'){
+		claimValidCode(reType); //理赔查询 刷新图形验证码 1：按保单号查  2： 使用报案号/赔案号查询;
+	}
+}
+
+var value=$('#ThousandsOfPeople').val();
+if(value){
+	setCookie("cpic_service_type",value,0,"/",".cpic.com.cn");
+}

@@ -1,0 +1,454 @@
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:th="http://www.thymeleaf.org" xmlns:fm="http://www.springframework.org/tags/form">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<script type="text/javascript" src="/cpic/mall/js/sales/jquery.js"></script>
+<script type="text/javascript" src="/cpic/mall/js/jquery.validate.min.js"></script>
+	<link rel="stylesheet" href="/cpic/market/css/v2/base.css">
+	<script type="text/javascript" src="/cpic/market/js/jquery.min.js"></script>
+	<script src="/cpic/js/v2/commonInclude.js"></script>
+	<!--
+
+    <script type="text/javascript" src="/cpic/mall/js/Hz2Py/pingyin_jw_for_cnta.js"></script>
+    <script type="text/javascript" src="/cpic/mall/js/sales/jquery.float.js"></script>
+
+<script type="text/javascript" src="/cpic/mall/js/sales/checkName.js"></script>
+
+<script type="text/javascript" src="/cpic/mall/js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="/cpic/mall/js/json2.js"></script>
+<script type="text/javascript" src="/cpic/omniture/s_code_pc.js"></script>
+
+<script language="JavaScript" src="/cpic/mall/js/jquery.XYTipsWindow.js"></script>
+	<script type="text/javascript" src="/cpic/mall/js/sales/commonUtil.js"></script>
+	<script type="text/javascript" src="/cpic/mall/js/My97DatePicker/WdatePicker.js"></script>-->
+    <link href="/cpic/css2/gwsy/base/base.css" rel="stylesheet" type="text/css" />
+    <link href="/cpic/mall/css/lifesales/common.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+    .slider210 {
+        position: absolute;
+        top: 160px;
+        right: 180px;
+    }
+</style>
+
+
+	<title>太平洋保险</title>
+</head>
+<body>
+    <!-- 正在 加载弹出层 -->
+    <iframe class="overlay" id="overlay" style="display:none;" scrolling="no" frameborder="0" > </iframe>
+    <div class="loading_box" id="loading_box" style="display:none;" >正在处理中，请稍候....</div>
+
+<script type="text/javascript" th:inline="javascript">
+    $().ready(function () {
+        $("#insu_occupationClass").change(function () {
+            var smallcid=$(this).val();
+            $.ajax({
+                type: "GET",
+                url: "/cpic/hds/smalltoctype",
+                data: {"smallcid":smallcid},
+                dataType: "text",
+                success: function(data){
+                    //alert(data);
+					$("#s_occupationalType").val(data);
+                }
+            })
+        });
+        $("#insu_second_occupation").change(function () {
+            var middlecid=$(this).val();
+            $.ajax({
+                type: "GET",
+                url: "/cpic/hds/middletosmall",
+                data: {"middlecid":middlecid},
+                dataType: "json",
+                success: function(data){
+                    //alert(data);
+                    $('#insu_occupationClass').empty();
+                    var html = "<option value='0'>请选择</option>";
+                    $.each(data, function(commentIndex, comment){
+                        html += '<option value="'+comment['cid']+'">' + comment['cname']
+                            +'</option>';
+                    });
+                    $('#insu_occupationClass').html(html);
+                    $("#s_occupationalType").val(0);
+                }
+            })
+        });
+		$("#insu_first_occupation").change(function () {
+			var largecid=$(this).val();
+			$.ajax({
+				type: "GET",
+                url: "/cpic/hds/largetomiddle",
+                data: {"largecid":largecid},
+                dataType: "json",
+                success: function(data){
+				    //alert(data);
+                    $('#insu_occupationClass').empty();
+                    $('#insu_second_occupation').empty();
+                    var html = "<option value='0'>请选择</option>";
+                    $('#insu_occupationClass').html(html);
+                    $("#s_occupationalType").val(0);
+                    $.each(data, function(commentIndex, comment){
+                        html += '<option value="'+comment['cid']+'">' + comment['cname']
+                           +'</option>';
+                    });
+                    $('#insu_second_occupation').html(html);
+                }
+            })
+        });
+		var nodes=$("[name ^= GRYWX_G],[hiddenName ^= GRYWX_G],[name ^= GRYWX_S],[hiddenName ^= GRYWX_S]");
+
+        function getpremium() {
+            var value=parseInt(0);
+            //alert(1);
+            $("[name ^= GRYWX_G]:checked").each(function () {
+                    //alert(1);
+                    value+=parseInt($(this).parents("[id ^= tr_GRYWX_G]").find("[hiddenName ^= GRYWX_G]").val());
+            });
+            $("[name ^= GRYWX_S]:checked").each(function () {
+                    //alert(2);
+                    value+=parseInt($(this).parents("[id ^= tr_GRYWX_S]").find("[hiddenName ^= GRYWX_S]").val());
+            });
+			//alert(value);
+			value=value/1000;
+            $("#unitPremium").html("网销优惠价："+value+"元");
+            return value;
+        };
+        getpremium();
+        nodes.change(function () {
+                getpremium()
+        });
+
+        function fmt(date){
+            var y = date.getFullYear();
+            var m = date.getMonth()+1;
+            var d = date.getDate();
+            //return y+'-'+m+'-'+d;
+            return y+'/'+(m<10?('0'+m):m)+'/'+(d<10?('0'+d):d);
+        }
+        function per(s){
+            s = s.replace(/-/g, "/");
+            var t = Date.parse(s);
+            if (!isNaN(t)){
+                return true;
+            } else {
+                return false;
+            }
+        }
+        function dateAdd(type, number, startDate){
+            var result = "";
+            startDate = startDate.replace(/-/g, "/");
+            var theDate = new Date(Date.parse(startDate));
+            //alert(theDate);
+            //alert(typeof theDate);
+            switch(type){
+                case 'y' :
+                    theDate.setFullYear(theDate.getFullYear() + number);
+                    break;
+                case 'm' :
+                    theDate.setMonth(theDate.getMonth() + number);
+                    break;
+                case 'd' :
+                    theDate.setDate(theDate.getDate() + number);
+                    break;
+                default : break;
+            }
+
+            theDate.setDate(theDate.getDate() - 1);
+            var theYear = theDate.getFullYear();
+            var theMonth = theDate.getMonth() + 1;
+            var theDay = theDate.getDate();
+
+            if(theMonth < 10) theMonth = "0" + theMonth;
+            if(theDay < 10) theDay = "0" + theDay;
+
+            result = theYear + "-" + theMonth + "-" + theDay;
+            return result;
+        }
+        function changeTime(startday) {
+			var minduration=[[${product.minduration}]];
+            var endday="";
+            var unit=[[${product.unit1}]];
+            //alert(minduration);
+            switch(unit){
+                case '年' :
+                    endday=dateAdd("y",minduration,startday);
+                    break;
+                case '月' :
+                    endday=dateAdd("m",minduration,startday);
+                    break;
+                case '日' :
+                    endday=dateAdd("d",minduration,startday);
+                    break;
+                default : break;
+            }
+            //alert(endday);
+            $("#plannedEndDate").val(endday);
+        }
+        function checktime(start,end) {
+            start = start.replace(/-/g, "/");
+            var startDate = new Date(Date.parse(start));
+            end = end.replace(/-/g, "/");
+            var enddate = new Date(Date.parse(end));
+            var date=enddate-startDate;
+            var year    = date / 1000 / 60 / 60 / 24 / 365;
+            var yearRound   = Math.floor(year);
+            var months    = date / 1000 / 60 / 60 / 24 / 30;
+            var monthsRound   = Math.floor(months);
+            var days    = date / 1000 / 60 / 60 / 24;
+            var daysRound   = Math.floor(days);
+            var hours    = date/ 1000 / 60 / 60 - (24 * daysRound);
+            var hoursRound   = Math.floor(hours);
+            var minutes   = date / 1000 /60 - (24 * 60 * daysRound) - (60 * hoursRound);
+            var minutesRound  = Math.floor(minutes);
+            var seconds   = date/ 1000 - (24 * 60 * 60 * daysRound) - (60 * 60 * hoursRound) - (60 * minutesRound);
+            var secondsRound  = Math.floor(seconds);
+            //alert(yearRound+"年"+monthsRound+"月"+daysRound+"天"+hoursRound +"时"+minutesRound+"分"+secondsRound+"秒");
+            var maxduration=[[${product.maxduration}]];
+            var unit2=[[${product.unit2}]];
+            switch(unit2){
+                case '年' :
+                    if(yearRound>maxduration) return false;
+                    break;
+                case '月' :
+                    if(monthsRound>maxduration) return false;
+                    break;
+                case '日' :
+                    if(daysRound>maxduration) return false;
+                    break;
+                default : break;
+            }
+            return true;
+        }
+
+        var startday=dateAdd("d",6,fmt(new Date()));
+        $("#inceptionDate").val(startday);
+        changeTime(startday);
+
+        $("#inceptionDate").blur(function () {
+            startday=$(this).val();
+            if(per(startday))
+            	changeTime(startday);
+            else
+                alert("日期格式错误");
+        });
+        $("#nextButton").click(function () {
+            $("#premiums_form").submit();
+        })
+        $("#premiums_form").submit(function () {
+            var maxctype=[[${maxctype}]];
+            //alert(maxctype);
+            var cid=$("#insu_occupationClass").val();
+            //alert(cid);
+            var ostart=$("#inceptionDate").val();
+            var oend=$("#plannedEndDate").val();
+            if (cid==0||cid==undefined){
+                alert("请选择被保人职业");
+                return false;
+            }
+            if($("#s_occupationalType").val()>maxctype){
+                alert("该产品不支持所选被保人职业,请更改");
+                return false;
+            }
+            if(!per(ostart)){
+                alert("保险起期格式错误");
+                return false;
+            }
+            if(!per(oend)){
+                alert("保险止期格式错误");
+                return false;
+            }
+            var check=checktime(ostart,oend);
+            //alert(check);
+            if(!check){
+                alert("保险时间长度过限");
+                return false;
+            }
+            var action=$(this).attr("action");
+            //action+="?pid="+[[${product.pid}]]+"&cid="+cid+"&ostart="+ostart+"&oend="+oend;
+            action+="?pid="+[[${product.pid}]]+"&cid="+cid+"&premium="+getpremium()+"&benefitway="+$("#benefitway").attr("value");
+            $("[name ^= GRYWX_G]:checked").each(function (i) {
+                action+="&protidg="+$(this).val();
+                var j=parseInt($(this).parents("[id ^= tr_GRYWX_G]").find("[hiddenName ^= GRYWX_G]").val());
+                action+="&protvalg="+j;
+            });
+            $("[name ^= GRYWX_S]:checked").each(function (i) {
+                action+="&protids="+$(this).val();
+                var j=parseInt($(this).parents("[id ^= tr_GRYWX_S]").find("[hiddenName ^= GRYWX_S]").val());
+                action+="&protvals="+j;
+            });
+            //alert(action);
+            $(this).attr("action",action);
+            return true;
+        })
+    })
+</script>
+	<!--<script type="text/javascript" src="/cpic/mall/js/sales/shortterm.js"></script>-->
+	<div class="main">
+	<div class="step"><img src="/cpic/mall/images/lifesales/common/step1.jpg" /></div>
+
+    <form action="/cpic/hds/nextestimate" method="post" id="premiums_form">
+
+     <div class="slider767">
+    <link href="/cpic/mall/css/lifesales/common.css" rel="stylesheet" type="text/css" />
+	<h3 class="h3_tt">[[${product.pname}]]</h3>
+     <div class="bd_box">
+        	<a name="mdf1"></a>
+        	<h3 class="common_nav"><em class="ico4"></em>保障和金额</h3>
+            <p class="blank10"></p>
+            <table border="0" cellspacing="0" cellpadding="0" class="common_table">
+              <tr>
+                <th width="110"><i class="red">*</i> 被保人职业：</th>
+                <td><div class="i_rel">
+					<div class="selectwrap" style="z-index:5">
+				<select id="insu_first_occupation" name="insu_first_occupation"  class="common_select getText findOccupation required auto_select " hiddenName="insu_first_occupationName" twolinkage="insu_second_occupation" style="width:125px;" >
+							<option value="0" selected>请选择</option>
+							<option th:each="largeclass:${largelist}" th:value="${largeclass.cid}">[[${largeclass.cname}]]</option>
+				</select></div>&nbsp;&nbsp;<div class="selectwrap" style="z-index:4">
+				<select id="insu_second_occupation" name="insu_second_occupation" class="common_select getText findOccupation required auto_select" hiddenName="insu_second_occupationName" twolinkage="insu_occupationClass" style="width:125px;" >
+							<option value="0" selected>请选择</option>
+				</select></div>&nbsp;&nbsp;<div class="selectwrap" style="z-index:3">
+				<select name="insu_occupationClass" id="insu_occupationClass" class="common_select getText required auto_select" hiddenName="insu_third_occupationName" style="width:125px;">
+							<option value="0" name="0" selected>请选择</option>
+				</select></div>
+				</div></td>
+                <th width="100"><i class="red">*</i> 职业类别：</th>
+                <td><div class="i_rel">
+				<select name="s_occupationalType" id="s_occupationalType" class="common_select required" style="width:125px;" disabled="disabled">
+							<option value='0' selected>职业类别</option>
+							<option value='1'>一类职业</option>
+							<option value='2'>二类职业</option>
+							<option value='3'>三类职业</option>
+							<option value='4'>四类职业</option>
+							<option value='5'>五类职业</option>
+							<option value='6'>六类职业</option>
+				</select>
+				</div></td>
+              </tr>
+
+            </table>
+            <div class="danwei"><span class="wx_tips">请您根据自身需求选择所需的保障项目</span>单位：元</div>
+            <table width="738" border="0" cellspacing="0" cellpadding="0" class="common_table2" id="combo_list">
+                  <tr>
+                    <th class="w_col_0" width="550" >保障</th>
+                    <th width="187" class="w_col_1">保额</th>  
+                  </tr>  
+					<tr th:id="'tr_GRYWX_S'+${protstat.index}" th:each="prot,protstat:${product.protectionlist}" th:if="${prot.ptgrade == 0 }">
+                    <td class="w_col_0"><div class="rel_en"><p class="tl"><input name="GRYWX_S" th:id="'GRYWX_S'+${protstat.index}" type="checkbox" th:value="${prot.ptid}" checked="checked" class="bzcheck" disabled="disabled"  />[[${prot.ptname}]]</p>
+                      </div>
+					
+					</td>
+                    <td class="w_col_1">
+                    <select class="c_select res_select"  th:attr="hiddenName='GRYWX_S'+${protstat.index}">
+						<option th:each="multi:${#numbers.sequence(1,4)}" th:value="${prot.amount*multi}" th:selected="${multi == 1}?'true':'false'">[[${prot.amount*multi}]]元</option>
+					</select>
+                    </td>
+                  </tr>
+				  <tr th:id="'tr_GRYWX_G'+${protstat.index}" th:each="prot,protstat:${product.protectionlist}" th:if="${prot.ptgrade != 0 }">
+                    <td class="w_col_0"><div class="rel_en"><p class="tl"><input name="GRYWX_G" th:id="'GRYWX_G'+${protstat.index}" type="checkbox" th:value="${prot.ptid}" class="bzcheck"  />附加[[${prot.ptname}]]</p>
+                      </div>
+					</td>
+                    <td class="w_col_1">
+                    <select class="c_select res_select"  th:attr="hiddenName='GRYWX_G'+${protstat.index}">
+						<option th:value="${prot.amount}" selected>[[${prot.amount}]]元</option>
+					</select>
+                    </td>
+                  </tr>
+
+
+				  </table>
+
+            <div class="btm_box">
+				<a id="bxtk_typeId" href="#" class="c267">保险条款>></a><br>
+				<b class="yuanjia" id="orgPremium"></b>
+             <b class="red" id="unitPremium">网销优惠价：0元</b></div>
+        </div>
+
+<style>
+    .selectwrap{height:29px; width:125px; display:inline-block; vertical-align:middle; position:relative; *display:inline; *zoom:1 }
+    .selectwrap .common_select { background:#FFF; position:absolute; left:0; top:0}
+</style>
+		 <a name="mdf1"></a>
+		 <div class="blank14"></div>
+<div class="bd_box">
+	<a name="mdf2"></a>
+	<h3 class="common_nav"><em class="ico2"></em>保单基本信息</h3>
+    <div class="blank20"></div>
+    <table border="0" ce	llspacing="0" cellpadding="0" class="common_table">
+      <tr>
+        <th width="150"><i class="red">*</i> 保险起期：</th>
+        <td width="180"><div class="i_rel"><input id="inceptionDate" name="ostart" value="" type="text" class="common_input required inceptionDate"  style="width:110px" required/><span class="c999">&nbsp;0时起</span><span th:if="${#fields.hasErrors('orders.ostart')}" th:errors="*{orders.ostart}"></span>
+        <p class="error c666" ><span class="red"style="font-size:12px">(保险起期可以自由选择，但最早只能是投保当日起的第6天)</span></p>
+        </div></td>
+        <th width="150"><i class="red">*</i> 保险止期：</th>
+        <td width="200"><div class="i_rel"><input id="plannedEndDate" name="oend" value="" type="text" class="common_input required" style="width:110px" required/><span class="c999">&nbsp;24时止</span><span th:if="${#fields.hasErrors('orders.oend')}" th:errors="*{orders.oend}"></span>
+		<p class="error c666"><span class="c267" style="font-size:12px" th:text="${product.minduration==product.maxduration&&#strings.equals(product.unit1,product.unit2)}?('（保险期间为'+${product.minduration}+${product.unit1}+'）'):('（保险期间为'+${product.minduration}+${product.unit1}+'~'+${product.maxduration}+${product.unit2}+'）')"></span></p></div></td>
+
+      </tr>
+      <tr>
+        <th> 受益方式：</th>
+        <td style="padding-bottom:12px" id="benefitway" value="法定">法定&nbsp;<span class="relative q_link"><a href="#" class="under_link"><em class="q_ico"></em></a>
+        <div class="tips_msg" style="display:none"><p class="tips_msg_top"></p><div class="tips_msg_content">网上投保，身故受益人的指定因为无法得到被保险人的书面确认，所以只能接受法定继承人作为身故受益人。法定继承人是指法律直接规定的可以依法继承被继承人遗产的公民。</div><p class="tips_msg_btm"></p></div>
+        </span></td>
+        <th>&nbsp;</th>
+        <td>&nbsp;</td>
+      </tr>	  
+    </table>
+	<div class="blank7"></div>
+</div>
+<div class="blank20"></div>
+<div class="tc step_link"><a th:href="@{'/cpic/showproduct/'+${product.pid}}" id="returnUrl" class="f14 under_link"><b>返回</b></a><a id="nextButton" class="o_btn next_btn ahand" >下一步</a>
+ </div>
+<div class="blank20"></div>
+         </div>
+    </form>
+    <!-- 保存当前日期 -->
+    <link href="/cpic/mall/css/lifesales/common.css" rel="stylesheet" type="text/css" />
+    <div class="slider210">
+        <!--<iframe src="/cpic/tbyc/index.shtml" frameborder="0" scrolling="no" style="border:none;overflow:hidden" height="700" width="210"></iframe>-->
+    </div>
+	<p class="clear"></p>
+    </dl>
+</div-->
+</div>
+<noscript>
+	<img src="/cpic/b/ss/cpic-ecpic-prd/1/H.24.4--NS/0?[AQB]&cdp=3&[AQE]"
+	height="1" width="1" border="0" alt="" /></noscript>
+<style type="text/css">
+    *{
+        font: 14px/24px "microsoft yahei", "times new roman", sans-serif;
+    }
+    .rel_en {
+        z-index: 20;
+    }
+    .relative {
+        z-index: 30;
+    }
+    .nav-item-box {
+        z-index: 200;
+    }
+    .footer {
+
+        width: 100%;
+    }
+
+    .nav-item .column-name span{
+        line-height: 84px;
+    }
+    /*.slider210 {
+        position: absolute;
+        top: 160px;
+        right: 180px;
+    }*/
+    .copyright {
+        bottom: 29px;
+        position: relative;
+        /*margin-top: -25px;*/
+    }
+    .pull-right {
+        margin-top: -18px;
+    }
+</style>
+</body>
+</html>

@@ -1,0 +1,158 @@
+/**
+ * Created by c_yangzhitao-001 on 2017/9/19.
+ */
+//下拉框选值
+selectShow(".companyTitle",".companyCont",".companyData",".companyValue");
+
+bm_sensor.page("寿险保险卡激活","服务大厅-寿险保险卡激活");
+
+//保险卡号输入框失去焦点时，自动验证
+var policyCard = function(data) {
+    //调用common.js下的checkCode方法
+    var policyCard = checkCode(data, $(data).val(), "main_input_red", 14);
+    return policyCard;
+}
+//保险卡密码输入框失去焦点时，自动验证
+var policyPwd = function(data) {
+    //调用common.js下的checkCode方法
+    var policyPwd = checkCode(data, $(data).val(), "main_input_red", 15);
+    return policyPwd;
+}
+//证件号输入框失去焦点时，自动验证
+var cardNum = function() {
+
+    //调用common.js下的checkCode方法
+    var cardNum = checkCode($(".idNum"), $(".idNum").val(), "main_input_red", 0, ".idType");
+    if(!cardNum){
+        var cardNum2 = checkCode($(".idNum"), $(".idNum").val(), "main_input_red", 0, ".idType2");
+    }
+    if(cardNum){     //身份证验证通过
+        return cardNum;
+    }else if(!cardNum && cardNum2){  //外国人居民身份证验证通过
+        return cardNum2;
+    }else{
+        return false;
+    }
+};
+
+//保险卡激活重置&保险卡查询重置
+$(".activeReset,.searchReset").click(function(){
+    inputReset();
+});
+//重置信息
+var inputReset = function(){
+    $(".activeCard").val("").removeClass("main_input_red");
+    $(".activePwd").val("").removeClass("main_input_red");
+    $(".searchCard").val("").removeClass("main_input_red");
+    $(".searchPwd").val("").removeClass("main_input_red");
+    $(".idNum").val("").removeClass("main_input_red");
+    $(".input-wrong-bottom").text("");
+};
+
+//保险卡激活提交
+$(".activeSubmit").click(function(){
+    var activeCard = policyCard('.activeCard');
+    var activePwd = policyPwd('.activePwd');
+    if(activeCard && activePwd){
+        $.ajax({
+            //url: contextPath+'/activationCard/validateCard',
+            url: contextPath+'/activationCard/getcardinfo',
+            type: 'post',
+            data: {
+                "systemId": "Web",
+                "cardid": activeCard,
+                "password": activePwd
+            },
+            beforeSend: function() {
+                $.fn.jqLoading({
+                    text: "蓝鲸全力为您加载中..."
+                });
+                bm_sensor.serverStar("保险卡激活","寿险保险卡激活");
+            },
+            success: function(data) {
+                if(data.resCode == 1){
+                    //window.location.href=contextPath +"/activationCard/chooseInsuranceTypePage" + '?cardid=' + activeCard;
+                    goToUrl(contextPath + '/activationCard/chooseInsuranceTypePage', "cardid="+activeCard);
+                }else{
+                    dialog(data.resMsg);
+                }
+            },
+            complete: function() {
+                $.fn.jqLoading("destroy");
+            },
+            error: function(data) {
+                $.fn.jqLoading("destroy");
+                dialog("正在处理中,请稍待片刻...");
+            }
+        });
+    }
+});
+
+//保险卡查询提交
+
+//1.1 按卡号查询 searchCardSubmit
+$(".searchCardSubmit").click(function(){
+    var companyValue = $(".companyValue").val();
+    var searchType = 1;
+    var searchCard = policyCard('.searchCard');
+    var searchPwd = policyPwd('.searchPwd');
+    if(companyValue && searchCard && searchPwd){
+        searchSubmit(companyValue,searchType,searchCard,searchPwd,"");
+    }
+});
+
+//1.2 按身份证查询 searchIdSubmit
+
+$(".searchIdSubmit").click(function(){
+    var companyValue = $(".companyValue").val();
+    var searchType = 2;
+    var idNum = cardNum();
+    if(companyValue&& idNum){
+        searchSubmit(companyValue,searchType,"","",idNum);
+    }
+});
+//保险卡查询提交
+var searchSubmit = function(companyValue,searchType,searchCard,searchPwd,idNum){
+    $.ajax({
+        url: contextPath+'/activationCard/validateCard',
+        type: 'post',
+        data: {
+            "systemId": "Web",
+            "areacode": companyValue,
+            "queryType": searchType,
+            "cardid": searchCard,
+            "password": searchPwd,
+            "idcard": idNum
+        },
+        beforeSend: function() {
+            $.fn.jqLoading({
+                text: "蓝鲸全力为您加载中..."
+            });
+        	if(searchType==1){
+        		bm_sensor.serverStar("保险卡查询","按保险卡查询");
+        	} else if(searchType==2){
+        		bm_sensor.serverStar("保险卡查询","按证件号查询");
+        	}
+        },
+        success: function(data) {
+            if(data.resCode == 1){
+            	if(searchType==1){
+            		bm_sensor.serverComp("保险卡查询","按保险卡查询","查询完成");
+            	} else if(searchType==2){
+            		bm_sensor.serverComp("保险卡查询","按证件号查询","查询完成");
+            	}
+                goToUrl(contextPath+'/activationCard/queryPolicyInfoPage',"systemId=Web"+"&areacode="+data.areacode+"&queryType="+data.queryType+"&cardid="+data.cardid+"&password="+data.password+"&idcard="+data.idcard+"&isPolicy="+data.isPolicy);
+                /*	window.location.href=contextPath +"/activationCard/queryPolicyInfoPage";*/
+            }else{
+                dialog(data.resMsg);
+            }
+        },
+        complete: function() {
+            $.fn.jqLoading("destroy");
+        },
+        error: function(data) {
+            $.fn.jqLoading("destroy");
+            dialog("正在处理中,请稍待片刻...");
+        }
+    });
+}

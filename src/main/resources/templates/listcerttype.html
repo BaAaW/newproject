@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>ctid</th>
+        <th>ctname</th>
+    </tr>
+    <tr th:each="cert : ${certTypelist}">
+        <td th:text="${cert.ctid}"></td>
+        <td th:text="${cert.ctname}"></td>
+    </tr>
+</table>
+================================<br>
+<table>
+    <tr>
+        <th>pid</th>
+        <th>pname</th>
+        <th>description</th>
+        <th>duration</th>
+        <th>unit</th>
+        <th>minage</th>
+        <th>maxage</th>
+        <th>salearea</th>
+    </tr>
+    <tr th:each="prod : ${productlist}">
+        <td th:text="${prod.pid}"></td>
+        <td th:text="${prod.pname}"></td>
+        <td th:text="${prod.description}"></td>
+        <td th:if="${prod.minduration==prod.maxduration&&#strings.equals(prod.unit1,prod.unit2)}">[[${prod.maxduration}]][[${prod.unit2}]]</td>
+        <td th:unless="${prod.minduration==prod.maxduration&&#strings.equals(prod.unit1,prod.unit2)}">[[${prod.minduration}]][[${prod.unit1}]]~[[${prod.maxduration}]][[${prod.unit2}]]</td>
+        <td th:text="${prod.minage}"></td>
+        <td th:text="${prod.maxage}"></td>
+        <td th:text="${prod.salearea}"></td>
+        <td th:each="f:${prod.featurelist}">
+            <span>[[${f.feature}]]</span>
+        </td>
+        <td th:each="prot:${prod.protectionlist}">
+            <span>[[${prot.ptid}]]</span>
+            <span>[[${prot.ptgrade>0}?'附加'+${prot.ptname}:${prot.ptname}]]</span>
+            <span>[[${prot.amount/1000>0}?${#numbers.formatInteger(prot.amount,3,'COMMA')}:${prot.amount}]]</span>
+            <span>[[${prot.content}]]</span>
+            <span>[[${prot.maxctype}]]</span>
+            <span>[[${prot.ptbelong}]]</span>
+            <span>[[${prot.ptgrade}]]</span>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

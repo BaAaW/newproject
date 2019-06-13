@@ -1,0 +1,83 @@
+
+.app-box {
+	width: 300px;
+	background-color: #fff;
+	position: absolute;
+	z-index: 9999;
+	background: #fff;
+	box-shadow: 0 2px 9px 0 rgba(0,0,0,.05);
+	border-radius: 6px
+}
+
+.app-box .app-title {
+	height: 50px;
+	line-height: 50px;
+	width: 100%;
+	font-family: STHeitiSC-Medium;
+	font-size: 18px;
+	color: #333;
+	text-align: center;
+	background-color: #e5eef6;
+	position: relative;
+	border-radius: 6px 6px 0 0
+}
+
+.app-box .app-title .app-title-text {
+	color: #333;
+	display: inline-block;
+	font-size: 16px;
+	font-weight:600;
+	font-family: STHeitiSC-Medium;
+}
+
+.app-box .app-title .app-title-close {
+	position: absolute;
+	right: 10px;
+	top: 12px;
+	height: 14px;
+	width: 14px;
+	color: #666;
+	background-image: url(//service.cpic.com.cn/res/img/weixin/closed-1@2x.png);
+	background-size: 100%;
+	background-repeat: no-repeat;
+	cursor: pointer
+}
+
+.app-box .app-content {
+	position: relative
+}
+
+.app-box .app-content .appImg {
+	width: 160px;
+	height: 160px;
+	background-image: url(//service.cpic.com.cn/res/img/weixin/gzh.jpg);
+	background-size: 100%;
+	background-repeat: no-repeat;
+	margin: 25px auto
+}
+
+.app-box .app-content .app-line {
+	display: block;
+	position: absolute;
+	left: 23%;
+	bottom: -8px;
+	width: 160px;
+	height: 2px;
+	background-color: #ceecf8
+}
+
+.app-box .app-text {
+	font-family: STHeitiSC-Light;
+	font-size: 16px;
+	text-align: center;
+	line-height: 24px;
+	font-weight: 400;
+}
+
+.app-box .app-text .pd20 {
+	padding: 0 22.5px 25px 22.5px
+}
+
+.app-box .app-text .pd20 .text-blue {
+	color: #4a8ac4
+}

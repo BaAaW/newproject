@@ -1,0 +1,153 @@
+// base.js star
+var xljBase = xljBase || {};
+
+(function() {
+    var that = this,
+        core_version = "1.0",
+        env = '',
+        env_urls = {};
+    this.init = function() {
+        //根据域名判断现在环境 start
+        env = xljBase.environment;
+        //根据域名判断现在环境 end
+        var home = "";
+        // 初始公共头部 star
+        if (env === "sit" || env === "dev") {
+            xljBase.loadJs("//wwwsit.cpic.com.cn/js/publicComponent.js");
+            home = "//wwwsit.cpic.com.cn";
+        } else if (env === "prod") {
+            xljBase.loadJs("//a2cdn3.8686c.com/js/publicComponent.js");
+            home = "//www.cpic.com.cn";
+        }
+        // 初始公共头部 end
+        // 面包屑
+        var tmp= $(".con_home")[0];
+        if(tmp!=null) {
+            tmp.href = home;
+        }
+        $.getJSON("/res/js/env_url.json", function (data) {
+            env_urls = data;
+        });
+    };
+    /*
+     * @function 环境判断
+     * @return  sit || prod || dev
+     *
+     */
+    this.environment = function() {
+        var host = location.href.match(/(http[s]?\:\/\/)(.*?)\//);
+        if (!(host[0].split('.')[0].indexOf('127.0.0.1') < 0) || !(host[0].split('.')[0].indexOf('localhost') < 0)) {
+            return 'dev';
+        }else if (!(host[0].split('.')[0].indexOf('sit') < 0)  || !isNaN(Number(host[0].split('.')[0])) || host[0].indexOf('10.186.129.222')>0) {
+            return 'sit';
+        }else {
+            return 'prod';
+        }
+    }();
+    /**
+     * 动态加载JS
+     * @param {string} url 脚本地址
+     * @param {function} callback  回调函数
+     */
+    this.loadJs = function(url, callback) {
+        var head = document.getElementsByTagName('head')[0];
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = url;
+        if (typeof(callback) == 'function') {
+            script.onload = script.onreadystatechange = function() {
+                if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") {
+                    callback();
+                    script.onload = script.onreadystatechange = null;
+                }
+            };
+        }
+        head.appendChild(script);
+    };
+
+    this.loadJsEnv = function(url, callback) {
+        var head = document.getElementsByTagName('head')[0];
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        if (!env) {
+            env = xljBase.environment;
+        }
+        if (env === "dev") {
+
+        } else {
+            url = url.replace(/[.]{2}/g, "").replace(/[/]{2}/g, "");
+            if (url.indexOf("/") != 0) {
+                url = "/" + url;
+            }
+            if (env === "sit") {
+                //if(location.href.indexOf("https")==0){
+                    url = "https://service1sit.cpic.com.cn" + url;
+                //}else{
+                //    url = "//service1sit.cpic.com.cn:8000" + url;
+                //}
+            } else if (env === "prod") {
+                url = "//service.cpic.com.cn" + url;
+            }
+        }
+        script.src = url;
+        if (typeof(callback) == 'function') {
+            script.onload = script.onreadystatechange = function () {
+                if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") {
+                    callback();
+                    script.onload = script.onreadystatechange = null;
+                }
+            };
+        }
+        head.appendChild(script);
+    };
+
+    this.envUrl = function (domain,url) {
+        if (url && url.indexOf("/") != 0) {
+            url = "/" + url;
+        }
+        if (domain) {
+            var tmp = env_urls[domain];
+            if (!env) {
+                env = xljBase.environment;
+            }
+            if (tmp && (env === "sit" || env === "prod" || env === "dev")) {
+                var tmp = tmp[env];
+                if (tmp) {
+                    return tmp + url;
+                }
+            }
+        }
+        return null;
+    }
+
+    this.addMoreService = function(val) {
+        $.ajax({
+            type: 'get',
+            url:"/static/moreservice.html",
+            dataType:"html",
+            success:function(data) {
+                $("body").append(data)
+            }
+        })
+    };
+
+}).call(xljBase)
+// base.js end
+xljBase.init();
+//加载域名配置
+
+function openUrl(domain, url,redirect_uri) {
+    var url = xljBase.envUrl(domain, url);
+    if (domain == "bxx" && redirect_uri) {
+        var env = xljBase.environment;
+        var _url = "service1sit.cpic.com.cn";
+        if (env == "prod") {
+            _url = "service.cpic.com.cn";
+        }
+        url += "&redirect_uri=https%3A%2F%2F" + _url + "%3A443" + redirect_uri;
+    }
+    if (url) {
+        window.open(url);
+    }
+}
+

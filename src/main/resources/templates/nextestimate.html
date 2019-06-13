@@ -1,0 +1,320 @@
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<script type="text/javascript" src="/cpic/mall/js/sales/jquery.js"></script>
+
+<!--<script type="text/javascript" src="/mall/js/jquery.validate.min.js"></script>
+
+<script type="text/javascript" src="/mall/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/mall/js/Hz2Py/pingyin_jw_for_cnta.js"></script>
+<script type="text/javascript" src="/mall/js/sales/jquery.float.js"></script>
+<script type="text/javascript" src="/mall/js/sales/checkName.js"></script>
+<script type="text/javascript" src="/mall/js/sales/commonUtil.js"></script>
+<script type="text/javascript" src="/mall/js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="/mall/js/json2.js"></script>
+<script type="text/javascript" src="https://a2cdn3.8686c.com/omniture/s_code_pc.js"></script>
+
+<script language="JavaScript" src="/mall/js/jquery.XYTipsWindow.js"></script>-->
+    <link href="/cpic/css2/gwsy/base/base.css" rel="stylesheet" type="text/css" />
+    <link href="/cpic/mall/css/lifesales/common.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="/cpic/market/css/v2/base.css">
+	<script type="text/javascript" src="/cpic/market/js/jquery.min.js"></script>
+	<script src="/cpic/js/v2/commonInclude.js"></script>
+<style type="text/css">
+    .slider210 {
+        position: absolute;
+        top: 160px;
+        right: 180px;
+    }
+</style>
+
+
+<title>太平洋保险</title>
+</head>
+<body>
+    <!-- 正在 加载弹出层 -->
+    <iframe class="overlay" id="overlay" style="display:none;" scrolling="no" frameborder="0" > </iframe>
+    <div class="loading_box" id="loading_box" style="display:none;" >正在处理中，请稍候....</div>
+
+<script type="text/javascript" th:inline="javascript">
+	$().ready(function () {
+		var sex=[[${session.user.sex}]];
+		$("#gender").val(sex);
+		$("#addbbr").click(function () {
+			$("#bbr_box").attr("style","");
+        })
+    })
+</script>
+
+<link href="/cpic/mall/css/lifesales/city_select_Fast.css" rel="stylesheet" type="text/css" />
+
+<div class="main">
+	<div class="step"><img src="/cpic/mall/images/lifesales/common/step2.jpg" /></div>
+	<a name="mdf1"></a>
+    <form action="/cpic/hds/orderconfirm" method="post" id="premiums_form">
+		<div class="slider767">
+        	<h3 class="h3_tt">
+        	          	     [[${product.pname}]]
+        	</h3>
+            <div class="bd_box">
+            	<a name="mdf1"></a>
+            	<h3 class="common_nav" style="z-index:10"><em class="ico2"></em>投保人信息&nbsp;<i class="relative q_link" style="font-weight:normal;"><a class="q_ico"></a>
+                </i></h3>
+                 <div class="blank20"></div>
+                <table border="0" cellspacing="0" cellpadding="0" class="common_table">
+							<tr>
+								<th width="150"><i class="red">*</i> 姓名：</th>
+								<td width="200"><div class="i_rel"><input name="uname" id="fullName" th:value="${session.user.uname}" th:readonly="${session.user.uname != null}?'true':'false'" type="text" class="common_input required correctName"/></div></td>
+								<th><i class="red">*</i> 证件类型：</th>
+								<td>
+        						<div class="i_rel">
+        						<select name="ceid" id="idType" class="common_select getText required" hiddenName="assIdTypeName" th:disabled="${session.user.certType != null}?'true':'false'">
+        							    <option th:selected="${session.user.certType != null}?(${cert.ceid eq session.user.certType.ceid}?'true':'false'):'false'" th:value="${cert.ceid}" th:each="cert:${certTypelist}">[[${cert.cename}]]</option>
+								</select>
+        						</div>
+        					</td>
+                          </tr>
+                          <!--<tr id="divTBPassCode" style="display:none;">
+        					 <th><i class="red">*</i> 通行证号码：</th>
+        				     <td><div class="i_rel"><input id="passcode" name="passcode"  type="text" value="" class="common_input required" maxlength="18"/></div></td>
+                          </tr>-->
+                          <tr>
+                              <th><i class="red">*</i> 证件号码：</th>
+                              <td><div class="i_rel"><input id="idNumber" name="certnum" th:value="${session.user.certnum}" th:readonly="${session.user.certnum != null}?'true':'false'"  type="text" class="common_input required idCard" maxlength="18"/></div></td>
+        					  <th width="140"><i class="red">*</i> 性别：</th>
+                              <td width="200">
+        	                        <div class="i_rel">
+        							<select name="sex" id="gender" class="common_select required" th:disabled="${session.user.sex != null}?'true':'false'">
+        								<option value="1">男</option>
+        								<option value="0">女</option>
+        							</select>
+        							</div>
+							  </td>
+                          </tr>
+                          <tr>
+                            <th><i class="red">*</i> 出生日期：</th>
+                            <td><div class="i_rel" id="spe_birthDate"><input id="birthDate" name="birthdate" th:value="${#dates.format(session.user.birthdate,'yyyy-MM-dd')}" th:readonly="${session.user.birthdate != null}?'true':'false'" type="text" class="common_input required insuredAge" /></div></td>
+                            <th><i class="red">*</i> 所在地区：</th>
+	                        <td>
+	                	        <span class="relative" style="display:block">
+	                	             <input name="city" th:value="${session.user.city}" th:readonly="${session.user.city != null}?'true':'false'" type="text" class="common_input required search" id="cityName"  autocomplete="off" />
+	                	        </span>
+	                        </td>
+						  </tr>
+                          <tr>
+                            <th><i class="red">*</i> 联系电话：</th>
+                            <td><div class="i_rel"><input name="telnum" th:value="${session.user.telnum}" th:readonly="${session.user.telnum != null}?'true':'false'" type="text" class="common_input required telephone" maxlength="20"/></div></td>
+                            <th><i class="red">*</i> 电子邮箱：</th>
+                            <td><div class="i_rel"><input name="email" id="email" th:value="${session.user.email}" th:readonly="${session.user.email != null}?'true':'false'" maxlength="30" type="text" class="common_input required email"/></div></td>
+                          </tr>
+                              <tr>
+        	                    <th><i class="red">*</i> 联系地址：</th>
+        	                    <td colspan="3"><div class="i_rel"><input name="address" th:value="${session.user.address}" th:readonly="${session.user.address != null}?'true':'false'" type="text" class="common_input required addressLength" maxlength="50" style="width:512px;"/>
+        						</div></td>
+        	                  </tr>
+        	                  <tr>
+        	                    <th>邮编：</th>
+        	                    <td><div class="i_rel"><input name="postcode" th:value="${session.user.postcode}" th:readonly="${session.user.postcode != null}?'true':'false'" type="text" class="common_input  postalCode" maxlength="6"/></div></td>
+        	                    <th>&nbsp;</th>
+	        	                <td>&nbsp;</td>
+	        	                </tr>
+				</table>
+			</div>
+	        <div class="blank14"></div>
+	           	<div class="bd_box">
+	           		<a name="mdf2"></a>
+	            	<h3 class="common_nav" style="z-index:10"><em class="ico2"></em>被保人信息
+	            			<i class="relative q_link" style="font-weight:normal; z-index:20"><a class="q_ico"></a>
+	                        </i>
+	                	    <a href="javascript:void(0)" class="link_btn" id="addbbr" title="添加被保人"></a>
+	            	</h3>
+	               	<p class="blank14"></p>
+	                <table width="680" border="0" cellspacing="0" cellpadding="0" class="common_table2" id="bbr_list">
+						<tr>
+							<th width="110" class="w_col_0">与投保人关系</th>
+							<th width="90">姓名</th>  
+							<th width="160">证件号码</th>
+							<th width="50">性别</th>  
+							<th width="95">出生日期</th>
+							<th width="140">职业</th>
+							<th>操作</th>
+						</tr>
+					</table>
+	            	<p class="blank14"></p>
+	            	<!--乐驾人生产品被保人信息页面-->
+				</div>
+	            <div class="blank14"></div>
+               <div class="blank14"></div>	
+               <div class="bd_box">
+           		<a name="mdf3"></a>
+            	<h3 class="common_nav"><em class="ico1"></em>保单配送信息</h3>
+                <div class="blank20"></div>
+                <table border="0" cellspacing="0" cellpadding="0" class="common_table">
+                <tr>
+                <th width="150" valign="top"> 配送方式：</th>
+                    	<td width="110" valign="top">
+							<input name="distribution" type="radio" class="input_radio" value="电子保单" checked="checked" align="absmiddle" />电子保单&nbsp;
+							<span class="relative q_link"><a href="#" class="under_link"><em class="q_ico"></em></a>
+							</span>
+						</td>
+                    <td valign="top"><span class="c999">(为支持绿色环保，本产品仅提供电子保单！) </span></td>
+				</tr>
+                </table>
+            </div>
+			<div class="btm_box"><b id="totalGrossPremium" class="red"></b><span id="totalGrossPremiumDetail" class="p_info"></span></div>
+      	<div class="blank20"></div>    
+        <div class="tc step_link"><a href="javascript:goback();" class="f14 under_link" id="back_btn"><b>上一步</b></a>
+        <a class="o_btn next_btn ahand" id="nextButtonInfo">下一步</a>
+		</div>
+		<div class="blank20"></div>  
+        </div>
+    </form>
+    <link href="/cpic/mall/css/lifesales/common.css" rel="stylesheet" type="text/css" />
+    <div class="slider210">
+        <!--<iframe src="https://www.cpic.com.cn/tbyc/index.shtml" frameborder="0" scrolling="no" style="border:none;overflow:hidden" height="700" width="210"></iframe>-->
+    </div>
+	<p class="clear"></p>
+    </dl>
+</div>
+
+<script>
+	$().ready(function () {
+		$("#close_bbr").click(function () {
+            $("#bbr_box").attr("style","display:none");
+        })
+    })
+</script>
+
+<div id="bbr_box" style="display:none">
+<div class="___boxTitle boxTitle" style="position: relative;border-color: rgb(238, 238, 238); border:none; cursor: move; top:-31px;  width:100px; ">
+	<h3 id="insureddiv">添加被保人</h3><span  id="close_bbr" style="right:-662px;">关闭</span>
+</div>	
+	<form id="/cpic/hds/addInsured_form" th:action="@{'addinsuredUser'}">
+		<div>
+			<div style="position:relative;top:-15px;padding-left:40px;"><span class="red">*</span>(同样职业类别可直接添加被保险人，否则请另选职业投保)</div>
+				<table id="insured_table" border="0" cellspacing="0" cellpadding="0" class="common_table" style="padding-right: 30px;">
+					<tr>
+                    <th width="150"><i class="red">*</i> 与投保人关系：</th>
+                    <td width="200">
+                       <div class="i_rel">
+                       <select name="insured_insuredRelatedToApplicant" id="insured_insuredRelatedToApplicant" class="common_select required">
+    						  <option value="1">本人</option>
+						      <option value="2">其他</option>
+					   </select>
+    				</div>
+    				</td>
+    		<!--如果产险产品 添加份数和一些必填字段-->
+    				<th><i class="red">*</i> 份数： </th>
+    	            <td width="200"><div class="i_rel"><input name="copies" id="insured_count" value="1" type="text" readOnly="readOnly" class="common_input required insuredCount" style="width:110px;" alwaysEdit><span class="c999">&nbsp仅限一份</span></div></td>
+					</tr>
+                  <tbody id="insuredFieldsBody">
+                  <tr>
+                    <th><i class="red">*</i> 姓名：</th>
+                    <td><div class="i_rel"><input name="insured_fullName" id="insured_fullName" value="" type="text" class="common_input required correctName"/></div></td>
+    				<th><i class="red">*</i> 证件类型：</th>
+                    <td>
+                        <div class="i_rel">
+    					<select name="insured_idType" id="insured_idType" class="common_select required">
+    					    <option value="1">身份证</option>
+    						<option value="2">护照</option>
+    						<option value="3">军官证</option>
+    						<option value="4">驾照</option>
+    						<option value="5">其他</option>
+    						<option value="9">外国人永久居留证</option>
+    						<option value="h">港澳台居民居住证</option>
+						</select>
+    					</div>
+    				</td>
+                  </tr>
+                  <tr>
+    				<th><i class="red">*</i> 证件号码：</th>
+    				<td><div class="i_rel"><input name="insured_idNumber" id="insured_idNumber" value="" onblur="setRelate()" type="text" class="common_input required insured_idCard" maxlength="18"/></div></td>
+    				<th><i class="red">*</i> 性别：</th>
+                    <td>
+                        <div class="i_rel">
+    					<input type="hidden" name="insured_gender" id="insured_gender_value" value="" />
+    					<select name="insured_gender" id="insured_gender" class="common_select required" disabled="disabled">
+    						   <option value="1">男</option>
+    						   <option value="2">女</option>
+    					</select>
+    					</div>
+    				</td>
+                  </tr>
+                  <tr>
+                    <th><i class="red">*</i> 出生日期：</th>
+                    <td>
+                    	<div class="i_rel" id="spe_insured_birthDate">
+                    		<input name="insured_birthDate" id="insured_birthDate" type="text" class="common_input required insuredAge"/>
+                    		<input id="insured_birthDate_bak" type="hidden"/>
+                    	</div>
+                    </td>
+                    <th> 所在地区：</th>
+		            <td>
+		    	        <span class="relative" style="display:block">
+		    	        <input name="insured_cityName" type="text" class="common_input  search" id="insured_cityName" />
+		    	        </span>
+					</td>
+                    <tr>
+                    <th>联系电话：</th>
+                    <td><div class="i_rel"><input name="insured_phoneNumber" id="insured_phoneNumber" value="" type="text" class="common_input telephone" maxlength="20"/></div></td>
+                    <th> 电子邮箱：</th>
+                    <td><div class="i_rel"><input name="insured_email" id="insured_email" value="" maxlength="30" type="text" class="common_input email"/></div></td>
+                      <tr>
+                	  <th> 联系地址：</th>
+                      <td colspan="3"><div class="i_rel"><input name="insured_address" id="insured_address" value="" type="text" class="common_input addressLength" maxlength="50" style="width:458px;"/></div></td>
+                    </tr>
+                    <tr>
+                    <th> 邮编：</th>
+                    <td><div class="i_rel"><input name="insured_postcode" id="insured_postcode" value="" type="text" class="common_input postalCode" maxlength="6"/></div></td>
+                    <th>&nbsp;</th>
+                    <td>&nbsp;</td>
+                  </tr>
+  				</tbody>
+        </table>
+        </div>
+    </form>
+	<div class="tc step_link">
+	  <a href="javascript:void(0)" class="o_btn" id="bbr_config">添 加</a>
+	</div>
+	<div class="blank20"></div>
+</div>
+<!-- 一键续保特殊处理 -->
+<style type="text/css">
+    *{
+        font: 14px/24px "microsoft yahei", "times new roman", sans-serif;
+    }
+    .rel_en {
+        z-index: 20;
+    }
+    .relative {
+        z-index: 30;
+    }
+    .nav-item-box {
+        z-index: 200;
+    }
+    .footer {
+
+        width: 100%;
+    }
+
+    .nav-item .column-name span{
+        line-height: 84px;
+    }
+    /*.slider210 {
+        position: absolute;
+        top: 160px;
+        right: 180px;
+    }*/
+    .copyright {
+        bottom: 29px;
+        position: relative;
+        /*margin-top: -25px;*/
+    }
+    .pull-right {
+        margin-top: -18px;
+    }
+</style>
+</body>
+</html>

@@ -1,0 +1,30 @@
+//过滤html特殊字符
+encodeHTML = function(param){
+	return String(param).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}; 
+
+//封装参数 form Post 提交
+goToUrl = function(url,params){
+	var myForm = document.createElement("form");
+	myForm.method="post";
+	myForm.action=url;
+	if(params !='undefined' && params!=null){
+		var items = params.split("&");
+		var item = null;
+		for(var i=0;i<items.length;i++){
+			item = items[i].split("=");
+			var input = document.createElement("input");
+			input.type = "hidden";
+			input.name = item[0];
+			if("_target" == item[0]){
+				myForm.target = item[1];
+			}
+			input.value = encodeHTML(item[1]);
+			myForm.appendChild(input);
+		}
+	}
+	document.body.appendChild(myForm);
+	
+	myForm.submit();
+	document.body.removeChild(myForm);
+};

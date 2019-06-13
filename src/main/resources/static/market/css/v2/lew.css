@@ -1,0 +1,107 @@
+@charset "utf-8";
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 746px;margin-top:10px;
+}
+
+.boxold {
+    margin-bottom: 40px;
+}
+
+.boxold .hd  h3{
+   padding: 59px 0 5px 85px;
+}
+
+
+.boxold p, .boxold span{
+	font-size:18px; 
+	display: block;
+}
+
+
+.boxold h3 {
+    height: 25px;
+    padding: 64px 0 0 85px;
+    /* background: url("../../images/sprites.png") no-repeat; */
+	background: url("../../images/v2/zijiayouwuyoubiaozhunkaguoneiyou/sprites.png") no-repeat; 
+    font-size: 16px;
+	font-weight:bolder;
+}
+
+.boxold .bd {
+    border-left-width: 2px;
+    border-left-style: solid;
+    overflow: hidden;
+	margin-left:14px;
+}
+
+.boxold .bd  strong {
+	font-size: 18px;
+	font-weight:bold;
+}
+
+strong{
+	font-weight:bold;
+	
+}
+
+
+.boxold .bd table p span, .boxold .bd table p {
+	font-size: 14px; 	
+}
+
+
+.content {
+    padding-top: 10px;
+    padding-left: 10px;
+    line-height: 24px;
+}
+
+.f1 .content,.f2 .content {
+    padding: 50px 50px 80px;
+}
+
+.f2 h3 {
+    background-position: 0 -89px;
+}
+
+.f3 h3 {
+    background-position: 0 -178px;
+}
+
+.f1 .bd {
+    border-left-color: #B0C91A;
+}
+
+.f2 .bd {
+    border-left-color: #5EBAE9;
+}
+
+.f3 .bd {
+    border-left-color: #EC3C2A;
+}
+
+
+
+/*   ylbz.shtml  */
+.ylbz_03 {margin-left: 30px;}
+.ylbz_03 img{width:320px;height:177px;float:left; margin:0;}
+.ylbz_03 ul li{width:320px;height:177px;float:left;margin:0 30px 15px 0;position:relative;overflow:hidden;cursor:pointer;}
+.txt{width:320px;height:163px; background:url('//www.cpic.com.cn/bxcs/images/1px.png') repeat;position:absolute;left:0;bottom:29px;color:#fff;font-family:"微软雅黑"; display:none;}
+.txt h3{font-size:20px;font-weight:100;height:50px;text-align:center;line-height:45px;}
+.txt p{margin-left:10px;}
+.ylbz_03 ul li .txt p{color:#fff;}
+
+.purchaseButton2{
+  height: 28px;
+  cursor: pointer;
+  display: inline-block;
+  top: 20px;
+  right: 57px;
+  width: 98px;
+}

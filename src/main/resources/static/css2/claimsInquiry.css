@@ -1,0 +1,169 @@
+ body{
+	min-width:1280px;
+	overflow-X: hidden;
+}
+.footerBg{
+	display:none
+}
+.conHeader{
+	width:100%;margin-top:84px;background: rgb(237,239,241);overflow-X:hidden;
+}
+ .nowPosition{
+  width:100%; padding-left:95px;border: 0;
+ }
+ .grad-f8f8f8{
+     background: rgb(237,239,241);
+ }
+.con_r{
+	/*margin:0  0  70px  110px; */
+    width: 100% !important;
+  	padding:0;
+  	background:white;
+	overflow-X:hidden;
+}
+.index-t-c{
+	border-bottom:0;
+}
+ .index_t{
+	margin-top:0;
+}  
+.customer_service{
+   display:none; 
+}
+.tabsLeft {
+         margin-left: 0;
+}  
+.tabsLeft  a{
+	    padding: 9px 26px;font-size: 17px;
+}
+.tabsLeft  a.active{
+	 border-top:1px #d3d3d3 solid;
+   border-left :1px  #d3d3d3 solid;
+    border-right: 1px #d3d3d3 solid;  
+} 
+.indexBox{
+	z-index:5
+}
+ .inputWidth{
+	width:305px;
+} 
+ .width31{
+	width:31%;
+} 
+.buleWidth{
+	width:380px;height:40px;background: #1565C0;
+border-radius: 12px; -webkit-border-radius:12px;color:#fff;
+margin:55px 0  35px 0 
+}
+.disappear{
+	display:none;
+}
+.f22{
+	font-size:20px;
+}
+.promptop p{
+	margin-bottom:30px;
+}
+.f14{
+	font-size:14px;
+}
+.paddingLeft{
+    padding-left: 31px;
+}
+.markBlue{
+	background:#1565C0;top: -87px;
+     left: -322px;
+}
+.markright{
+	 background: #1565C0;
+	 left: -324px;
+    top: -7px;
+    padding: 20px;
+    z-index:10000;
+}
+/* .height2{
+	height:0;
+} */
+/* .indexBox{
+	z-index:0;
+} */
+/*�����б�*/
+.claimList{
+	 display:none; 
+width:1136px;background:white;
+   ;margin-bottom:70px;
+	/* border:1px #d3d3d3 solid; */
+	margin-left:110px;
+	padding:0;
+	overflow-X:hidden;
+	/* border-top:0; */
+	
+}
+.claimList ul{
+	margin:65px 69px 0 70px;overflow:hidden;
+}
+.claimList ul li{
+	display:block; 
+}
+.claimList ul li  span{
+	float:left;
+	border:1px #d3d3d3 solid;
+}
+.claimList ul li  .width24{
+	width:18%;
+	padding:12px 3%;
+	display:block;
+	float:left;
+	white-space:nowrap;
+	overflow:hidden;
+	position:relative;
+	text-overflow:ellipsis;
+    background: #005BAE;
+    font-size: 14px;
+   color: #FFFFFF;
+}
+.claimList ul li  .width17{
+	float:left;display:block;
+	white-space:nowrap;
+	overflow:hidden;
+	position:relative;
+	width:15%;
+	padding:12px 1%;
+   text-align:center;
+	background: #005BAE;
+	font-size: 14px;
+color: #FFFFFF;
+}
+.borderight{
+	border-right:2px solid  #005BAE;
+}
+.operation{
+	text-align:right
+}
+.claimList ul li .claims{
+	    background: #fff;
+    color: #000;
+    border-left: 1px solid #d3d3d3;
+    border-bottom: 1px solid #d3d3d3
+}
+.claimList ul li .claimser{
+	    background: #fff;
+    color: #000;
+  border-bottom: 1px solid #d3d3d3
+}
+.claimList ul li .claimsLast{
+	 background: #fff;
+    color: #000;
+    border-right: 1px solid #d3d3d3;
+    border-bottom: 1px solid #d3d3d3
+}
+.probottom{
+	padding:15px 68px;
+	margin-top:330px;
+}
+.footerBg{
+	border-top:0;
+}
+.con_r{
+	*margin-top:80px;
+}

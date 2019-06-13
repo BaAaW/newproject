@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<!-- saved from url=(0082)https://service.cpic.com.cn/static/car_oneStop/car_oneStop.html?hit=ShouyeDhDtCxfw -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <meta http-equiv="Keywords" content="车险理赔查询,车险保单查询,车险一站式服务查询平台系统">
+    <meta http-equiv="description" content="太保车险一站式服务查询平台系统提供车险理赔查询、车险保单查询等和车险相关所有的查询服务等，为广大车主打造车险一站式服务平台。">
+    <title>车险理赔查询</title>
+        <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="css4/base.css">
+    <link rel="stylesheet" href="css4/car_oneStop.css">
+    <style>
+        .customer_service {
+            bottom: 10px!important;
+        }
+    </style>
+    <script async="" src="js4/sensorsdata.min.js.下载" charset="UTF-8"></script>
+    <script type="text/javascript" src="js4/jquery.min.js.下载"></script>
+    <script type="text/javascript" src="js4/base.js.下载"></script>
+    <script type="text/javascript" src="js4/publicComponent.js.下载"></script>
+    <script type="text/javascript" src="js4/buma.js.下载"></script>
+    <script type="text/javascript" src="js4/cpic.sd.js.下载"></script>
+    <script type="text/javascript" src="js4/s_code_pc.js.下载"></script>
+    <script type="text/javascript" src="js4/s_omfn.js.下载"></script>
+    <script type="text/javascript" src="js4/cpic.sd.js(1).下载"></script>
+    <script type="text/javascript" src="js4/standardPost.js.下载"></script>
+    <script>
+        var contextPath="${contextPath}";
+        bm_sensor.page("服务大厅","服务大厅-新车险一站式服务");
+    </script>
+    <link type="text/css" rel="stylesheet" href="css4/common.css">
+    <meta name="referrer" content="always">
+    <script type="text/javascript" src="js4/oauth2CheckLogin.js.下载"></script>
+    <script type="text/javascript" src="js4/common.js.下载"></script>
+    <script type="text/javascript" src="js4/scCommon_one.js.下载"></script>
+    <meta name="referrer" content="always"></head>
+
+<body>
+<script>
+    $(function () {
+        //按车牌号/车架号查询表单验证
+        $(".formOne").submit(function () {
+            if($("#codeNo").val()==''||($("#codeNo").val()).length!=7){
+                alert("请正确填写车牌号/车架号");
+                return false;
+            }else if(($("#poliyNumVehicle").val()).length!=18){
+                alert("请正确填写您的身份证号");
+                return false;
+            }
+            // alert(($("#codeNo").val()).length);
+            return true;
+        })
+
+
+
+      $("#btnTwo").click(function () {
+            var num = $("#bdnum").val();
+            var sfz = $("#policyCertificateNum").val();
+            if(num.length!=10){
+                alert("请输入正确的保单号！")
+            }else if(sfz.length!=18){
+                alert("去输入正确的身份证号！")
+            }else{
+                $.post('/cpic/SelectLpbaodan',{'lpidnumber':sfz,'lpbdnumber':num},function (data) {
+                    //alert(data);
+                    if(data==0){
+                        alert("查无此单！")
+                    }else{
+                        var ct = $("#ul1");
+                        ct.empty();
+                        var jg = data;
+                        alert("查询成功");
+                        var op ="<div><input placeholder='查询结果：理赔已处理"+jg+"%' readonly=\"readonly\" style='width: 200px'></div>" +
+                            "<div class=\"layui-progress layui-progress-big\" lay-showPercent=\"true\" style='width: 1000px'>\n" +
+                            "<div class=\"layui-progress-bar layui-bg-blue\" lay-percent=\"80%\" style='width: "+jg+"%'></div>\n" +
+                            "</div>"
+                        op1 = $(op);
+                        ct.append(op1);
+                    }
+
+                })
+
+
+            }
+             })
+    })
+</script>
+
+
+
+<!--
+<div class="head" style="display: block;">    <div class="head-container clearfix">        <div class="pull-left logo-box">            <a href="http://www.cpic.com.cn/?hit=ShouyeDhLogo" target="_blank">                <span class="icon-cpic-common icon-cpic-logo"></span>            </a>        </div>        <div class="nav pull-left">            <ul class="nav-ul clearfix">                <li class="nav-item  nav-item-bxcs pull-left">                    <a href="http://www.cpic.com.cn/market/?hit=ShouyeDhChaoshi" target="_blank">                        <div class="column-name">                            <span>保险超市</span>                            <div class="icon-cpic-common circle hide"></div>                        </div>                    </a>                    <div class="nav-item-box-new hide nav-item-box" id="nav-item-bxcs-new">                        <ul class="clearfix is_item_box">                            <li class="pull-left insu_sup_item is_item1">                                <a target="_blank" href="http://www.cpic.com.cn/market/qcbx/?hit=ShouyeDhCsQcbx" onclick="pushSC(&#39;汽车保险&#39;)">                                    <i class="icon-cpic-common icon-bxcs icon-qcbx"></i>                                    <span>汽车保险</span>                                    <b></b>                                </a>                            </li>                            <li class="pull-left insu_sup_item is_item1">                                <a target="_blank" href="http://www.cpic.com.cn/market/rsbx/?hit=marketindexlife" onclick="pushSC(&#39;人寿保险&#39;)">                                    <i class="icon-cpic-common icon-bxcs icon-rsbx"></i>                                    <span>人寿保险</span>                                    <b></b>                                </a>                            </li>                            <li class="pull-left insu_sup_item is_item2">                                <a target="_blank" href="http://www.cpic.com.cn/market/lyqzbx/?hit=ShouyeDhCsLybx" onclick="pushSC(&#39;旅游保险&#39;)">                                    <i class="icon-cpic-common icon-bxcs icon-lybx"></i>                                    <span>旅游保险</span>                                    <b class="current_border"></b>                                </a>                            </li>                            <li class="pull-left insu_sup_item is_item3">                                <a target="_blank" href="http://www.cpic.com.cn/market/jkbx/?hit=ShouyeDhCsJkbx" onclick="pushSC(&#39;健康保险&#39;)">                                    <i class="icon-cpic-common icon-bxcs icon-jkbx"></i>                                    <span>健康保险</span>                                    <b></b>                                </a>                            </li>                            <li class="pull-left insu_sup_item is_item4">                                <a target="_blank" href="http://www.cpic.com.cn/market/sebx/?hit=ShouyeDhCsEtbx" onclick="pushSC(&#39;少儿保险&#39;)">                                    <i class="icon-cpic-common icon-bxcs icon-sebx"></i>                                    <span>少儿保险</span>                                    <b></b>                                </a>                            </li>                            <li class="pull-left insu_sup_item is_item6">                                <a target="_blank" href="http://www.cpic.com.cn/market/rsywbx/?hit=ShouyeDhCsYwbx" onclick="pushSC(&#39;人身意外险&#39;)">                                    <i class="icon-cpic-common icon-bxcs icon-rsywx"></i>                                    <span>人身意外险</span>                                    <b></b>                                </a>                            </li>                            <li class="pull-left insu_sup_item is_item5">                                <a target="_blank" href="http://www.cpic.com.cn/market/jtbx/?hit=ShouyeDhCsYwbx" onclick="pushSC(&#39;家庭保险&#39;)">                                    <i class="icon-cpic-common icon-bxcs icon-jtbx"></i>                                    <span>家庭保险</span>                                    <b></b>                                </a>                            </li>                            <li class="pull-left insu_sup_item is_item7">                                <a target="_blank" href="http://www.cpic.com.cn/market/lcbx/?hit=ShouyeDhCsLcbx" onclick="pushSC(&#39;财富规划保险&#39;)">                                    <i class="icon-cpic-common icon-bxcs icon-lcbx"></i>                                    <span>财富规划保险</span>                                    <b></b>                                </a>                            </li>                            <li class="pull-left insu_sup_item is_item8">                                <a target="_blank" href="http://www.cpic.com.cn/market/qybx/?hit=ShouyeDhCsQybx" onclick="pushSC(&#39;企业保险&#39;)">                                    <i class="icon-cpic-common icon-bxcs icon-qybx"></i>                                    <span>企业保险</span>                                    <b></b>                                </a>                            </li>                            <li class="pull-left insu_sup_item is_item9">                                <a target="_blank" href="http://www.cpic.com.cn/market/dkbx/?hit=ShouyeDhBxcsDk" onclick="pushSC(&#39;贷款保证保险&#39;)">                                    <i class="icon-cpic-common icon-bxcs icon-dkbx"></i>                                    <span>贷款保证保险</span>                                    <b></b>                                </a>                            </li>                            <li class="pull-left insu_sup_item is_item10">                                <a target="_blank" href="https://one.cpic.com.cn/o2o/module/customizations.html?hit=dingzhi&amp;youbu=bxcsdzbx" onclick="pushSC(&#39;定制保险&#39;)">                                    <i class="icon-cpic-common icon-bxcs icon-dzbx"></i>                                    <span>免费定制</span>                                    <b></b>                                </a>                            </li>                        </ul>                        <div class="column-link-box clearfix hover_show_box hs_box1  hide"></div>                        &lt;!&ndash;汽车保险&ndash;&gt;                        <div class="column-link-box clearfix hover_show_box hs_box2 hide">                            &lt;!&ndash;人寿保险&ndash;&gt;                            <div class="line"></div>                            <ul>                              <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2018-11-30/1563588.shtml?SCsite=Dh" onclick="pushSC(&#39;人寿保险&#39;,&#39;位置1&#39;)">                                        <h4>鑫满意保险产品计划</h4>                                        <p>短期投入，长期领取；高额给付，保费返还；组合万能，收益更高</p>                                        <p class="last_p">查看详情</p>                                    </a>                                 <i class="border-right"></i></li>                              <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2018-09-30/1560293.shtml?SCsite=Dh" onclick="pushSC(&#39;人寿保险&#39;,&#39;位置2&#39;)">                                        <h4>长相伴A款终身寿险</h4>                                        <p>岁月馈赠，爱长相伴，保财富，保灵活，保传承</p>                                        <p class="last_p">查看详情</p>                                    </a>                                 <i class="border-right"></i></li>                              <li class="col_item">                                    <a target="_blank" style="width:100%;" href="http://www.cpic.com.cn/hdy/AiWuYou/index.html?SCsite=Dh" onclick="pushSC(&#39;人寿保险&#39;,&#39;位置3&#39;)">                                        <h4>爱无忧3.0保险产品计划</h4>                                        <p>专注防癌 呵护健康</p>                                        <p class="last_p">查看详情</p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2019-03-01/1571524.shtml?SCsite=Dh" onclick="pushSC(&#39;人寿保险&#39;,&#39;位置4&#39;)">                                        <h4>金佑人生A款（2018版）保险产品计划</h4>                                        <p>100种重疾保障+50种特定疾病保障，保额逐年递增</p>                                            <p class="last_p">                                                <b>184元</b> 起</p>                                    </a>                                </li>							</ul>						</div>						<div class="column-link-box clearfix hover_show_box hs_box2">							&lt;!&ndash; 旅游保险 &ndash;&gt;                                <div class="line"></div>                                <ul>                                    <li class="col_item">                                        <h3>热门搜索</h3>                                        <div>                                            <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-05/1199712.shtml">申根签证</a>                                        </div>                                        <div class="ship_box">                                            <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-05/1199710.shtml">日韩邮轮游</a>                                        </div>                                        <div>                                            <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-05-26/1199670.shtml">国内旅游</a>                                        </div>                                        <p class="more_trip">                                            <a target="_blank" href="http://www.cpic.com.cn/market/lyqzbx/">查看全部旅游保险&gt;&gt;</a>                                        </p>                                     <i class="border-right"></i></li>                                    <li class="col_item">                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-05/1199711.shtml?SCsite=Dh" onclick="pushSC(&#39;旅游保险&#39;,&#39;位置1&#39;)">                                            <h4>“乐游人生”境外旅行救援保险（尊贵版）</h4>                                            <p>最全保障 签证专用 紧急救援</p>                                            <p class="last_p">                                                <b>137元</b> 起</p>                                        </a>                                     <i class="border-right"></i></li>                                    <li class="col_item">                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-05-26/1199670.shtml?SCsite=Dh" onclick="pushSC(&#39;旅游保险&#39;,&#39;位置2&#39;)">                                            <h4>超值旅游险                                            </h4>                                            <p>1元一天，想玩几天就买几天</p>                                            <p class="last_p">                                                <b>1元</b> 起</p>                                        </a>                                     <i class="border-right"></i></li>                                    <li class="col_item last_li">                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-01/1199677.shtml?SCsite=Dh" onclick="pushSC(&#39;旅游保险&#39;,&#39;位置3&#39;)">                                            <h4>“乐学人生”境外留学人员意外险                                            </h4>                                            <p>意外住院 紧急医疗 学业中断保障</p>                                            <p class="last_p">                                                <b>56元</b> 起</p>                                        </a>                                    </li>                                </ul>                        </div>                        <div class="column-link-box clearfix hover_show_box hs_box3 hide">                            &lt;!&ndash;健康保险&ndash;&gt;                            <div class="line"></div>                            <ul>                                <li class="col_item">                                    <h3>热门搜索</h3>                                    <div>                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2018-05-18/1491338.shtml">重大疾病</a>                                    </div>                                    <div class="ship_box">                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2018-06-21/1552947.shtml">百万医疗保险</a>                                    </div>                                    <div>                                        <a target="_blank" href="http://www.cpic.com.cn//market/c/2018-04-21/1450989.shtml">百万防癌</a>                                    </div>                                    <p class="more_trip">                                        <a target="_blank" href="http://www.cpic.com.cn/market/jkbx/">查看全部健康保险&gt;&gt;</a>                                    </p>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="https://www.cpic.com.cn/market/c/2019-03-20/1571488.shtml?SCsite=Dh" onclick="pushSC(&#39;健康保险&#39;,&#39;位置1&#39;)">                                        <h4>“悦享保”个人癌症医疗保障计划</h4>                                        <p>业内领先 45岁以上防癌刚需</p>                                        <p class="last_p">                                            <b>536元</b> 起</p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-05/1199707.shtml?SCsite=Dh" onclick="pushSC(&#39;健康保险&#39;,&#39;位置2&#39;)">                                        <h4>太健康·百万全家桶                                        </h4>                                        <p>住院太贵 特需医疗 超过1万我来赔</p>                                        <p class="last_p">                                            <b>96元</b> 起</p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2018-06-29/1553685.shtml?SCsite=Dh" onclick="pushSC(&#39;健康保险&#39;,&#39;位置3&#39;)">                                        <h4>金诺人生重大疾病保险（2018版） </h4>                                        <p>金诺人生 承诺一生</p>                                        <p class="last_p">查看详情</p>                                    </a>                                </li>                            </ul>                        </div>                        <div class="column-link-box clearfix hover_show_box hs_box4 hide">                            &lt;!&ndash;少儿保险&ndash;&gt;                            <div class="line"></div>                            <ul>                                <li class="col_item">                                    <h3>热门搜索</h3>                                    <div>                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-01/1199694.shtml?SCsite=childLb">意外伤害保障</a>                                    </div>                                    <div class="ship_box">                                        <a target="_blank" href="http://www.cpic.com.cn/hdy/secnb/">少儿重疾</a>                                    </div>                                    <div>                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-05/1199706.shtml">手口足保险</a>                                    </div>                                    <p class="more_trip">                                        <a target="_blank" href="http://www.cpic.com.cn/market/sebx/">查看全部少儿保险&gt;&gt;</a>                                    </p>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-05/1199706.shtml?SCsite=Dh" onclick="pushSC(&#39;少儿保险&#39;,&#39;位置1&#39;)">                                        <h4>“四季宝贝”少儿特定疾病保险                                        </h4>                                        <p>重大疾病 高发疾病门诊 保费超值</p>                                        <p class="last_p">                                            <b>90元</b> 起</p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" style="width:100%" href="http://www.cpic.com.cn/hdy/secnb3/index.html?SCsite=Dh" onclick="pushSC(&#39;少儿保险&#39;,&#39;位置2&#39;)">                                        <h4>少儿超能宝两全保险3.0</h4>                                        <p>15种少儿重疾 2倍给付</p>                                        <p class="last_p">查看详情</p>                                    </a>                                 <i class="border-right"></i></li>                              								<li class="col_item last_li">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-16/1199586.shtml?SCsite=childLb" onclick="pushSC(&#39;少儿保险&#39;,&#39;位置3&#39;)">                                        <h4>儿童预防接种保险                                        </h4>                                        <p>“针”保障，保护宝宝健康成长</p>                                        <p class="last_p">                                            <b> 10元</b> 起</p>                                    </a>                                </li>                            </ul>                        </div>                        <div class="column-link-box clearfix hover_show_box hs_box5 hide">                            &lt;!&ndash;人身意外保险&ndash;&gt;                            <div class="line"></div>                            <ul>                                <li class="col_item">                                    <h3>热门搜索</h3>                                    <div>                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-01/1199685.shtml">个人意外综合</a>                                    </div>                                    <div class="ship_box">                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-01/1199684.shtml">交通意外伤害</a>                                    </div>                                    <div>                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-01/1199685.shtml">百万意外保障</a>                                    </div>                                    <p class="more_trip">                                        <a target="_blank" href="http://www.cpic.com.cn/market/rsywbx/">查看全部人身意外保险&gt;&gt;</a>                                    </p>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-01/1199684.shtml?SCsite=Dh" onclick="pushSC(&#39;人身意外保险&#39;,&#39;位置1&#39;)">                                        <h4>“乐行人生”交通工具意外伤害保险                                        </h4>                                        <p>保障涵盖海陆空各类交通工具 最高200万</p>                                        <p class="last_p">                                            <b>34元</b> 起</p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item last_li">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-01/1199685.shtml?SCsite=Dh" onclick="pushSC(&#39;人身意外保险&#39;,&#39;位置2&#39;)">                                        <h4>个人意外综合保险                                        </h4>                                        <p>意外伤害医疗住院 交通事故双倍给付</p>                                        <p class="last_p">                                            <b>55元</b> 起</p>                                    </a>                                 <i class="border-right"></i></li>                              									<li class="col_item last_li">                                    <a target="_blank" href="http://www.cpic.com.cn/market/cpxqygb/qmjsydbzjh/?SCsite=Dh" onclick="pushSC(&#39;人身意外保险&#39;,&#39;位置3&#39;)">                                        <h4>全民运动综合意外保险计划                                        </h4>                                        <p>自由定制 覆盖特定运动意外</p>                                        <p class="last_p">                                            <b>1.40元</b> 起</p>                                    </a>                                </li>                            </ul>                        </div>                        <div class="column-link-box clearfix hover_show_box hs_box6 hide">                            &lt;!&ndash;家庭保险&ndash;&gt;                            <div class="line"></div>                            <ul>                                <li class="col_item">                                    <h3>热门搜索</h3>                                    <div>                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-01/1199692.shtml">家政雇佣保障</a>                                    </div>                                    <div class="ship_box">                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-15/1199594.shtml">个人账户资金保障</a>                                    </div>                                    <div>                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-01/1199687.shtml">家庭财产保障</a>                                    </div>                                    <p class="more_trip">                                        <a target="_blank" href="http://www.cpic.com.cn/market/jtbx/">查看全部家庭保险&gt;&gt;</a>                                    </p>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-01/1199687.shtml?SCsite=Dh" onclick="pushSC(&#39;家庭保险&#39;,&#39;位置1&#39;)">                                        <h4>                                            “全能卫士”基本安居盗抢险                                        </h4>                                        <p>房屋主体 室内财产 室内外盗抢</p>                                        <p class="last_p">                                            <b>43元</b> 起</p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-05/1199707.shtml?SCsite=Dh" onclick="pushSC(&#39;家庭保险&#39;,&#39;位置2&#39;)">                                        <h4>                                            太健康·百万全家桶                                        </h4>                                        <p>住院太贵 特需医疗 超过1万我来赔</p>                                        <p class="last_p">                                            <b>96元</b> 起</p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item last_li">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-01/1199692.shtml?SCsite=Dh" onclick="pushSC(&#39;家庭保险&#39;,&#39;位置3&#39;)">                                        <h4>家庭雇佣责任险                                        </h4>                                        <p>家政服务人员意外伤害赔偿及医疗保障</p>                                        <p class="last_p">                                            <b>50元</b> 起</p>                                    </a>                                </li>                            </ul>                        </div>                        <div class="column-link-box clearfix hover_show_box hs_box7 hide">                            &lt;!&ndash;财富规划保险&ndash;&gt;                            <div class="line"></div>                            <ul>                                <li class="col_item">                                    <h3>热门搜索</h3>                                    <div>                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-05/1199583.shtml">年金保险</a>                                    </div>                                    <div class="ship_box">                                        <a target="_blank" href="http://www.cpic.com.cn/hdy/JuBaoPen/index.html">保险分红</a>                                    </div>                                    <div>                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2018-06-29/1554171.shtml">养老保障</a>                                    </div>                                    <p class="more_trip">                                        <a target="_blank" href="http://www.cpic.com.cn/market/lcbx/">查看全部财富规划保险&gt;&gt;</a>                                    </p>                                 <i class="border-right"></i></li>                                <li class="col_item">                                                                    							<a target="_blank" href="https://www.cpic.com.cn/market/c/2018-06-29/1554171.shtml?SCsite=moneyLb" onclick="pushSC(&#39;财富规划保险&#39;,&#39;位置1&#39;)">                                        <h4>长江天天盈</h4>                                        <p>1000元起投 灵活存取 让零钱活起来</p>                                        <p class="last_p">查看详情</p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-10-30/1224336.shtml?SCsite=Dh" onclick="pushSC(&#39;财富规划保险&#39;,&#39;位置2&#39;)">                                        <h4>聚宝盆保险产品组合计划                                        </h4>                                        <p>祝贺金，关爱金，增额返还，持续增值，资金灵活</p>                                        <p class="last_p">查看详情</p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2018-06-29/1553685.shtml?SCsite=Dh" onclick="pushSC(&#39;财富规划保险&#39;,&#39;位置3&#39;)">                                        <h4>金诺人生重大疾病保险                                            <br>（2018版）</h4>                                        <p>金诺人生 承诺一生</p>                                        <p class="last_p">查看详情</p>                                    </a>                                </li>                            </ul>                        </div>                        <div class="column-link-box clearfix hover_show_box hs_box8 hide">                            &lt;!&ndash;企业保险&ndash;&gt;                            <div class="line"></div>                            <ul>                                <li class="col_item">                                    <h3>热门搜索</h3>                                    <div>                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-16/1199493.shtml">企业年金计划</a>                                    </div>                                    <div class="ship_box">                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-16/1199494.shtml">员工养老保障</a>                                    </div>                                    <p class="more_trip">                                        <a target="_blank" href="http://www.cpic.com.cn/market/qybx/">查看全部企业保险&gt;&gt;</a>                                    </p>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-16/1199493.shtml?SCsite=Dh" onclick="pushSC(&#39;企业保险&#39;,&#39;位置1&#39;)">                                        <h4>企业年金集合计划</h4>                                        <p>完善社会保障体系、享受税收优惠、增强企业凝聚力</p>                                        <p class="last_p">查看详情</p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-16/1199494.shtml?SCsite=Dh" onclick="pushSC(&#39;企业保险&#39;,&#39;位置2&#39;)">                                        <h4>养老保障计划</h4>                                        <p>建立多层次养老保障体系、完善员工福利解决方案</p>                                        <p class="last_p">查看详情</p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item last_li">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-16/1199496.shtml?SCsite=Dh" onclick="pushSC(&#39;企业保险&#39;,&#39;位置3&#39;)">                                        <h4>小微企业出口信用</h4>                                        <p>投保手续简便， 索赔单证简明， 赔款迅速及时</p>                                        <p class="last_p">查看详情</p>                                    </a>                                </li>                            </ul>                        </div>                        <div class="column-link-box clearfix hover_show_box hs_box9 hide">                            &lt;!&ndash;贷款保险&ndash;&gt;                            <div class="line"></div>                            <ul>                                <li class="col_item">                                    <h3>热门搜索</h3>                                    <div>                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-16/1199729.shtml">保单客户专享</a>                                    </div>                                    <div class="ship_box">                                        <a target="_blank" href="javascript:void(0)">房屋交易保险</a>                                    </div>                                    <p class="more_trip">                                        <a target="_blank" href="http://www.cpic.com.cn/market/dkbx/">查看全部贷款保险&gt;&gt;</a>                                    </p>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-16/1199729.shtml" style="width:100%;">                                        <h4>保单客户专享</h4>                                        <p>有任何公司的寿险保单就能申请</p>                                        <p class="last_p">查看详情                                        </p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-07-01/1200042.shtml?SCsite=Dh" onclick="pushSC(&#39;贷款保险&#39;,&#39;位置1&#39;)">                                        <h4>交易保                                            <br>（房屋抵押履约保证保险）                                        </h4>                                        <p>针对二手房交易 保障房屋抵押贷款交易</p>                                        <p class="last_p">查看详情</p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item last_li">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-16/1199727.shtml">                                        <h4>房主专享</h4>                                        <p>有房就能申请、无抵押无担保 3-50万</p>                                        <p class="last_p">查看详情</p>                                    </a>                                </li>                            </ul>                        </div>                        <div class="column-link-box clearfix hover_show_box hs_box10 hide">                            &lt;!&ndash;定制保险&ndash;&gt;                            <div class="line"></div>                            <div class="consult-specialist-main" style="float:left;">                                <a href="https://one.cpic.com.cn/o2o/module/customizations.html" target="_blank" class="color-blue readMore dzbx">                                    <div class="consult-specialist-item pull-left on" style="width: 340px;">                                        <div class="consult-specialist-img-box">                                            <div style=" height: 170px;">                                              <img src="images/zixun01.png" alt="">                                            </div>                                        </div>                                        <div>                                            <h3>免费定制</h3>                                            <p style="text-align: center;">综合规划保障                                                <br>专业定制保险方案</p>                                            <span class="color-blue readMore">                                                了解详情                                            </span>                                        </div>                                    </div>                                </a>                                <a href="https://one.cpic.com.cn/o2o/module/businessList.html" target="_blank" class="color-blue readMore jpgw">                                    <div class="consult-specialist-item pull-left on" style="width: 420px; margin: 45px 34px 0;">                                        <div class="consult-specialist-img-box">                                            <div style="height: 170px;">                                              <img src="images/zixun02.png" alt="">                                            </div>                                        </div>                                        <div>                                            <h3>金牌顾问</h3>                                            <p style="text-align: center;">全程投保指导                                                <br>省时又省心</p>                                            <span class="color-blue readMore">                                                了解详情                                            </span>                                        </div>                                    </div>                                </a>                                <a href="https://www.cpic.com.cn/market/rsbx/" target="_blank" class="color-blue readMore tjcp">                                    <div class="consult-specialist-item pull-left on" style="width: 312px;">                                        <div class="consult-specialist-img-box">                                            <div style="height: 170px;">                                              <img src="images/zixun03.png" alt="">                                            </div>                                        </div>                                        <div>                                            <h3>推荐产品</h3>                                            <p style="text-align: center;">专业方案配置                                                <br>高性价比产品</p>                                            <span class="color-blue readMore">                                                了解详情                                            </span>                                        </div>                                    </div>                                </a>                            </div>                        </div>                    </div>                </li>                <li class="nav-item pull-left">                    <a rel="canonical" href="https://service.cpic.com.cn/index.html?hit=ShouyeDhDating" target="_blank">                        <div class="column-name">                            <span>服务大厅</span>                            <div class="icon-cpic-common circle hide"></div>                        </div>                    </a>                    <div class="nav-item-box hide">                        <ul class="clearfix">                            <li class="pull-left">                                <a href="https://service.cpic.com.cn/policy/queryPolicyForwardPage?hit=ShouyeDhDtBdcx" target="_blank">                                    <i class="icon-cpic-common icon-bxcs icon-bdfw"></i>                                    <span>保单查询</span>                                </a>                            </li>                            <li class="pull-left">                                <a href="https://service.cpic.com.cn/searchClaims/index?hit=ShouyeDhDtLpcx" target="_blank">                                    <i class="icon-cpic-common icon-bxcs icon-lpfw"></i>                                    <span>理赔服务</span>                                </a>                            </li>                            <li class="pull-left">                                <a href="https://service.cpic.com.cn/newNearbyStore/init?hit=ShouyeDhDtWdcx" target="_blank">                                    <i class="icon-cpic-common icon-bxcs icon-wdcx"></i>                                    <span>网点查询</span>                                </a>                            </li>                            <li class="pull-left">                                <a href="https://service.cpic.com.cn/static/car_oneStop/car_oneStop.html?hit=ShouyeDhDtCxfw" target="_blank">                                    <i class="icon-cpic-common icon-bxcs icon-cxfw"></i>                                    <span>车险一站式服务</span>                                </a>                            </li>                            <li class="pull-left">                                <a target="_blank" href="https://service.cpic.com.cn/ePolicy/ePolicyInit?hit=ShouyeDhDtJzcx">                                    <i class="icon-cpic-common icon-bxcs icon-jzcx" style="display:block;float: left; background-image: url(images/ico-05.png);background-size: 100% 100%;background-position: 0 0;"></i>                                    <div style="float: right;">                                        <p style="height: 24px;line-height: 32px;color:#4a4a4a;">电子保单</p>                                        <p style="height: 10px;line-height: 32px;color:#4a4a4a;">验真与下载</p>                                    </div>                                </a>                            </li>                            <li class="pull-left">                                <a target="_blank" href="https://service.cpic.com.cn/static/bdcard.html">                                    <i class="icon-cpic-common-add icon-bxcs icon-bxkjh"></i>                                    <span>保险卡激活</span>                                </a>                            </li>                            <li class="pull-left">                                <a target="_blank" href="https://service.cpic.com.cn/static/bdchange.html">                                    <i class="icon-cpic-common-add icon-bxcs icon-bdbg"></i>                                    <span>保单变更</span>                                </a>                            </li>                            <li class="pull-left">                                <a target="_blank" href="https://vip.cpic.com.cn/pc/index.html?hit=ShouyeDhtbkhzx">                                    <i class="icon-cpic-common-add icon-bxcs icon-tbvip"></i>                                    <span>太保客户尊享</span>                                </a>                            </li>                            <li class="pull-left">                                <a target="_blank" href="http://one.cpic.com.cn/o2o/module/customizations.html?youbu=banner&amp;productName=&amp;productCode=">                                    <i class="icon-cpic-common icon-bxcs icon-dzbx"></i>                                    <span>免费定制</span>                                    <b></b>                                </a>                            </li>                            <li class="pull-left">                                <a rel="canonical" target="_blank" href="https://service.cpic.com.cn/index.html">                                    <i class="icon-cpic-common-add icon-bxcs icon-allservice"></i>                                    <span>更多服务</span>                                </a>                            </li>                        </ul>                    </div>                </li>                <li class="nav-item pull-left">                    <a href="https://vip.cpic.com.cn/pc/index.html?hit=ShouyeDhkhjlb" target="_blank">                        <div class="column-name">                            <span>会员中心</span>                        </div>                    </a>                    <div class="nav-item-box hide">                        <ul class="clearfix">                            <li class="pull-left">                                <a target="_blank" href="https://vip.cpic.com.cn/pc/index.html?hit=ShouyeDhkhjlb">                                    <i class="icon-cpic-common icon-bxcs icon-khjlb icon-club"></i>                                    <span>会员中心</span>                                </a>                            </li>                            <li class="pull-left">                                <a target="_blank" href="https://vip.cpic.com.cn/pc/club/yxh/yxh.html?hit=ShouyeDhcxyxh">                                    <i class="icon-cpic-common icon-bxcs icon-yxh icon-club"></i>                                    <span>产险-优享汇</span>                                </a>                            </li>                            <li class="pull-left">                                <a target="_blank" href="https://vip.cpic.com.cn/pc/club/esxb/esxb.html?hit=ShouyeDhsxesxb">                                    <i class="icon-cpic-common icon-bxcs icon-esxb icon-club"></i>                                    <span>寿险-e生相伴</span>                                </a>                            </li>                            <li class="pull-left">                                <a target="_blank" href="https://vip.cpic.com.cn/pc/club/hzsm/hzsm.html?hit=ShouyeDhDthzsm">                                    <i class="icon-cpic-common icon-bxcs icon-hzsm icon-club"></i>                                    <span>合作商盟</span>                                </a>                            </li>                        </ul>                    </div>                </li>                <li class="nav-item pull-left" style="width:135px">                    <a href="http://www.cpic.com.cn/ir/?fr=3w&amp;hit=ShouyeDhTzzgx" target="_blank">                        <div class="column-name">                            <span>投资者关系</span>                            <span style="color:#fff;">(IR)</span>                        </div>                    </a>                </li>                <li class="nav-item pull-left">                    <a href="http://www.cpic.com.cn/aboutUs/index.shtml?fr=3w&amp;hit=ShouyeDhGygs" target="_blank">                        <div class="column-name">                            <span>关于公司</span>                            <div class="icon-cpic-common circle hide"></div>                        </div>                    </a>                    <div class="nav-item-box hide">                        <ul class="clearfix">                            <li class="pull-left">                                <a href="https://property.cpic.com.cn/xccbx/?hit=ShouyeDhGsCcbx" target="_blank">财产保险公司</a>                            </li>                            <li class="pull-left">                                <a href="https://life.cpic.com.cn/xrsbx/?hit=ShouyeDhGsRsbx" target="_blank">人寿保险公司</a>                            </li>                            <li class="pull-left">                                <a href="https://asset.cpic.com.cn/xzcgl/?hit=ShouyeDhGsZcgl" target="_blank">资产管理公司</a>                            </li>                            <li class="pull-left">                                <a href="https://health.cpic.com.cn/jkx/?hit=ShouyeDhGsJkx" target="_blank">健康险公司</a>                            </li>                            <li class="pull-left">                                <a href="http://www.aaic.com.cn/?hit=ShouyeDhGsAxnb" target="_blank">安信农保公司</a>                            </li>                            <li class="pull-left">                                <a href="http://www.cj-pension.com.cn/cjyl/CN/?hit=ShouyeDhGsCjyl" target="_blank">长江养老公司</a>                            </li>                            <li class="pull-left">                                <a href="http://www.cpic.com.cn/aii/?hit=ShouyeDhGsYltz" target="_blank">养老投资公司</a>                            </li>                        </ul>                        <div class="line"></div>                        <div class="column-link-box clearfix">                            <h3 class="pull-left">关于太平洋保险集团</h3>                            <a href="http://www.cpic.com.cn/aboutUs/index.shtml?fr=3w&amp;hit=ShouyeDhGsMore" target="_blank">                                <span class="pull-left">查看太平洋保险&gt;</span>                            </a>                        </div>                    </div>                </li>            </ul>        </div>        <div class="search-box clearfix pull-left">            <input type="text" class="pull-left search-text" placeholder="搜索您感兴趣的保险类型或服务">            <span class="icon-cpic-common search-btn pull-left"></span>            <a href="http://www.cpic.com.cn/hdy/appDetail/index.html" class="toApp">                <div class="appWral">                    <div class="appImg"></div>                    <p>太平洋保险APP</p>                </div>            </a>            <div class="search-prompt-box hide">                <i class="icon-cpic-common circle"></i>                <ul class="keywords-box">                                                                        <li>                                <a href="javascript:;">30秒免费定制您的专业保险方案</a>                            </li>                            <li>                                <a href="javascript:;">"乐游人生"境外旅行救援保险(尊贵版)</a>                            </li>                            <li>                                <a href="javascript:;">全能卫士家财险</a>                            </li>                            <li>                                <a href="javascript:;">个人意外综合保险</a>                            </li>                            <li>                                <a href="javascript:;">医保卡买保险</a>                            </li>                            <li>                                <a href="javascript:;">保单查询</a>                            </li>                                    </ul>            </div>        </div>    </div></div>
+-->
+<div class="head" style="display: block;">    <div class="head-container clearfix">        <div class="pull-left logo-box">            <a href="http://www.cpic.com.cn/?hit=ShouyeDhLogo" target="_blank">                <span class="icon-cpic-common icon-cpic-logo"></span>            </a>        </div>        <div class="nav pull-left">            <ul class="nav-ul clearfix">                <li class="nav-item  nav-item-bxcs pull-left">                    <a href="http://www.cpic.com.cn/market/?hit=ShouyeDhChaoshi" target="_blank">                        <div class="column-name">                            <span>保险超市</span>                            <div class="icon-cpic-common circle hide"></div>                        </div>                    </a>                    <div class="nav-item-box-new hide nav-item-box" id="nav-item-bxcs-new">                        <ul class="clearfix is_item_box">                            <li class="pull-left insu_sup_item is_item1">                                <a target="_blank" href="http://www.cpic.com.cn/market/qcbx/?hit=ShouyeDhCsQcbx" onclick="pushSC(&#39;汽车保险&#39;)">                                    <i class="icon-cpic-common icon-bxcs icon-qcbx"></i>                                    <span>汽车保险</span>                                    <b></b>                                </a>                            </li>                            <li class="pull-left insu_sup_item is_item1">                                <a target="_blank" href="http://www.cpic.com.cn/market/rsbx/?hit=marketindexlife" onclick="pushSC(&#39;人寿保险&#39;)">                                    <i class="icon-cpic-common icon-bxcs icon-rsbx"></i>                                    <span>人寿保险</span>                                    <b></b>                                </a>                            </li>                            <li class="pull-left insu_sup_item is_item2">                                <a target="_blank" href="http://www.cpic.com.cn/market/lyqzbx/?hit=ShouyeDhCsLybx" onclick="pushSC(&#39;旅游保险&#39;)">                                    <i class="icon-cpic-common icon-bxcs icon-lybx"></i>                                    <span>旅游保险</span>                                    <b class="current_border"></b>                                </a>                            </li>                            <li class="pull-left insu_sup_item is_item3">                                <a target="_blank" href="http://www.cpic.com.cn/market/jkbx/?hit=ShouyeDhCsJkbx" onclick="pushSC(&#39;健康保险&#39;)">                                    <i class="icon-cpic-common icon-bxcs icon-jkbx"></i>                                    <span>健康保险</span>                                    <b></b>                                </a>                            </li>                            <li class="pull-left insu_sup_item is_item4">                                <a target="_blank" href="http://www.cpic.com.cn/market/sebx/?hit=ShouyeDhCsEtbx" onclick="pushSC(&#39;少儿保险&#39;)">                                    <i class="icon-cpic-common icon-bxcs icon-sebx"></i>                                    <span>少儿保险</span>                                    <b></b>                                </a>                            </li>                            <li class="pull-left insu_sup_item is_item6">                                <a target="_blank" href="http://www.cpic.com.cn/market/rsywbx/?hit=ShouyeDhCsYwbx" onclick="pushSC(&#39;人身意外险&#39;)">                                    <i class="icon-cpic-common icon-bxcs icon-rsywx"></i>                                    <span>人身意外险</span>                                    <b></b>                                </a>                            </li>                            <li class="pull-left insu_sup_item is_item5">                                <a target="_blank" href="http://www.cpic.com.cn/market/jtbx/?hit=ShouyeDhCsYwbx" onclick="pushSC(&#39;家庭保险&#39;)">                                    <i class="icon-cpic-common icon-bxcs icon-jtbx"></i>                                    <span>家庭保险</span>                                    <b></b>                                </a>                            </li>                            <li class="pull-left insu_sup_item is_item7">                                <a target="_blank" href="http://www.cpic.com.cn/market/lcbx/?hit=ShouyeDhCsLcbx" onclick="pushSC(&#39;财富规划保险&#39;)">                                    <i class="icon-cpic-common icon-bxcs icon-lcbx"></i>                                    <span>财富规划保险</span>                                    <b></b>                                </a>                            </li>                            <li class="pull-left insu_sup_item is_item8">                                <a target="_blank" href="http://www.cpic.com.cn/market/qybx/?hit=ShouyeDhCsQybx" onclick="pushSC(&#39;企业保险&#39;)">                                    <i class="icon-cpic-common icon-bxcs icon-qybx"></i>                                    <span>企业保险</span>                                    <b></b>                                </a>                            </li>                            <li class="pull-left insu_sup_item is_item9">                                <a target="_blank" href="http://www.cpic.com.cn/market/dkbx/?hit=ShouyeDhBxcsDk" onclick="pushSC(&#39;贷款保证保险&#39;)">                                    <i class="icon-cpic-common icon-bxcs icon-dkbx"></i>                                    <span>贷款保证保险</span>                                    <b></b>                                </a>                            </li>                            <li class="pull-left insu_sup_item is_item10">                                <a target="_blank" href="https://one.cpic.com.cn/o2o/module/customizations.html?hit=dingzhi&amp;youbu=bxcsdzbx" onclick="pushSC(&#39;定制保险&#39;)">                                    <i class="icon-cpic-common icon-bxcs icon-dzbx"></i>                                    <span>免费定制</span>                                    <b></b>                                </a>                            </li>                        </ul>                        <div class="column-link-box clearfix hover_show_box hs_box1  hide"></div>                        <!--汽车保险-->                        <div class="column-link-box clearfix hover_show_box hs_box2 hide">                            <!--人寿保险-->                            <div class="line"></div>                            <ul>                              <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2018-11-30/1563588.shtml?SCsite=Dh" onclick="pushSC(&#39;人寿保险&#39;,&#39;位置1&#39;)">                                        <h4>鑫满意保险产品计划</h4>                                        <p>短期投入，长期领取；高额给付，保费返还；组合万能，收益更高</p>                                        <p class="last_p">查看详情</p>                                    </a>                                 <i class="border-right"></i></li>                              <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2018-09-30/1560293.shtml?SCsite=Dh" onclick="pushSC(&#39;人寿保险&#39;,&#39;位置2&#39;)">                                        <h4>长相伴A款终身寿险</h4>                                        <p>岁月馈赠，爱长相伴，保财富，保灵活，保传承</p>                                        <p class="last_p">查看详情</p>                                    </a>                                 <i class="border-right"></i></li>                              <li class="col_item">                                    <a target="_blank" style="width:100%;" href="http://www.cpic.com.cn/hdy/AiWuYou/index.html?SCsite=Dh" onclick="pushSC(&#39;人寿保险&#39;,&#39;位置3&#39;)">                                        <h4>爱无忧3.0保险产品计划</h4>                                        <p>专注防癌 呵护健康</p>                                        <p class="last_p">查看详情</p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2019-03-01/1571524.shtml?SCsite=Dh" onclick="pushSC(&#39;人寿保险&#39;,&#39;位置4&#39;)">                                        <h4>金佑人生A款（2018版）保险产品计划</h4>                                        <p>100种重疾保障+50种特定疾病保障，保额逐年递增</p>                                            <p class="last_p">                                                <b>184元</b> 起</p>                                    </a>                                </li>							</ul>						</div>						<div class="column-link-box clearfix hover_show_box hs_box2">							<!-- 旅游保险 -->                                <div class="line"></div>                                <ul>                                    <li class="col_item">                                        <h3>热门搜索</h3>                                        <div>                                            <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-05/1199712.shtml">申根签证</a>                                        </div>                                        <div class="ship_box">                                            <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-05/1199710.shtml">日韩邮轮游</a>                                        </div>                                        <div>                                            <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-05-26/1199670.shtml">国内旅游</a>                                        </div>                                        <p class="more_trip">                                            <a target="_blank" href="http://www.cpic.com.cn/market/lyqzbx/">查看全部旅游保险&gt;&gt;</a>                                        </p>                                     <i class="border-right"></i></li>                                    <li class="col_item">                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-05/1199711.shtml?SCsite=Dh" onclick="pushSC(&#39;旅游保险&#39;,&#39;位置1&#39;)">                                            <h4>“乐游人生”境外旅行救援保险（尊贵版）</h4>                                            <p>最全保障 签证专用 紧急救援</p>                                            <p class="last_p">                                                <b>137元</b> 起</p>                                        </a>                                     <i class="border-right"></i></li>                                    <li class="col_item">                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-05-26/1199670.shtml?SCsite=Dh" onclick="pushSC(&#39;旅游保险&#39;,&#39;位置2&#39;)">                                            <h4>超值旅游险                                            </h4>                                            <p>1元一天，想玩几天就买几天</p>                                            <p class="last_p">                                                <b>1元</b> 起</p>                                        </a>                                     <i class="border-right"></i></li>                                    <li class="col_item last_li">                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-01/1199677.shtml?SCsite=Dh" onclick="pushSC(&#39;旅游保险&#39;,&#39;位置3&#39;)">                                            <h4>“乐学人生”境外留学人员意外险                                            </h4>                                            <p>意外住院 紧急医疗 学业中断保障</p>                                            <p class="last_p">                                                <b>56元</b> 起</p>                                        </a>                                    </li>                                </ul>                        </div>                        <div class="column-link-box clearfix hover_show_box hs_box3 hide">                            <!--健康保险-->                            <div class="line"></div>                            <ul>                                <li class="col_item">                                    <h3>热门搜索</h3>                                    <div>                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2018-05-18/1491338.shtml">重大疾病</a>                                    </div>                                    <div class="ship_box">                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2018-06-21/1552947.shtml">百万医疗保险</a>                                    </div>                                    <div>                                        <a target="_blank" href="http://www.cpic.com.cn//market/c/2018-04-21/1450989.shtml">百万防癌</a>                                    </div>                                    <p class="more_trip">                                        <a target="_blank" href="http://www.cpic.com.cn/market/jkbx/">查看全部健康保险&gt;&gt;</a>                                    </p>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="https://www.cpic.com.cn/market/c/2019-03-20/1571488.shtml?SCsite=Dh" onclick="pushSC(&#39;健康保险&#39;,&#39;位置1&#39;)">                                        <h4>“悦享保”个人癌症医疗保障计划</h4>                                        <p>业内领先 45岁以上防癌刚需</p>                                        <p class="last_p">                                            <b>536元</b> 起</p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-05/1199707.shtml?SCsite=Dh" onclick="pushSC(&#39;健康保险&#39;,&#39;位置2&#39;)">                                        <h4>太健康·百万全家桶                                        </h4>                                        <p>住院太贵 特需医疗 超过1万我来赔</p>                                        <p class="last_p">                                            <b>96元</b> 起</p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2018-06-29/1553685.shtml?SCsite=Dh" onclick="pushSC(&#39;健康保险&#39;,&#39;位置3&#39;)">                                        <h4>金诺人生重大疾病保险（2018版） </h4>                                        <p>金诺人生 承诺一生</p>                                        <p class="last_p">查看详情</p>                                    </a>                                </li>                            </ul>                        </div>                        <div class="column-link-box clearfix hover_show_box hs_box4 hide">                            <!--少儿保险-->                            <div class="line"></div>                            <ul>                                <li class="col_item">                                    <h3>热门搜索</h3>                                    <div>                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-01/1199694.shtml?SCsite=childLb">意外伤害保障</a>                                    </div>                                    <div class="ship_box">                                        <a target="_blank" href="http://www.cpic.com.cn/hdy/secnb/">少儿重疾</a>                                    </div>                                    <div>                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-05/1199706.shtml">手口足保险</a>                                    </div>                                    <p class="more_trip">                                        <a target="_blank" href="http://www.cpic.com.cn/market/sebx/">查看全部少儿保险&gt;&gt;</a>                                    </p>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-05/1199706.shtml?SCsite=Dh" onclick="pushSC(&#39;少儿保险&#39;,&#39;位置1&#39;)">                                        <h4>“四季宝贝”少儿特定疾病保险                                        </h4>                                        <p>重大疾病 高发疾病门诊 保费超值</p>                                        <p class="last_p">                                            <b>90元</b> 起</p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" style="width:100%" href="http://www.cpic.com.cn/hdy/secnb3/index.html?SCsite=Dh" onclick="pushSC(&#39;少儿保险&#39;,&#39;位置2&#39;)">                                        <h4>少儿超能宝两全保险3.0</h4>                                        <p>15种少儿重疾 2倍给付</p>                                        <p class="last_p">查看详情</p>                                    </a>                                 <i class="border-right"></i></li>                              								<li class="col_item last_li">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-16/1199586.shtml?SCsite=childLb" onclick="pushSC(&#39;少儿保险&#39;,&#39;位置3&#39;)">                                        <h4>儿童预防接种保险                                        </h4>                                        <p>“针”保障，保护宝宝健康成长</p>                                        <p class="last_p">                                            <b> 10元</b> 起</p>                                    </a>                                </li>                            </ul>                        </div>                        <div class="column-link-box clearfix hover_show_box hs_box5 hide">                            <!--人身意外保险-->                            <div class="line"></div>                            <ul>                                <li class="col_item">                                    <h3>热门搜索</h3>                                    <div>                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-01/1199685.shtml">个人意外综合</a>                                    </div>                                    <div class="ship_box">                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-01/1199684.shtml">交通意外伤害</a>                                    </div>                                    <div>                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-01/1199685.shtml">百万意外保障</a>                                    </div>                                    <p class="more_trip">                                        <a target="_blank" href="http://www.cpic.com.cn/market/rsywbx/">查看全部人身意外保险&gt;&gt;</a>                                    </p>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-01/1199684.shtml?SCsite=Dh" onclick="pushSC(&#39;人身意外保险&#39;,&#39;位置1&#39;)">                                        <h4>“乐行人生”交通工具意外伤害保险                                        </h4>                                        <p>保障涵盖海陆空各类交通工具 最高200万</p>                                        <p class="last_p">                                            <b>34元</b> 起</p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item last_li">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-01/1199685.shtml?SCsite=Dh" onclick="pushSC(&#39;人身意外保险&#39;,&#39;位置2&#39;)">                                        <h4>个人意外综合保险                                        </h4>                                        <p>意外伤害医疗住院 交通事故双倍给付</p>                                        <p class="last_p">                                            <b>55元</b> 起</p>                                    </a>                                 <i class="border-right"></i></li>                              									<li class="col_item last_li">                                    <a target="_blank" href="http://www.cpic.com.cn/market/cpxqygb/qmjsydbzjh/?SCsite=Dh" onclick="pushSC(&#39;人身意外保险&#39;,&#39;位置3&#39;)">                                        <h4>全民运动综合意外保险计划                                        </h4>                                        <p>自由定制 覆盖特定运动意外</p>                                        <p class="last_p">                                            <b>1.40元</b> 起</p>                                    </a>                                </li>                            </ul>                        </div>                        <div class="column-link-box clearfix hover_show_box hs_box6 hide">                            <!--家庭保险-->                            <div class="line"></div>                            <ul>                                <li class="col_item">                                    <h3>热门搜索</h3>                                    <div>                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-01/1199692.shtml">家政雇佣保障</a>                                    </div>                                    <div class="ship_box">                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-15/1199594.shtml">个人账户资金保障</a>                                    </div>                                    <div>                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-01/1199687.shtml">家庭财产保障</a>                                    </div>                                    <p class="more_trip">                                        <a target="_blank" href="http://www.cpic.com.cn/market/jtbx/">查看全部家庭保险&gt;&gt;</a>                                    </p>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-01/1199687.shtml?SCsite=Dh" onclick="pushSC(&#39;家庭保险&#39;,&#39;位置1&#39;)">                                        <h4>                                            “全能卫士”基本安居盗抢险                                        </h4>                                        <p>房屋主体 室内财产 室内外盗抢</p>                                        <p class="last_p">                                            <b>43元</b> 起</p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-05/1199707.shtml?SCsite=Dh" onclick="pushSC(&#39;家庭保险&#39;,&#39;位置2&#39;)">                                        <h4>                                            太健康·百万全家桶                                        </h4>                                        <p>住院太贵 特需医疗 超过1万我来赔</p>                                        <p class="last_p">                                            <b>96元</b> 起</p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item last_li">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-01/1199692.shtml?SCsite=Dh" onclick="pushSC(&#39;家庭保险&#39;,&#39;位置3&#39;)">                                        <h4>家庭雇佣责任险                                        </h4>                                        <p>家政服务人员意外伤害赔偿及医疗保障</p>                                        <p class="last_p">                                            <b>50元</b> 起</p>                                    </a>                                </li>                            </ul>                        </div>                        <div class="column-link-box clearfix hover_show_box hs_box7 hide">                            <!--财富规划保险-->                            <div class="line"></div>                            <ul>                                <li class="col_item">                                    <h3>热门搜索</h3>                                    <div>                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-05/1199583.shtml">年金保险</a>                                    </div>                                    <div class="ship_box">                                        <a target="_blank" href="http://www.cpic.com.cn/hdy/JuBaoPen/index.html">保险分红</a>                                    </div>                                    <div>                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2018-06-29/1554171.shtml">养老保障</a>                                    </div>                                    <p class="more_trip">                                        <a target="_blank" href="http://www.cpic.com.cn/market/lcbx/">查看全部财富规划保险&gt;&gt;</a>                                    </p>                                 <i class="border-right"></i></li>                                <li class="col_item">                                                                    							<a target="_blank" href="https://www.cpic.com.cn/market/c/2018-06-29/1554171.shtml?SCsite=moneyLb" onclick="pushSC(&#39;财富规划保险&#39;,&#39;位置1&#39;)">                                        <h4>长江天天盈</h4>                                        <p>1000元起投 灵活存取 让零钱活起来</p>                                        <p class="last_p">查看详情</p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-10-30/1224336.shtml?SCsite=Dh" onclick="pushSC(&#39;财富规划保险&#39;,&#39;位置2&#39;)">                                        <h4>聚宝盆保险产品组合计划                                        </h4>                                        <p>祝贺金，关爱金，增额返还，持续增值，资金灵活</p>                                        <p class="last_p">查看详情</p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2018-06-29/1553685.shtml?SCsite=Dh" onclick="pushSC(&#39;财富规划保险&#39;,&#39;位置3&#39;)">                                        <h4>金诺人生重大疾病保险                                            <br>（2018版）</h4>                                        <p>金诺人生 承诺一生</p>                                        <p class="last_p">查看详情</p>                                    </a>                                </li>                            </ul>                        </div>                        <div class="column-link-box clearfix hover_show_box hs_box8 hide">                            <!--企业保险-->                            <div class="line"></div>                            <ul>                                <li class="col_item">                                    <h3>热门搜索</h3>                                    <div>                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-16/1199493.shtml">企业年金计划</a>                                    </div>                                    <div class="ship_box">                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-16/1199494.shtml">员工养老保障</a>                                    </div>                                    <p class="more_trip">                                        <a target="_blank" href="http://www.cpic.com.cn/market/qybx/">查看全部企业保险&gt;&gt;</a>                                    </p>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-16/1199493.shtml?SCsite=Dh" onclick="pushSC(&#39;企业保险&#39;,&#39;位置1&#39;)">                                        <h4>企业年金集合计划</h4>                                        <p>完善社会保障体系、享受税收优惠、增强企业凝聚力</p>                                        <p class="last_p">查看详情</p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-16/1199494.shtml?SCsite=Dh" onclick="pushSC(&#39;企业保险&#39;,&#39;位置2&#39;)">                                        <h4>养老保障计划</h4>                                        <p>建立多层次养老保障体系、完善员工福利解决方案</p>                                        <p class="last_p">查看详情</p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item last_li">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-16/1199496.shtml?SCsite=Dh" onclick="pushSC(&#39;企业保险&#39;,&#39;位置3&#39;)">                                        <h4>小微企业出口信用</h4>                                        <p>投保手续简便， 索赔单证简明， 赔款迅速及时</p>                                        <p class="last_p">查看详情</p>                                    </a>                                </li>                            </ul>                        </div>                        <div class="column-link-box clearfix hover_show_box hs_box9 hide">                            <!--贷款保险-->                            <div class="line"></div>                            <ul>                                <li class="col_item">                                    <h3>热门搜索</h3>                                    <div>                                        <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-16/1199729.shtml">保单客户专享</a>                                    </div>                                    <div class="ship_box">                                        <a target="_blank" href="javascript:void(0)">房屋交易保险</a>                                    </div>                                    <p class="more_trip">                                        <a target="_blank" href="http://www.cpic.com.cn/market/dkbx/">查看全部贷款保险&gt;&gt;</a>                                    </p>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-16/1199729.shtml" style="width:100%;">                                        <h4>保单客户专享</h4>                                        <p>有任何公司的寿险保单就能申请</p>                                        <p class="last_p">查看详情                                        </p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-07-01/1200042.shtml?SCsite=Dh" onclick="pushSC(&#39;贷款保险&#39;,&#39;位置1&#39;)">                                        <h4>交易保                                            <br>（房屋抵押履约保证保险）                                        </h4>                                        <p>针对二手房交易 保障房屋抵押贷款交易</p>                                        <p class="last_p">查看详情</p>                                    </a>                                 <i class="border-right"></i></li>                                <li class="col_item last_li">                                    <a target="_blank" href="http://www.cpic.com.cn/market/c/2017-06-16/1199727.shtml">                                        <h4>房主专享</h4>                                        <p>有房就能申请、无抵押无担保 3-50万</p>                                        <p class="last_p">查看详情</p>                                    </a>                                </li>                            </ul>                        </div>                        <div class="column-link-box clearfix hover_show_box hs_box10 hide">                            <!--定制保险-->                            <div class="line"></div>                            <div class="consult-specialist-main" style="float:left;">                                <a href="https://one.cpic.com.cn/o2o/module/customizations.html" target="_blank" class="color-blue readMore dzbx">                                    <div class="consult-specialist-item pull-left on" style="width: 340px;">                                        <div class="consult-specialist-img-box">                                            <div style=" height: 170px;">                                              <img src="images/zixun01.png" alt="">                                            </div>                                        </div>                                        <div>                                            <h3>免费定制</h3>                                            <p style="text-align: center;">综合规划保障                                                <br>专业定制保险方案</p>                                            <span class="color-blue readMore">                                                了解详情                                            </span>                                        </div>                                    </div>                                </a>                                <a href="https://one.cpic.com.cn/o2o/module/businessList.html" target="_blank" class="color-blue readMore jpgw">                                    <div class="consult-specialist-item pull-left on" style="width: 420px; margin: 45px 34px 0;">                                        <div class="consult-specialist-img-box">                                            <div style="height: 170px;">                                              <img src="images/zixun02.png" alt="">                                            </div>                                        </div>                                        <div>                                            <h3>金牌顾问</h3>                                            <p style="text-align: center;">全程投保指导                                                <br>省时又省心</p>                                            <span class="color-blue readMore">                                                了解详情                                            </span>                                        </div>                                    </div>                                </a>                                <a href="https://www.cpic.com.cn/market/rsbx/" target="_blank" class="color-blue readMore tjcp">                                    <div class="consult-specialist-item pull-left on" style="width: 312px;">                                        <div class="consult-specialist-img-box">                                            <div style="height: 170px;">                                              <img src="images/zixun03.png" alt="">                                            </div>                                        </div>                                        <div>                                            <h3>推荐产品</h3>                                            <p style="text-align: center;">专业方案配置                                                <br>高性价比产品</p>                                            <span class="color-blue readMore">                                                了解详情                                            </span>                                        </div>                                    </div>                                </a>                            </div>                        </div>                    </div>                </li>                <li class="nav-item pull-left">                    <a rel="canonical" href="https://service.cpic.com.cn/index.html?hit=ShouyeDhDating" target="_blank">                        <div class="column-name">                            <span>服务大厅</span>                            <div class="icon-cpic-common circle hide"></div>                        </div>                    </a>                    <div class="nav-item-box hide">                        <ul class="clearfix">                            <li class="pull-left">                                <a th:href="@{fw1}" target="_blank">                                    <i class="icon-cpic-common icon-bxcs icon-bdfw"></i>                                    <span>保单查询</span>                                </a>                            </li>                            <li class="pull-left">                                <a th:href="@{fw2}" target="_blank">                                    <i class="icon-cpic-common icon-bxcs icon-lpfw"></i>                                    <span>理赔服务</span>                                </a>                            </li>                            <li class="pull-left">                                <a href="https://service.cpic.com.cn/newNearbyStore/init?hit=ShouyeDhDtWdcx" target="_blank">                                    <i class="icon-cpic-common icon-bxcs icon-wdcx"></i>                                    <span>网点查询</span>                                </a>                            </li>                            <li class="pull-left">                                <a th:href="@{fw4}" target="_blank">                                    <i class="icon-cpic-common icon-bxcs icon-cxfw"></i>                                    <span>车险一站式服务</span>                                </a>                            </li>                            <li class="pull-left">                                <a target="_blank" href="https://service.cpic.com.cn/ePolicy/ePolicyInit?hit=ShouyeDhDtJzcx">                                    <i class="icon-cpic-common icon-bxcs icon-jzcx" style="display:block;float: left; background-image: url(images/ico-05.png);background-size: 100% 100%;background-position: 0 0;"></i>                                    <div style="float: right;">                                        <p style="height: 24px;line-height: 32px;color:#4a4a4a;">电子保单</p>                                        <p style="height: 10px;line-height: 32px;color:#4a4a4a;">验真与下载</p>                                    </div>                                </a>                            </li>                            <li class="pull-left">                                <a target="_blank" th:href="@{fw6}">                                    <i class="icon-cpic-common-add icon-bxcs icon-bxkjh"></i>                                    <span>保险卡激活</span>                                </a>                            </li>                            <li class="pull-left">                                <a target="_blank" href="https://service.cpic.com.cn/static/bdchange.html">                                    <i class="icon-cpic-common-add icon-bxcs icon-bdbg"></i>                                    <span>保单变更</span>                                </a>                            </li>                            <li class="pull-left">                                <a target="_blank" href="https://vip.cpic.com.cn/pc/index.html?hit=ShouyeDhtbkhzx">                                    <i class="icon-cpic-common-add icon-bxcs icon-tbvip"></i>                                    <span>太保客户尊享</span>                                </a>                            </li>                            <li class="pull-left">                                <a target="_blank" href="http://one.cpic.com.cn/o2o/module/customizations.html?youbu=banner&amp;productName=&amp;productCode=">                                    <i class="icon-cpic-common icon-bxcs icon-dzbx"></i>                                    <span>免费定制</span>                                    <b></b>                                </a>                            </li>                            <li class="pull-left">                                <a rel="canonical" target="_blank" href="https://service.cpic.com.cn/index.html">                                    <i class="icon-cpic-common-add icon-bxcs icon-allservice"></i>                                    <span>更多服务</span>                                </a>                            </li>                        </ul>                    </div>                </li>                <li class="nav-item pull-left">                    <a href="https://vip.cpic.com.cn/pc/index.html?hit=ShouyeDhkhjlb" target="_blank">                        <div class="column-name">                            <span>会员中心</span>                        </div>                    </a>                    <div class="nav-item-box hide">                        <ul class="clearfix">                            <li class="pull-left">                                <a target="_blank" href="https://vip.cpic.com.cn/pc/index.html?hit=ShouyeDhkhjlb">                                    <i class="icon-cpic-common icon-bxcs icon-khjlb icon-club"></i>                                    <span>会员中心</span>                                </a>                            </li>                            <li class="pull-left">                                <a target="_blank" href="https://vip.cpic.com.cn/pc/club/yxh/yxh.html?hit=ShouyeDhcxyxh">                                    <i class="icon-cpic-common icon-bxcs icon-yxh icon-club"></i>                                    <span>产险-优享汇</span>                                </a>                            </li>                            <li class="pull-left">                                <a target="_blank" href="https://vip.cpic.com.cn/pc/club/esxb/esxb.html?hit=ShouyeDhsxesxb">                                    <i class="icon-cpic-common icon-bxcs icon-esxb icon-club"></i>                                    <span>寿险-e生相伴</span>                                </a>                            </li>                            <li class="pull-left">                                <a target="_blank" href="https://vip.cpic.com.cn/pc/club/hzsm/hzsm.html?hit=ShouyeDhDthzsm">                                    <i class="icon-cpic-common icon-bxcs icon-hzsm icon-club"></i>                                    <span>合作商盟</span>                                </a>                            </li>                        </ul>                    </div>                </li>                <li class="nav-item pull-left" style="width:135px">                    <a href="http://www.cpic.com.cn/ir/?fr=3w&amp;hit=ShouyeDhTzzgx" target="_blank">                        <div class="column-name">                            <span>投资者关系</span>                            <span style="color:#fff;">(IR)</span>                        </div>                    </a>                </li>                <li class="nav-item pull-left">                    <a href="http://www.cpic.com.cn/aboutUs/index.shtml?fr=3w&amp;hit=ShouyeDhGygs" target="_blank">                        <div class="column-name">                            <span>关于公司</span>                            <div class="icon-cpic-common circle hide"></div>                        </div>                    </a>                    <div class="nav-item-box hide">                        <ul class="clearfix">                            <li class="pull-left">                                <a href="https://property.cpic.com.cn/xccbx/?hit=ShouyeDhGsCcbx" target="_blank">财产保险公司</a>                            </li>                            <li class="pull-left">                                <a href="https://life.cpic.com.cn/xrsbx/?hit=ShouyeDhGsRsbx" target="_blank">人寿保险公司</a>                            </li>                            <li class="pull-left">                                <a href="https://asset.cpic.com.cn/xzcgl/?hit=ShouyeDhGsZcgl" target="_blank">资产管理公司</a>                            </li>                            <li class="pull-left">                                <a href="https://health.cpic.com.cn/jkx/?hit=ShouyeDhGsJkx" target="_blank">健康险公司</a>                            </li>                            <li class="pull-left">                                <a href="http://www.aaic.com.cn/?hit=ShouyeDhGsAxnb" target="_blank">安信农保公司</a>                            </li>                            <li class="pull-left">                                <a href="http://www.cj-pension.com.cn/cjyl/CN/?hit=ShouyeDhGsCjyl" target="_blank">长江养老公司</a>                            </li>                            <li class="pull-left">                                <a href="http://www.cpic.com.cn/aii/?hit=ShouyeDhGsYltz" target="_blank">养老投资公司</a>                            </li>                        </ul>                        <div class="line"></div>                        <div class="column-link-box clearfix">                            <h3 class="pull-left">关于太平洋保险集团</h3>                            <a href="http://www.cpic.com.cn/aboutUs/index.shtml?fr=3w&amp;hit=ShouyeDhGsMore" target="_blank">                                <span class="pull-left">查看太平洋保险&gt;</span>                            </a>                        </div>                    </div>                </li>            </ul>        </div>        <div class="search-box clearfix pull-left">            <input type="text" class="pull-left search-text" placeholder="搜索您感兴趣的保险类型或服务">            <span class="icon-cpic-common search-btn pull-left"></span>            <a href="http://www.cpic.com.cn/hdy/appDetail/index.html" class="toApp">                <div class="appWral">                    <div class="appImg"></div>                    <p>太平洋保险APP</p>                </div>            </a>            <div class="search-prompt-box hide">                <i class="icon-cpic-common circle"></i>                <ul class="keywords-box">                                                                        <li>                                <a href="javascript:;">30秒免费定制您的专业保险方案</a>                            </li>                            <li>                                <a href="javascript:;">"乐游人生"境外旅行救援保险(尊贵版)</a>                            </li>                            <li>                                <a href="javascript:;">全能卫士家财险</a>                            </li>                            <li>                                <a href="javascript:;">个人意外综合保险</a>                            </li>                            <li>                                <a href="javascript:;">医保卡买保险</a>                            </li>                            <li>                                <a href="javascript:;">保单查询</a>                            </li>                                    </ul>            </div>        </div>    </div></div>
+
+
+<input type="hidden" id="ThousandsOfPeople" value="车险一站式服务-查询页">
+<div class="car-box">
+    <div class="car-bg">
+        <img src="images/banner.png" alt="">
+    </div>
+    <div class="car-content">
+        <div class="position-r">
+            <ul class="tab clearfix" id="navigation">
+                <li>
+                    <a class="tabActive" href="https://service.cpic.com.cn/static/car_oneStop/car_oneStop.html?hit=ShouyeDhDtCxfw#tab-con0" onclick="newsOthearOm(&#39;保单服务&#39;)">保单服务</a>
+                </li>
+                <li>
+                    <a href="https://service.cpic.com.cn/static/car_oneStop/car_oneStop.html?hit=ShouyeDhDtCxfw#tab-con1" onclick="newsOthearOm(&#39;理赔服务&#39;)" class="">理赔服务</a>
+                </li>
+                <!--<li>-->
+                    <!--<a href="#tab-con2" onclick="newsOthearOm('尊享服务')">尊享服务</a>-->
+                <!--</li>-->
+                <li>
+                    <a href="https://service.cpic.com.cn/static/car_oneStop/car_oneStop.html?hit=ShouyeDhDtCxfw#tab-con3" onclick="newsOthearOm(&#39;车险知多少&#39;)" class="">车险知多少</a>
+                </li>
+                <div class="tabLine" style="left: 5%;"></div>
+            </ul>
+        </div>
+        <div>
+            <!--  保单服务-->
+           <!-- <div id="tab-con0" style="height: 0;position: relative;top: -73px"></div>-->
+            <div id="tab-con0" class="service clearfix">
+                <!--保单查询-->
+                <div class="search-module fl">
+
+                    <form class="formOne" action="selectChexianFw4" method="post">
+                    <h2>保单查询</h2>
+                    <!-- 包外壳--兼容ie7 z-index问题 -->
+                    <div style="position: relative;z-index: 20">
+                        <div class="form-item clearfix">
+                            <div class="form-item-right">
+                                <div class="identity_card carTitle" onclick="newCarOm(&#39;保单查询&#39;,&#39;选择车牌号/车架号&#39;)">
+                                    <span class="carData">车牌号/车架号</span>
+                                    <input type="hidden" class="selectValue carValue" value="1" id="plateOrFrame">
+                                    <span class="seclectBg">Select三角</span>
+                                </div>
+                            </div>
+                            <input name="cpcj" class="fr form-input input_chepaiid" type="text" placeholder="请输入您的车牌号/车架号" id="codeNo" onfocus="newCarOm(&#39;保单查询&#39;,&#39;输入车牌号/车架号&#39;)">
+                            <div class="absolute_text input-wrong"></div>
+                        </div>
+                    </div>
+                    <!--保单查询身份选择 S-->
+                    <div style="position: relative;z-index: 19">
+                        <div class="form-item clearfix">
+                            <div class="form-item-right">
+                                <div class="identity_card poliyTitle" onclick="newCarOm(&#39;保单查询&#39;,&#39;选择证件类型&#39;)">
+                                    <span class="poliyData">身份证</span>
+                                    <input type="hidden" class="selectValue poliyValue" value="1" name="identifyType">
+                                    <span class="seclectBg">Select三角</span>
+                                </div>
+                            </div>
+                            <input type="text" name="cxidnumber" id="poliyNumVehicle" placeholder="请输入证件号码" onfocus="newCarOm(&#39;保单查询&#39;,&#39;输入证件号码&#39;)" class="form-input" onblur="checkCertificateNum(this,&#39;.poliyValue&#39;)">
+                            <!--错误添加main_input_red样式-->
+                            <span class="absolute_text  input-wrong"></span>
+                        </div>
+                    </div>
+                    <div class="form-btn-wrap">
+                        <h2 th:text="${cw2}" style="color: red"></h2>
+                        <button id="forcar" class="form-btn" onclick="newCarOm(&#39;保单查询&#39;,&#39;立即查询&#39;)">立即查询</button>
+                    </div>
+                    </form>
+                </div>
+
+
+
+
+
+
+
+
+
+                <div class="service-right clearfix">
+                    <div class="service-module clearfix border-r">
+                        <dl class="service-list">
+                            <dt>电子保单验真与下载</dt>
+                            <dd>支持产/寿险一年期以内短意险、健康险，并且无需签收电子回执的电子保单下载</dd>
+                            <dd><a href="https://service.cpic.com.cn/ePolicy/ePolicyInit" target="_blank" onclick="newsOthearOm(&#39;电子保单验真与下载&#39;)">点击下载</a></dd>
+                        </dl>
+                        <div class="fr mt15">
+                            <img src="images/order-load.png" alt="">
+                        </div>
+                    </div>
+                    <div class="service-module clearfix">
+                        <dl class="service-list">
+                            <dt>车险订单拾回</dt>
+                            <dd>足不出户即可网上实现您的车险订单，您可通过身份证件及车牌号进行拾回</dd>
+                            <dd><a href="http://www.ecpic.com.cn/carmall/policy/order/pickup/initPage" target="_blank" onclick="newsOthearOm(&#39;车险订单拾回&#39;)">点击拾回</a></dd>
+                        </dl>
+                        <div class="fr mt15">
+                            <img src="images/order-return1.png" alt="">
+                        </div>
+                    </div>
+                    <div class="service-module clearfix border-r border-bN">
+                        <dl class="service-list">
+                            <dt>电子发票下载</dt>
+                            <dd>电子发票信息可能存在延迟，建议您在生成电子发票一天后进行查询下载</dd>
+                            <dd><a href="https://service.cpic.com.cn/eInvoice/init" target="_blank" onclick="newsOthearOm(&#39;电子发票下载&#39;)">点击下载</a></dd>
+                        </dl>
+                        <div class="fr mt15">
+                            <img src="images/car-invoice.png" alt="">
+                        </div>
+                    </div>
+                    <div class="service-module clearfix border-bN">
+                        <dl class="service-list">
+                            <dt>临时车牌变更</dt>
+                            <dd>只支持临时车牌的有效车险保单查询和变更</dd>
+                            <dd class="mt34"><a href="https://service.cpic.com.cn/plateNumber/init" target="_blank" onclick="newsOthearOm(&#39;临时车牌变更&#39;)">点击变更</a></dd>
+                        </dl>
+                        <div class="fr mt15">
+                            <img src="images/zf-return.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--理赔服务-->
+           <!-- <div id="tab-con1" style="height: 0;position: relative;top: -73px"></div>-->
+            <div id="tab-con1" class="cl-service clearfix mt30">
+                <h2 class="cl-service-tit">理赔服务</h2>
+                <div class="clearfix cl-service-mid">
+                    <div class="search-module fl">
+                        <h2>理赔查询</h2>
+                        <!-- 兼容ie7 z-index -->
+                        <div style="position: relative;z-index: 20">
+                            <div class="form-item clearfix">
+                                <div class="form-item-right">
+                                    <div class="identity_card  reportTitle" onclick="newCarOm(&#39;理赔查询&#39;,&#39;选择保单号&#39;)">
+                                        <span class="reportData">保单号</span>
+                                        <input type="hidden" class="selectValue reportValue" value="1" name="certificateType" id="reportValue">
+                                        <span class="seclectBg">Select三角</span>
+                                    </div>
+                                </div>
+                                <input type="text" id="bdnum" name="bdnum" placeholder="请输入您的保单号" onfocus="newCarOm(&#39;理赔查询&#39;,&#39;输入保单号&#39;)" class="form-input">
+                                <!--错误添加main_input_red样式-->
+                                <span class="absolute_text input-wrong"></span>
+                            </div>
+                        </div>
+                        <!--理赔查询身份选择 S-->
+                        <div style="position: relative;z-index: 19">
+                            <div class="form-item clearfix">
+                                <div class="form-item-right">
+                                    <div class="identity_card claimTitle" onclick="newCarOm(&#39;理赔查询&#39;,&#39;选择证件类型&#39;)">
+                                        <span class="claimData">身份证</span>
+                                        <input type="hidden" class="selectValue claimValue" value="1" name="certificateType" id="reportForm">
+                                        <span class="seclectBg">Select三角</span>
+                                    </div>
+                                </div>
+                                <input type="text" id="policyCertificateNum" name="certificateNum" placeholder="请输入证件号码" onfocus="newCarOm(&#39;理赔查询&#39;,&#39;输入证件号码&#39;)" class="form-input"><!--错误添加main_input_red样式-->
+                                <span class="absolute_text input-wrong"></span>
+                            </div>
+                        </div>
+                        <div class="form-btn-wrap">
+                            <button name="btnTwo" id="btnTwo" class="form-btn">立即查询</button>
+                        </div>
+                    </div>
+
+                    <div class="cl-right clearfix">
+                        <dl class="cl-service-list">
+                            <dt>理赔网点查询</dt>
+                            <dd class="mb25">就近查找您的理赔网点，尊享快捷服务</dd>
+                            <dd><img src="images/service-point.png" alt=""></dd>
+                            <dd><a href="https://service.cpic.com.cn/newNearbyStore/init" target="_blank" onclick="newsOthearOm(&#39;理赔网点查询&#39;)">点击查询</a></dd>
+                        </dl>
+                        <dl class="cl-service-list">
+                            <dt>理赔单证下载</dt>
+                            <dd class="mb25">在这里下载您的车险理赔单证</dd>
+                            <dd><img src="images/dz-load.png" alt=""></dd>
+                            <dd><a href="https://service.cpic.com.cn/static/claimGuid/claimGuidTemp.html?conRight=propertyDZload.html" target="_blank" onclick="newsOthearOm(&#39;理赔单证下载&#39;)">点击下载</a></dd>
+                        </dl>
+                        <dl class="cl-service-list border-rN">
+                            <dt>车险理赔指南</dt>
+                            <dd class="mb25">了解车险服务及相关流程，提前下载必要理赔单证</dd>
+                            <dd><img src="images/car-guide.png" alt=""></dd>
+                            <dd><a href="https://service.cpic.com.cn/static/claimGuid/claimGuidTemp.html?conRight=carClaimGuid.html" target="_blank" onclick="newsOthearOm(&#39;车险理赔指南&#39;)">查看详情</a></dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="cl-progress clearfix" id="ul1">
+                    <dl>
+                        <dt><img src="images/cl-danger.png" alt=""></dt>
+                        <dd>客户出险</dd>
+                        <dd class="jianTou"> <img src="images/jiantou.png" alt=""></dd>
+                    </dl>
+                    <dl>
+                        <dt><img src="images/cl-phone.png" alt=""></dt>
+                        <dd>拨打95500报案</dd>
+                        <dd class="jianTou"> <img src="images/jiantou.png" alt=""></dd>
+                    </dl>
+                    <dl class="position_r">
+                        <dt><img src="images/cl-loss.png" alt=""></dt>
+                        <dd>现场处理确认损失</dd>
+                        <dd class="jianTou"> <img src="images/jiantou.png" alt=""></dd>
+                    </dl>
+                    <dl>
+                        <dt><img src="images/cl-cailiao.png" alt=""></dt>
+                        <dd>提交索赔材料</dd>
+                        <dd class="jianTou"> <img src="images/jiantou.png" alt=""></dd>
+                    </dl>
+                    <dl>
+                        <dt><img src="images/cl-shenghe.png" alt=""></dt>
+                        <dd>审核赔案</dd>
+                        <dd class="jianTou"> <img src="images/jiantou.png" alt=""></dd>
+                    </dl>
+                    <dl>
+                        <dt><img src="images/cl-peikuang.png" alt=""></dt>
+                        <dd>领取赔款</dd>
+                    </dl>
+                </div>
+                <div class="cl-service-bottom">7X24小时车险理赔报案电话95500   •   现场3G移动视频查勘，迅速定损   •   全国通赔，单证齐全即可当地理赔</div>
+            </div>
+            <div id="tab-con3" class="cx-service">
+                <h3>车险知多少</h3>
+                <ul class="cx-tab clearfix">
+                    <li class="tabClickActive">车辆损失险</li>
+                    <li>第三者责任险</li>
+                    <li>全车盗抢险</li>
+                    <li>车上人员司乘险</li>
+                    <li>玻璃单独破碎险</li>
+                    <li>自燃险</li>
+                    <li>车身划痕险</li>
+                    <li>不计免赔额</li>
+                    <li class="pr0">指定专修厂</li>
+                </ul>
+                <div class="cx-tab-contents">
+                    <!--车辆损失险-->
+                    <div class="cx-tab-con" style="display:block">
+                        <div class="cx-Triangle  cx-tab-con1"><img src="images/cx-sanjiao.png" alt=""></div>
+                        <ul class="cx-tab-list clearfix">
+                            <li class="width35">
+                                <img src="images/cx-baozhang.png" alt="">
+                           <span>
+                               车子发生碰撞，赔偿自己爱车的费用<br>
+                                1.车子撞了护栏或别人车，自己车子受损<br>
+                                2.车子被外界物体倒塌或坠落砸坏
+                           </span>
+                            </li>
+                            <li class="width30">
+                                <img src="images/cx-person.png" alt="">
+                                <span>必备险种，新手推荐</span>
+                            </li>
+                            <li class="width25">
+                                <img src="images/cx-recommend.png" alt="">
+                           <span>
+                               <img class="cx-star" src="images/cx-star.png" alt="">
+                               <img class="cx-star" src="images/cx-star.png" alt="">
+                               <img class="cx-star" src="images/cx-star.png" alt="">
+                               <img class="cx-star" src="images/cx-star.png" alt="">
+                           </span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--第三者责任险-->
+                    <div class="cx-tab-con">
+                        <div class="cx-Triangle cx-tab-con2"><img src="images/cx-sanjiao.png" alt=""></div>
+                        <ul class="cx-tab-list clearfix">
+                            <li class="width35">
+                                <img src="images/cx-baozhang.png" alt="">
+                                <span> 驾驶中不小心撞了其他车辆及行人</span>
+                            </li>
+                            <li class="width30">
+                                <img src="images/cx-person.png" alt="">
+                                <span>所有人群，新手推荐</span>
+                            </li>
+                            <li class="width25">
+                                <img src="images/cx-recommend.png" alt="">
+                            <span>
+                                <img class="cx-star" src="images/cx-star.png" alt="">
+                                <img class="cx-star" src="images/cx-star.png" alt="">
+                                <img class="cx-star" src="images/cx-star.png" alt="">
+                                <img class="cx-star" src="images/cx-star.png" alt="">
+                                <img class="cx-star" src="images/cx-star.png" alt="">
+                            </span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--全车盗抢险-->
+                    <div class="cx-tab-con">
+                        <div class="cx-Triangle cx-tab-con3"><img src="images/cx-sanjiao.png" alt=""></div>
+                        <ul class="cx-tab-list clearfix">
+                            <li class="width35">
+                                <img src="images/cx-baozhang.png" alt="">
+                                <span> 整辆车被盗</span>
+                            </li>
+                            <li class="width30">
+                                <img src="images/cx-person.png" alt="">
+                                <span>新车，车子经常无人开，车辆停放区域不安全</span>
+                            </li>
+                            <li class="width25">
+                                <img src="images/cx-recommend.png" alt="">
+                            <span>
+                                <img class="cx-star" src="images/cx-star.png" alt="">
+                                <img class="cx-star" src="images/cx-star.png" alt="">
+                            </span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--车上人员司乘险-->
+                    <div class="cx-tab-con">
+                        <div class="cx-Triangle cx-tab-con4"><img src="images/cx-sanjiao.png" alt=""></div>
+                        <ul class="cx-tab-list clearfix">
+                            <li class="width35">
+                                <img src="images/cx-baozhang.png" alt="">
+                                <span> 驾驶中意外事故司机或乘客伤亡</span>
+                            </li>
+                            <li class="width30">
+                                <img src="images/cx-person.png" alt="">
+                                <span>车子经常外借，经常搭载外人</span>
+                            </li>
+                            <li class="width25">
+                                <img src="images/cx-recommend.png" alt="">
+                            <span>
+                                <img class="cx-star" src="images/cx-star.png" alt="">
+                                <img class="cx-star" src="images/cx-star.png" alt="">
+                            </span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--玻璃单独破碎险-->
+                    <div class="cx-tab-con">
+                        <div class="cx-Triangle cx-tab-con5"><img src="images/cx-sanjiao.png" alt=""></div>
+                        <ul class="cx-tab-list clearfix">
+                            <li class="width35">
+                                <img src="images/cx-baozhang.png" alt="">
+                                <span> 高速公路上石子击碎玻璃车辆，以及车辆玻璃意外发生单独破碎</span>
+                            </li>
+                            <li class="width30">
+                                <img src="images/cx-person.png" alt="">
+                                <span>经常走高速，车辆经常停在露天停车场以及治安不好的区域</span>
+                            </li>
+                            <li class="width25">
+                                <img src="images/cx-recommend.png" alt="">
+                            <span>
+                                <img class="cx-star" src="images/cx-star.png" alt="">
+                                <img class="cx-star" src="images/cx-star.png" alt="">
+                            </span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--自燃损失险-->
+                    <div class="cx-tab-con">
+                        <div class="cx-Triangle cx-tab-con6"><img src="images/cx-sanjiao.png" alt=""></div>
+                        <ul class="cx-tab-list clearfix">
+                            <li class="width35">
+                                <img src="images/cx-baozhang.png" alt="">
+                                <span> 天气炎热，线路故障造成车辆燃烧</span>
+                            </li>
+                            <li class="width30">
+                                <img src="images/cx-person.png" alt="">
+                                <span>夏季高温地区，经常跑高速</span>
+                            </li>
+                            <li class="width25">
+                                <img src="images/cx-recommend.png" alt="">
+                            <span>
+                                <img class="cx-star" src="images/cx-star.png" alt="">
+                                <img class="cx-star" src="images/cx-star.png" alt="">
+                            </span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--车身划痕险-->
+                    <div class="cx-tab-con">
+                        <div class="cx-Triangle cx-tab-con7"><img src="images/cx-sanjiao.png" alt=""></div>
+                        <ul class="cx-tab-list clearfix">
+                            <li class="width35">
+                                <img src="images/cx-baozhang.png" alt="">
+                                <span> 车子停放期间被第三方用钥匙，石头划伤</span>
+                            </li>
+                            <li class="width30">
+                                <img src="images/cx-person.png" alt="">
+                                <span>新手，经常停在露天停车场或治安不好的区域</span>
+                            </li>
+                            <li class="width25">
+                                <img src="images/cx-recommend.png" alt="">
+                            <span>
+                                <img class="cx-star" src="images/cx-star.png" alt="">
+                                <img class="cx-star" src="images/cx-star.png" alt="">
+                                <img class="cx-star" src="images/cx-star.png" alt="">
+                                <img class="cx-star" src="images/cx-star.png" alt="">
+                            </span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--不计免赔额-->
+                    <div class="cx-tab-con">
+                        <div class="cx-Triangle cx-tab-con8"><img src="images/cx-sanjiao.png" alt=""></div>
+                        <ul class="cx-tab-list clearfix">
+                            <li class="width35">
+                                <img src="images/cx-baozhang.png" alt="">
+                                <span> 开车撞到柱子车主本应该承担15%的损失，购买了此险种，保险公司赔偿损失的全部费用</span>
+                            </li>
+                            <li class="width30">
+                                <img src="images/cx-person.png" alt="">
+                                <span>性价比较高实用性强，适合所有人群购买</span>
+                            </li>
+                            <li class="width25">
+                                <img src="images/cx-recommend.png" alt="">
+                            <span>
+                                <img class="cx-star" src="images/cx-star.png" alt="">
+                                <img class="cx-star" src="images/cx-star.png" alt="">
+                                <img class="cx-star" src="images/cx-star.png" alt="">
+                                <img class="cx-star" src="images/cx-star.png" alt="">
+                                <img class="cx-star" src="images/cx-star.png" alt="">
+                            </span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--指定专修厂-->
+                    <div class="cx-tab-con">
+                        <div class="cx-Triangle cx-tab-con9"><img src="images/cx-sanjiao.png" alt=""></div>
+                        <ul class="cx-tab-list clearfix">
+                            <li class="width35">
+                                <img src="images/cx-baozhang.png" alt="">
+                                <span> 豪车事故要去“就是贵”的维修点修理</span>
+                            </li>
+                            <li class="width30">
+                                <img src="images/cx-person.png" alt="">
+                                <span>“有钱”任性车主</span>
+                            </li>
+                            <li class="width25">
+                                <img src="images/cx-recommend.png" alt="">
+                                <span><img class="cx-star" src="images/cx-star.png" alt=""></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!--车险案例-->
+                <div class="car-case clearfix">
+                    <dl>
+                        <dt>车险案例</dt>
+                        <dd>
+                            <a href="https://www.cpic.com.cn/cxzq/2014gb/lby/cxcp/cxal/50215.shtml#" target="_blank">
+                                <i class="newsListIcon"></i>
+                                <span class="listText">车辆意外险范围介绍</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="https://www.cpic.com.cn/cxzq/2014gb/lby/cxcp/cxal/71426.shtml" target="_blank">
+                                <i class="newsListIcon"></i>
+                                <span class="listText">车主不满保险公司延迟赔付退保怎么处理</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="https://www.cpic.com.cn/cxzq/2014gb/lby/cxcp/cxal/71434.shtml" target="_blank">
+                                <i class="newsListIcon"></i>
+                                <span class="listText">机动车辆保险责任范围</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="https://www.cpic.com.cn/cxzq/2014gb/lby/cxcp/cxal/71433.shtml" target="_blank">
+                                <i class="newsListIcon"></i>
+                                <span class="listText">机动车辆第三者责任保险赔付</span>
+                            </a>
+                        </dd>
+                        <dd><a href="https://www.cpic.com.cn/cxzq/2014gb/lby/cxcp/cxal/" target="_blank" class="txt-c border-bN"> <span> &gt;&gt;更多</span></a></dd>
+                    </dl>
+
+                    <dl>
+                        <dt>车险知识</dt>
+                        <dd>
+                            <a href="https://www.cpic.com.cn/zixun2/qcbxzs/" target="_blank">
+                                <i class="newsListIcon"></i>
+                                <span class="listText">车辆死亡伤残赔偿限额</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="https://www.cpic.com.cn/zixun2/qcbxzs/" target="_blank">
+                                <i class="newsListIcon"></i>
+                                <span class="listText">国内常见车险种类</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="https://www.cpic.com.cn/zixun2/qcbxzs/" target="_blank">
+                                <i class="newsListIcon"></i>
+                                <span class="listText">交强险介绍及费率说明</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="https://www.cpic.com.cn/zixun2/qcbxzs/" target="_blank">
+                                <i class="newsListIcon"></i>
+                                <span class="listText">汽车有哪些保险？汽车保险种类</span>
+                            </a>
+                        </dd>
+                        <dd><a href="https://www.cpic.com.cn/zixun/qcsh/" target="_blank" class="txt-c border-bN"> <span> &gt;&gt;更多</span></a></dd>
+                    </dl>
+
+                    <dl>
+                        <dt>汽车保养知识</dt>
+                        <dd>
+                            <a href="https://www.cpic.com.cn/zixun/qcsh/index.shtml" target="_blank">
+                                <i class="newsListIcon"></i>
+                                <span class="listText">汽车保险常识</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="https://www.cpic.com.cn/cxzq/2014gb/lby/cxfw/qczs/71401.shtml" target="_blank">
+                                <i class="newsListIcon"></i>
+                                <span class="listText">贴汽车前挡膜的好处</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="https://www.cpic.com.cn/cxzq/2014gb/lby/cxfw/qczs/81022.shtml" target="_blank">
+                                <i class="newsListIcon"></i>
+                                <span class="listText">冬季安全驾驶，常见故障机制解决方案</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="https://www.cpic.com.cn/cxzq/2014gb/lby/cxfw/qczs/81021.shtml" target="_blank">
+                                <i class="newsListIcon"></i>
+                                <span class="listText">下雨天洗车方法</span>
+                            </a>
+                        </dd>
+                        <dd><a href="https://www.cpic.com.cn/cxzq/2014gb/lby/cxfw/qczs/" target="_blank" class="txt-c border-bN"> <span> &gt;&gt;更多</span></a></dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--右侧图标-->
+    <div class="cust-wrap">
+        <div class="cust-ser" onclick="javascript:window.open(&#39;//gwkf.cpic.com.cn/GWKF/index.html&#39;)"></div>
+    </div>
+</div>
+<script type="text/javascript" src="js4/jquery.cookie.js.下载"></script>
+<script type="text/javascript" src="js4/commonCookie.js.下载"></script>
+<!-- encryption+base64 begin-->
+<script type="text/javascript" src="js4/base64.js.下载"></script>
+<script type="text/javascript" src="js4/encryption.js.下载"></script>
+<!-- encryption+base64 end-->
+<script type="text/javascript" src="js4/common.js(1).下载"></script>
+<script type="text/javascript" src="js4/navScroll.js.下载"></script>
+<script type="text/javascript" src="js4/car_oneStop.js.下载"></script>
+<script>
+    /* 控件部码 */
+    function newCarOm(type,name) {
+/*         var s = s_gi(s_account);
+        s.linkTrackVars = 'prop21';
+        s.prop21 = '新车险一站式服务:' + type + ':' + name;
+        s.tl(this, 'o', name); */
+    }
+
+    /* 按钮部码 */
+    function newsSearchOm(type,name){
+/*         var s=s_gi(s_account);
+        s.linkTrackVars='prop50';
+        s.prop50='新车险一站式服务:'+type+':'+name;
+        s.tl(this,'o', name); */
+    }
+    /* 页面元素 部码*/
+    function newsOthearOm(name) {
+/*         var s = s_gi(s_account);
+        s.linkTrackVars = 'prop25';
+        s.prop25 = '新车险一站式服务:' + name;
+        s.tl(this, 'o', name); */
+    }
+
+</script>
+<script>
+    new navScroll({
+        nav : {                  //导航跳转功能，不需要可以删除此代码块
+            id : 'navigation',   //点击跳转到容器的导航ID 请把 ID 设置给 UL
+            current : 'tabActive', //默认点击A链接后，默认样式名
+            speed : 25 ,      //动画执行速度，越小则越快。反之，越慢。
+            fixPx :69//在导航使用绝对定位且在窗口上方，容器与导航的差,默认为0
+        }
+    });
+    //车险知多少
+    $('.cx-tab li').on('click',function(){
+        /* 部码 */
+        var OmText = $(this).html();
+        newsOthearOm(OmText);
+
+        var index = $(this).index();
+        $(this).addClass('tabClickActive').siblings().removeClass('tabClickActive');
+        $('.cx-tab-contents .cx-tab-con').eq(index).show().siblings().hide();
+    })
+</script>
+<script src="layui/layui.js" charset="utf-8"></script>
+<script>
+    //注意进度条依赖 element 模块，否则无法进行正常渲染和功能性操作
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+</script>
+
+<div class="footer">	<div class="footer-contanir">		<div class="footer-top clearfix">			<div class="clearfix pull-left" style="overflow: hidden">				<div class="pull-left list">					<h4>关于我们</h4>					<ul>						<li><a href="https://www.cpic.com.cn/aboutUs/index.shtml" rel="nofollow" target="_blank">公司简介</a></li>						<li><a href="https://www.cpic.com.cn/life/cn/lxwm/index.shtml" rel="nofollow" target="_blank">联系我们</a></li>						<li><a href="http://cpic.zhiye.com/" rel="nofollow" target="_blank">人才招聘</a></li>					</ul>				</div>				<div class="pull-left list">					<h4>帮助中心</h4>					<ul>						<li><a href="https://www.cpic.com.cn/cpic/cn/contactus/privacypolicy/index.shtml" rel="nofollow" target="_blank">隐私条款</a></li>						<li><a href="https://www.cpic.com.cn/cpic/cn/contactus/notice/index.shtml" rel="nofollow" target="_blank">法律咨询</a></li>						<li><a href="https://www.cpic.com.cn/zixun2/" target="_blank">保险资讯</a></li>                        <li><a href="https://www.cpic.com.cn/baike/?hit=ShouyeBzzxBxbk" target="_blank">保险百科</a></li>					</ul>				</div>				<div class="pull-left list">					<h4>集团旗下</h4>					<ul>						<li><a href="https://www.cpic.com.cn/xccbx/" target="_blank">财产保险</a></li>						<li><a href="https://www.cpic.com.cn/xrsbx/" target="_blank">人寿保险</a></li>						<li><a href="https://www.cpic.com.cn/xzcgl/" target="_blank">资产管理</a></li>						<li><a href="https://www.cpic.com.cn/jkx/" target="_blank">健康险</a></li>					</ul>				</div>				<div class="pull-left list">					<h4>&nbsp;</h4>					<ul>						<li><a href="http://www.aaic.com.cn/" target="_blank">安信农保</a></li>						<li><a href="https://www.cpic.com.cn/cjyl/CN/" target="_blank">长江养老</a></li>						<li><a href="https://www.cpic.com.cn/aii/" target="_blank">养老投资</a></li>					</ul>				</div>			</div>			<div class="pull-left qrcode-box">				<h4>关注我们</h4>				<ul class="clearfix" style="overflow: hidden; float: right;">					<li class="pull-left"><i class="icon-cpic-common image-codePhone"></i>					<p>手机网站</p></li>					<li class="pull-left"><i class="icon-cpic-common image-codeWx"></i>					<p>官方微信号</p></li>					<li class="pull-left"><i class="icon-cpic-common image-codeApp"></i>					<p>APP下载</p></li>				</ul>			</div>		</div>		<div class="footer-bot">			<div class="pull-left copyright">				<p>版权所有©中国太平洋保险（集团）股份有限公司CopyRight©China Pacific</p>				<p style="margin-top: 5px;">Insurance(group) Co.,Ltd.. All					Rights Reserved 沪ICP备12028297号</p>			</div>			<div class="pull-right">              <div class="clearfix pull-left" style="margin-right:5px;"><i class="icon-cpic-common icon-iconphone_1x"></i></div>				<div class="pull-left">                  <p style="font-size: 14px; letter-spacing: 1.75px;line-height:19px;color:#d0e0f2;margin-left:5px;" ;="">7×24小时全国统一客服电话</p>                  <p style="font-size: 18px; opacity: 0.8; letter-spacing: 2.25px;line-height:24px;color:#d0e0f2">95500</p>				</div>			</div>		</div>	</div></div></body></html>

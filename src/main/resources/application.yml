@@ -1,0 +1,34 @@
+
+mybatis-plus:
+  typeAliasesPackage: com.cpic.pojo
+  configuration:
+    auto-mapping-behavior: full
+    use-generated-keys: true
+  global-config:
+    db-config:
+        #\u4E3B\u952E\u7C7B\u578B  id_worker:"\u6570\u636E\u5E93ID\u81EA\u589E" auto+@TableId:"\u53EF\u4EE5\u83B7\u5F97\u4E3B\u952E\u503C"
+      id-type: auto
+  #mapper-locations: com.cpic.dao
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cpic?serverTimezone=UTC
+    username: root
+    password: root
+  jackson:
+    date-format: yyyy-MM-dd
+    time-zone: GMT+8
+  data:
+    mongodb:
+      #uri: mongodb://testrw:testrw@localhost:27017/test
+      uri: mongodb://localhost:27017/cpic
+  thymeleaf:
+    encoding: UTF-8
+    #\u5F00\u53D1\u65F6\u5173\u95ED\u7F13\u5B58,\u4E0D\u7136\u6CA1\u6CD5\u770B\u5230\u5B9E\u65F6\u9875\u9762
+    cache: false
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+server:
+  servlet:
+    context-path: /cpic

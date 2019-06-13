@@ -1,0 +1,83 @@
+.modelEdit{
+	position: relative;
+}
+.editButton{
+	position:absolute;
+	left:540px;
+	top:10px;
+}
+.editButton2{
+	position:absolute;
+	left:660px;
+	top:10px;
+}
+.atar_Show{
+	background: url(../../images/v2/stark2.png);
+	width:160px;
+}
+.starScore {
+	background: url(../../images/v2/stars2.png);
+	width: 160px;
+	height: 21px;
+}
+#m4add label{
+	margin:0 10px;
+}
+.reveal-modal {
+    visibility: hidden;
+    top: 100px;
+    left: 38%;
+    margin-left: -200px;
+    position: absolute;
+    z-index: 101;
+}
+#zhezhao {
+    display: none !important;
+}
+
+.width126{
+	width:500px;
+}
+.lbl{
+	float:left;
+	margin-top: 15px;
+	margin-right: 15px;
+}
+.wenzi{
+	background:#f8f8f8; 
+	width:850px;
+	height:225px;
+}
+.picItem{
+	border:solid 2px gainsboro ;
+	margin:20px 0
+}
+.picItemActive{
+	border:solid 10px #005bac ;
+}
+.picItem img{
+	margin:10px 18px;
+	max-width: 860px;
+	/*height: 266px;
+    width: 860px;*/
+}
+div.tabTypeEdit{
+	width:950px;
+}
+.width900{
+	width:900px;
+}
+#modelEdit1,#modelEdit2,#modelEdit3,#modelEdit4{
+	overflow:auto;
+}
+
+#modelEdit1 img,#modelEdit2 img,#modelEdit3 img,#modelEdit4 img{
+	display:block;
+}
+#mobileContent{
+	width: 667px;
+    height: 750px;
+    margin: 20px auto;
+    overflow-y: auto;
+    border: 2px solid #e8e8e8;
+}
