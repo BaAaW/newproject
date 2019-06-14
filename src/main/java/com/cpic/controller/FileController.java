@@ -1,4 +1,4 @@
-﻿package com.cpic.controller;
+package com.cpic.controller;
 
 import com.cpic.service.ScxzService;
 import org.slf4j.Logger;
@@ -20,10 +20,8 @@ public class FileController {
     @Autowired
     private ScxzService scxzService;
     private static final Logger log = LoggerFactory.getLogger(FileController.class);
-    @RequestMapping(value = "/")
-    public String index(){
-	return "index";
-    }
+
+
     @RequestMapping(value = "/upload")//单文件上传
     public String upload(@RequestParam("file") MultipartFile file) {
         try {

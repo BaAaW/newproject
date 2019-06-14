@@ -564,7 +564,7 @@
                                     <div class="consult-specialist-item pull-left on" style="width: 340px;">
                                         <div class="consult-specialist-img-box">
                                             <div style=" height: 170px;">
-                                                <img src="images/v2/zixun01.png" alt="">
+                                                <img src="/cpic/images/v2/zixun01.png" alt="">
                                             </div>
                                         </div>
                                         <div>
@@ -581,7 +581,7 @@
                                     <div class="consult-specialist-item pull-left on" style="width: 420px; margin: 45px 34px 0;">
                                         <div class="consult-specialist-img-box">
                                             <div style="height: 170px;">
-                                                <img src="images/v2/zixun02.png" alt="">
+                                                <img src="/cpic/images/v2/zixun02.png" alt="">
                                             </div>
                                         </div>
                                         <div>
@@ -598,7 +598,7 @@
                                     <div class="consult-specialist-item pull-left on" style="width: 312px;">
                                         <div class="consult-specialist-img-box">
                                             <div style="height: 170px;">
-                                                <img src="images/v2/zixun03.png" alt="">
+                                                <img src="/cpic/images/v2/zixun03.png" alt="">
                                             </div>
                                         </div>
                                         <div>
@@ -617,7 +617,7 @@
                     </div>
                 </li>
                 <li class="nav-item pull-left">
-                    <a rel="canonical" href="index.html?hit=ShouyeDhDating" target="_blank" onclick="pushSC('服务大厅')">
+                    <a rel="canonical" href="/cpic/fw" target="_blank" onclick="pushSC('服务大厅')">
                         <div class="column-name">
                             <span>服务大厅</span>
                             <div class="icon-cpic-common circle hide"></div>
@@ -651,7 +651,7 @@
                             </li>
                             <li class="pull-left">
                                 <a target="_blank" href="ePolicy/ePolicyInit?hit=ShouyeDhDtJzcx" onclick="pushSC('服务大厅','电子保单验真与下载')">
-                                    <i class="icon-cpic-common icon-bxcs icon-jzcx" style="display:block;float: left; background-image: url(images/v2/common/ico-05.png);background-size: 100% 100%;background-position: 0 0;"></i>
+                                    <i class="icon-cpic-common icon-bxcs icon-jzcx" style="display:block;float: left; background-image: url(/cpic/images/v2/common/ico-05.png);background-size: 100% 100%;background-position: 0 0;"></i>
                                     <div style="float: right;">
                                         <p style="height: 24px;line-height: 32px;color:#4a4a4a;">电子保单</p>
                                         <p style="height: 10px;line-height: 32px;color:#4a4a4a;">验真与下载</p>

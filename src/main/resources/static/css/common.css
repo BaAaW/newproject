@@ -69,7 +69,7 @@ img{border-style:none;max-width:100%;}
 .insu_sup_item .icon-bxcs {margin:auto;}
 .nav-item-box-new .insu_sup_item>a>span {display:block;height:40px;line-height:40px;}
 .nav-item-box-new .insu_sup_item a {height:88px;width:100%;}
-.current_border {display:block;margin:auto; margin-top: 7px;width:100px;height:15px;z-index:10;position:relative;background:url(/cpic/images/border1.png) no-repeat;}
+.current_border {display:block;margin:auto; margin-top: 7px;width:100px;height:15px;z-index:10;position:relative;background:url(../images/border1.png) no-repeat;}
 .nav-item-box-new  a {text-decoration:none;}
 .hover_show_box ul,.hover_show_box li {margin:0;padding:0;list-style:none}
 .hover_show_box>ul>li {float:left;width:24.5%;height:248px;position:relative;padding-top:14px;/* border-right:1px solid #c4d8ef */}
@@ -109,7 +109,7 @@ img{border-style:none;max-width:100%;}
 .hover_show_box .col_item .top1 {height:auto;border:none;width:90%;}
 
 /*底部*/
-.footer{width:100%;height: 430px;background: url("/cpic/images/cpic_common_footer_bg.jpg") no-repeat;background-size:cover;color:#fff;overflow: hidden;position: relative;}
+.footer{width:100%;height: 430px;background: url("../images/cpic_common_footer_bg.jpg") no-repeat;background-size:cover;color:#fff;overflow: hidden;position: relative;}
 .footer a{color:#eeeeef;letter-spacing: 0;}
 .footer-contanir{width: 1148px;margin: 0 auto;padding-top: 72px;overflow: hidden}
 .footer-top{border-bottom: 1px solid #9B9B9B;padding-bottom: 31px;}
@@ -129,8 +129,8 @@ img{border-style:none;max-width:100%;}
 .returnTop{position: fixed;right: 50px;bottom: 50px;z-index:10000;cursor:pointer;display: none;}
 .head .nav-item-box ul li a img{vertical-align:middle;}
 /**公共样式-雪碧图**/
-.icon-cpic-common{display:block;background-image:url(/cpic/images/cpic_common_icons.png);background-repeat: no-repeat;}
-.icon-cpic-common-add{display:block;background-image:url(/cpic/images/cpic_common_icons_add.png);background-repeat:no-repeat}
+.icon-cpic-common{display:block;background-image:url(../images/cpic_common_icons.png);background-repeat: no-repeat;}
+.icon-cpic-common-add{display:block;background-image:url(../images/cpic_common_icons_add.png);background-repeat:no-repeat}
 .icon-bxkjh{background-position:-4px -4px;background-size:118px 118px}
 .icon-bdbg{background-position:-61px -4px;background-size:118px 118px}
 .icon-tbvip{background-position:-4px -64px;background-size:118px 118px}
@@ -159,7 +159,7 @@ img{border-style:none;max-width:100%;}
 .icon-iconphone_1x{width: 44px;height: 44px;background-position: -260px -194px;}
 
 .icon-rsbx{
-    background-image: url(/cpic/images/rsbxIcon.png);
+    background-image: url(../images/rsbxIcon.png);
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -169,7 +169,7 @@ img{border-style:none;max-width:100%;}
 .pull-left .icon-club{
   width: 54px;
     height: 54px;
-	 background-image: url(/cpic/images/cpic_common_icons_add1.png);
+	 background-image: url(../images/cpic_common_icons_add1.png);
   background-size: auto;
 }
 .pull-left .icon-khjlb{
@@ -288,21 +288,21 @@ img{border-style:none;max-width:100%;}
         }
 
 .image-codePhone {
-        background-image: url(/cpic/images/erweima.png?);
+        background-image: url(../images/erweima.png?);
     background-position: -1px -1px;
     width: 88px;
     height: 90px;
 }
 
 .image-codeWx {
-    background-image: url(/cpic/images/erweima.png?);
+    background-image: url(../images/erweima.png?);
     background-position: -99px 0px;
     width: 90px;
     height: 90px;
 }
 
 .image-codeApp {
-background-image: url(/cpic/images/erweima.png?);
+background-image: url(../images/erweima.png?);
     background-position: -200px 0px;
     width: 90px;
     height: 90px;
@@ -359,7 +359,7 @@ input:-ms-input-placeholder { /* Internet Explorer 10-11 */
 		box-shadow: 1px 2px 7px 2px rgba(0,0,0,.4);
 }
 .head .toApp .appWral .appImg{
-	background-image: url(/cpic/images/erweima.png?);
+	background-image: url(../images/erweima.png?);
 		background-position: -200px 0px;
 		width: 86px;
 		height: 90px;

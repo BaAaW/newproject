@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -21,7 +22,10 @@ public class SelectController {
     private BaodanService baodanService;
     @Autowired
     private ChexianService chexianService;
-
+    @RequestMapping(value = "/")
+    public String index(){
+        return "index";
+    }
     @PostMapping("/selectPhone")//按手机号查询
     public String selectPhone(Model model, String phone, String dname) {
         System.out.println("phone = " + phone);
