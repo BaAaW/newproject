@@ -18,7 +18,7 @@ public class Protection implements Serializable {
     @TableId(value = "ptid", type = IdType.AUTO)
     private Integer ptid;
     private String ptname;
-    private Long amount;
+    private Integer amount;
     @TableField(exist=false)
     private String content;
     private Integer maxctype;

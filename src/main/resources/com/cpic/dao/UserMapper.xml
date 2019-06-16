@@ -4,8 +4,6 @@
     <select id="selectuserbyuid" resultMap="usermap">
         select * from users where uid=#{uid}
     </select>
-    <!--<select id="selectalluser" resultMap="usermap">-->
-    <!--</select>-->
     <resultMap type="User" id="usermap">
         <id property="uid" column="uid"/>
         <association property="certType" column="fkceid" javaType="CertType" select="com.cpic.dao.CertTypeMapper.selectById"/>

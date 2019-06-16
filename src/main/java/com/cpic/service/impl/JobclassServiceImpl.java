@@ -15,4 +15,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @AutoConfigureAfter({JobclassMapper.class})
 public class JobclassServiceImpl extends ServiceImpl<JobclassMapper,jobclass> implements JobclassService {
+
 }

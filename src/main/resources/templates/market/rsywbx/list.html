@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="/cpic/css/v2/common.css" />
 	<link rel="stylesheet" href="/cpic/market/css/v2/market_common.css?v=1.2.1">
 	<link rel="stylesheet" type="text/css" href="/cpic/market/css/v2/tableStyle.css?v=1.2">
-  	<script type="text/javascript" src="/cpic/js/v2/base.js"></script>
+
   	<script type="text/javascript" src="/cpic/market/js/jquery.min.js"></script>
   　<script src="/cpic/js/v2/commonInclude.js"></script>
 
@@ -41,7 +41,7 @@ $().ready(function () {
 	    if(thisclass==undefined){thisclass="";}
 		//alert(thisclass);
 		if(thisclass.indexOf("current")<0){
-			$(this).attr("href","/cpic/hds/pageproduct?selectcont="
+			$(this).attr("href","/cpic/hds/pageproduct?pdid="+[[${pdid}]]+"&selectcont="
 				+$(this).attr("value")+"&pagenum=1"
 				+"&selectfeat="+$(".feat a.current").attr("value")
 				+"&selectage="+$(".age a.current").attr("value")
@@ -53,7 +53,7 @@ $().ready(function () {
         if(thisclass==undefined){thisclass="";}
         //alert(thisclass);
         if(thisclass.indexOf("current")<0){
-            $(this).attr("href","/cpic/hds/pageproduct?selectfeat="
+            $(this).attr("href","/cpic/hds/pageproduct?pdid="+[[${pdid}]]+"&selectfeat="
                 +$(this).attr("value")+"&pagenum=1"
                 +"&selectcont="+$(".dest a.current").attr("value")
 				+"&selectage="+$(".age a.current").attr("value")
@@ -64,7 +64,7 @@ $().ready(function () {
         var thisclass=$(this).attr("class");
         if(thisclass==undefined){thisclass="";}
         if(thisclass.indexOf("current")<0){
-            $(this).attr("href","/cpic/hds/pageproduct?selectage="
+            $(this).attr("href","/cpic/hds/pageproduct?pdid="+[[${pdid}]]+"&selectage="
                 +$(this).attr("value")+"&pagenum=1"
                 +"&selectcont="+$(".dest a.current").attr("value")
 			    +"&selectfeat="+$(".feat a.current").attr("value")
@@ -75,7 +75,7 @@ $().ready(function () {
         var thisclass=$(this).attr("class");
         if(thisclass==undefined){thisclass="";}
         if(thisclass.indexOf("current")<0){
-            $(this).attr("href","/cpic/hds/pageproduct?selecttime="
+            $(this).attr("href","/cpic/hds/pageproduct?pdid="+[[${pdid}]]+"&selecttime="
                 +$(this).attr("value")+"&pagenum=1"
                 +"&selectcont="+$(".dest a.current").attr("value")
                 +"&selectfeat="+$(".feat a.current").attr("value")
@@ -209,18 +209,18 @@ $().ready(function () {
 	<!--<div class="page" id="page"></div>-->
 	<div class="page">
 		<span th:class="${pagenum eq 1}?'disabled':'prevPage'">
-			<a class="triangle-left" th:href="${pagenum eq 1}?@{'javascript:void(0)'}:@{${'/hds/pageproduct'}(pagenum=${pagenum-1})}">
+			<a class="triangle-left" th:href="${pagenum eq 1}?@{'javascript:void(0)'}:@{${'/hds/pageproduct'}(pagenum=${pagenum-1},pdid=${pdid})}">
 		</a></span>
 		<span th:each="pageNo : ${#numbers.sequence(1, pagecount)}"
 			  th:class="${pagenum eq pageNo}?'current blue':'tcdNumber'">
 			<a style="display: inline-block;width: 100%;height: 100%;"
-			   th:href="${pagenum eq pageNo}?@{'javascript:void(0)'}:@{${'/hds/pageproduct'}(pagenum=${pageNo})}">
+			   th:href="${pagenum eq pageNo}?@{'javascript:void(0)'}:@{${'/hds/pageproduct'}(pagenum=${pageNo},pdid=${pdid})}">
 				[[${pageNo}]]
 			</a>
 		</span>
 		<span th:class="${pagenum eq pagecount}?'disabled':'nextPage'"><i class="triangle-right">
 			<a style="display: inline-block;width: 100%;height: 100%;"
-			   th:href="${pagenum eq pagecount}?@{'javascript:void(0)'}:@{${'/hds/pageproduct'}(pagenum=${pagenum+1})}">
+			   th:href="${pagenum eq pagecount}?@{'javascript:void(0)'}:@{${'/hds/pageproduct'}(pagenum=${pagenum+1},pdid=${pdid})}">
 			</a>
 		</i></span>
 	</div>

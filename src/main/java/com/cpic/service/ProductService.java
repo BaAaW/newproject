@@ -10,5 +10,5 @@ import java.util.List;
 public interface ProductService extends IService<Product> {
     //public IPage<Product> getallproduct(Page<Product> page);
     public Product getproductbypid(int pid);
-    public List<Product> getallproduct(int selectcont,int selectfeat,int selectage,int selecttime);
+    public List<Product> getallproduct(int selectcont,int selectfeat,int selectage,int selecttime,int fkpdid);
 }

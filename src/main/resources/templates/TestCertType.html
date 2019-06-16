@@ -3,22 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <script type="text/javascript" src="/cpic/market/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="/cpic/layui/css/layui.css">
+    <script src="/cpic/layui/layui.all.js"></script>
 </head>
 <body>
-    <form th:action="@{addcerttype}">
-        证件类型:<input name="ctname">
-        <input type="submit" value="提交">
+<script type="text/javascript">
+    $().ready(function () {
+
+        $('#aaa').on('click', function(){
+            //alert(1)
+            layer.open({
+                type: 1,
+                area: ['600px', '360px'],
+                content: '<form action="/cpic/hds/listproduct"><input name="id" value="4">\n' +
+                '        <a id="bbb">另一个关闭</a>\n' +
+                '        <input type="submit" value="提交3">\n' +
+                '    </form>'
+            });
+            $("#bbb").click(function () {
+                layer.close(layer.index);
+            })
+        });
+
+    })
+
+</script>
+    <!--<form th:action="@{'/hds/addcerttype'}">-->
+        <!--证件类型:<input name="ctname">-->
+        <!--<input type="submit" value="提交">-->
+    <!--</form>-->
+    <!--=============<br>-->
+    <!--<form th:action="@{'/hds/addproduct'}">-->
+        <!--保险产品名：<input name="pname">-->
+        <!--保险产品描述：<input name="description">-->
+        <!--保险期限：<input name="duration">-->
+        <!--单位(默认年)：<input name="unit">-->
+        <!--年龄下限：<input name="minage">-->
+        <!--年龄上限：<input name="maxage">-->
+        <!--销售区域：<input name="salearea">-->
+        <!--<input type="submit" value="提交">-->
+    <!--</form>-->
+    <!--<form th:action="@{'/hds/listproduct'}">-->
+        <!--<input name="id" value="2">-->
+        <!--<form th:action="@{'/hds/listproduct'}">-->
+            <!--<input name="id" value="1">-->
+            <!--<input type="submit" value="提交1">-->
+        <!--</form>-->
+        <!--<input type="submit" value="提交2">-->
+    <!--</form>-->
+    <form th:action="@{'/hds/listproduct'}" method="post">
+        <input name="id0" value="1">
+        <input name="id1" value="2">
+        <input name="id2" value="3">
+        <input name="id3" value="4">
+        <a id="aaa">另一个表单</a>
+        <input type="submit" value="提交3">
     </form>
-    =============<br>
-    <form th:action="@{addproduct}">
-        保险产品名：<input name="pname">
-        保险产品描述：<input name="description">
-        保险期限：<input name="duration">
-        单位(默认年)：<input name="unit">
-        年龄下限：<input name="minage">
-        年龄上限：<input name="maxage">
-        销售区域：<input name="salearea">
-        <input type="submit" value="提交">
-    </form>
+
+
 </body>
 </html>

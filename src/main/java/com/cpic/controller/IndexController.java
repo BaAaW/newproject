@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Stream;
+
 @RequestMapping("/hds")
 @Controller
 public class IndexController {
@@ -38,6 +38,8 @@ public class IndexController {
     private CertTypeService certTypeService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private ProtectionService protectionService;
     @Autowired
     private MongoTemplate mongoTemplate;
     @Autowired
@@ -71,35 +73,20 @@ public class IndexController {
     }
 
     @RequestMapping("listproduct")
-    public String listproduct(Model model){
-        //IPage<Product> page = productService.getallproduct(new Page<Product>(1,10));
-        //List<Product> productlist = page.getRecords();
-//        PageInfo<Product> productlist =productService.getallproduct();
-//        model.addAttribute("productlist",productlist);
-//        System.out.println(productlist.size());
-//        System.out.println(productlist.get(0).getFeaturelist());
-//        System.out.println(productlist.get(0).getProtectionlist());
+    public String listproduct(Model model,ArrayList<Integer> id){
+        System.out.println(id);
         return "listcerttype";
     }
 
-    @RequestMapping("/list")
-    public String list(Model model){
-        //IPage<Product> page = productService.getallproduct(new Page<Product>(1,25));
-        //Page<Product> page=productService.getallproduct();
-//        System.out.println("class:"+page.getClass());
-//        System.out.println("total:"+page.getTotal());
-//        System.out.println("pages:"+page.getPages());
-//        System.out.println("pagenum:"+page.getPageNum());
-//        model.addAttribute("productlist",page.getResult());
-//        model.addAttribute("pagecount",page.getPages());
-//        model.addAttribute("producttotal",page.getTotal());
+    @RequestMapping("/list/{pdid}")
+    public String list(Model model,@PathVariable Integer pdid){
 
         int pagenum=1;
         int pagesize=5;
 
         List<Content> contentlist=contentService.list();
         List<Features> featureslist=featuresService.list();
-        List<Product> products=productService.getallproduct(0,0,0,0);
+        List<Product> products=productService.getallproduct(0,0,0,0,pdid);
         List<Product> productlist=null;
         if(pagenum*pagesize>products.size()){
             productlist=products.subList((pagenum-1)*pagesize,products.size());
@@ -118,6 +105,7 @@ public class IndexController {
         model.addAttribute("pagecount",products.size()/pagesize+1);
         model.addAttribute("producttotal",products.size());
         model.addAttribute("pagenum",pagenum);
+        model.addAttribute("pdid",pdid);
 
         System.out.println(contentlist);
         //System.out.println(2/pagesize+1);
@@ -125,12 +113,12 @@ public class IndexController {
         return "market/rsywbx/list";
     }
     @RequestMapping("/pageproduct")
-    public String pageproduct(Integer pagenum,Integer selectcont,Integer selectfeat,Integer selectage,Integer selecttime,Model model){
+    public String pageproduct(Integer pdid,Integer pagenum,Integer selectcont,Integer selectfeat,Integer selectage,Integer selecttime,Model model){
         int pagesize=5;
         List<Content> contentlist=contentService.list();
         List<Features> featureslist=featuresService.list();
 
-        List<Product> products=productService.getallproduct(selectcont,selectfeat,selectage,selecttime);
+        List<Product> products=productService.getallproduct(selectcont,selectfeat,selectage,selecttime,pdid);
         List<Product> productlist=null;
         if(pagenum*pagesize>products.size()){
             productlist=products.subList((pagenum-1)*pagesize,products.size());
@@ -150,6 +138,7 @@ public class IndexController {
         model.addAttribute("pagecount",products.size()/pagesize+1);
         model.addAttribute("producttotal",products.size());
         model.addAttribute("pagenum",pagenum);
+        model.addAttribute("pdid",pdid);
 
         return "market/rsywbx/list";
     }
@@ -188,23 +177,18 @@ public class IndexController {
     }
     @RequestMapping("nextestimate")
     public String nextestimate(HttpSession session, Model model, @ModelAttribute("orders") @Validated Orders orders,
-                               ArrayList<Integer> protvals,ArrayList<Integer> protvalg,ArrayList<Integer> protids,ArrayList<Integer> protidg,
-                               Integer pid, Integer cid, BindingResult result){
+                               @ModelAttribute("protvals") String protvals,@ModelAttribute("protvalg") String protvalg,
+                               @ModelAttribute("protids") String protids,@ModelAttribute("protidg") String protidg,
+                               @ModelAttribute("pid")Integer pid, Integer cid, BindingResult result){
         if(protvalg==null){
-            protvalg=new ArrayList<Integer>();
+            protvalg="";
         }
-        for (int i:protvalg) {
-            System.out.println("protvalg"+i);
-        }
-        for (int i:protvals) {
-            System.out.println("protvals"+i);
-        }
-        for (int i:protidg) {
-            System.out.println("protidg"+i);
-        }
-        for (int i:protids) {
-            System.out.println("protids"+i);
-        }
+
+        System.out.println("protvalg"+protvalg);
+        System.out.println("protvals"+protvals);
+        System.out.println("protidg"+protidg);
+        System.out.println("protids"+protids);
+
         System.out.println("pid"+pid+"cid"+cid);
         jobclass jobclass=jobclassService.getById(cid);
         orders.setJobclass(jobclass);
@@ -225,5 +209,115 @@ public class IndexController {
         model.addAttribute("product",productService.getById(pid));
         model.addAttribute("certTypelist",certTypeService.list());
         return "nextestimate";
+    }
+    @RequestMapping("orderconfirm")
+    public String orderconfirm(String fkinuserids,String copieslist,String relations,
+                               String protvals,String protvalg,
+                               String protids,String protidg,
+                               Integer pid,@ModelAttribute("orders")Orders order,User asuser,Model model){
+
+        System.out.println("fkinuserids"+fkinuserids);
+        System.out.println("copieslist"+copieslist);
+        System.out.println("relations"+relations);
+        if(protvalg==null){
+            protvalg="";
+        }
+        System.out.println("protvalg"+protvalg);
+        System.out.println("protvals"+protvals);
+        System.out.println("protidg"+protidg);
+        System.out.println("protids"+protids);
+
+        System.out.println("asuser"+asuser);
+        System.out.println("order"+order);
+
+        List<Protection> subprotectionList=new ArrayList<>();
+        List<Protection> mainprotectionList=new ArrayList<>();
+        List<Orders> addedorderids=new ArrayList<>();
+
+        ArrayList<Integer> protvalgs=stringtointlist(protvalg);
+        ArrayList<Integer> protvalss=stringtointlist(protvals);
+        ArrayList<Integer> protidgs=stringtointlist(protidg);
+        ArrayList<Integer> protidss=stringtointlist(protids);
+        ArrayList<Integer> fkinuseridss=stringtointlist(fkinuserids);
+        ArrayList<Integer> copieslists=stringtointlist(copieslist);
+        List<String> relationss=Arrays.asList(relations.split("-"));
+
+        int totalcopies=0;
+
+        QueryWrapper<User> userquery=new QueryWrapper<User>().eq("uname",asuser.getUname())
+                .eq("certnum",asuser.getCertnum()).eq("fkceid",asuser.getFkceid());
+        User checkuser=userService.getOne(userquery);
+        if(checkuser==null){
+            userService.save(asuser);
+        }else{
+            userService.update(asuser,userquery);
+        }
+        asuser=userService.getOne(userquery);
+        asuser.setCertType(certTypeService.getById(asuser.getFkceid()));
+
+        try {
+            int z=0;
+            for (int i:fkinuseridss) {
+                Orders o=(Orders) order.clone();
+                String uuid=UUID.randomUUID().toString();
+                o.setUuid(uuid);
+                o.setFkinid(i);
+                o.setInuser(userService.getuserbyuid(i));
+                o.setCopies(copieslists.get(z));
+                o.setRelation(relationss.get(z));
+                o.setAsuser(asuser);
+                o.setFkasid(asuser.getUid());
+                o.setJobclass(jobclassService.getById(o.getFkjobcid()));
+                System.out.println(o);
+                ordersService.save(o);
+                addedorderids.add(ordersService.selectOrdersbyuuid(uuid));
+                z++;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        for (Orders j:addedorderids) {
+            for (int i:protidgs) {
+                ordersService.insertordertoprotection(i,j.getOid());
+            }
+            for (int i:protidss) {
+                ordersService.insertordertoprotection(i,j.getOid());
+            }
+            totalcopies+=j.getCopies();
+        }
+        //附加险
+        int x=0;
+        for (int i:protidgs) {
+            Protection mainprotection=protectionService.getById(i);
+            mainprotection.setAmount(protvalgs.get(x));
+            x++;
+            subprotectionList.add(mainprotection);
+        }
+        //主险
+        int y=0;
+        for (int i:protidss) {
+            Protection subprotection=protectionService.getById(i);
+            subprotection.setAmount(protvalss.get(y));
+            y++;
+            mainprotectionList.add(subprotection);
+        }
+
+        model.addAttribute("mainprotectionList",mainprotectionList);
+        model.addAttribute("subprotectionList",subprotectionList);
+        model.addAttribute("product",productService.getById(pid));
+        model.addAttribute("addedorderids",addedorderids);
+        model.addAttribute("asuser",asuser);
+        model.addAttribute("totalcopies",totalcopies);
+
+        return "orderconfirm";
+    }
+    private ArrayList<Integer> stringtointlist(String s){
+        String[] rs1=s.split("-");
+        ArrayList<Integer> rs2=new ArrayList<>();
+        for (String r:rs1) {
+            rs2.add(Integer.valueOf(r));
+        }
+        //System.out.println("rs2"+rs2);
+        return rs2;
     }
 }

@@ -53,7 +53,7 @@
                                 </a>
                             </li>
                             <li class="pull-left insu_sup_item is_item6">
-                                <a target="_blank" href="market/rsywbx/?hit=ShouyeDhCsYwbx" onclick="pushSC('保险超市','人身意外险')">
+                                <a target="_blank" href="/cpic/hds/list/6" onclick="pushSC('保险超市','人身意外险')">
                                     <i class="icon-cpic-common icon-bxcs icon-rsywx"></i>
                                     <span>人身意外险</span>
                                     <b></b>
@@ -81,7 +81,7 @@
                                 </a>
                             </li>
                             <li class="pull-left insu_sup_item is_item9">
-                                <a target="_blank" href="market/dkbx/?hit=ShouyeDhBxcsDk" onclick="pushSC('保险超市','贷款保证保险')">
+                                <a target="_blank" href="" onclick="pushSC('保险超市','贷款保证保险')">
                                     <i class="icon-cpic-common icon-bxcs icon-dkbx"></i>
                                     <span>贷款保证保险</span>
                                     <b></b>

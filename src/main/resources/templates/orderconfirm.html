@@ -1,0 +1,383 @@
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<script type="text/javascript" src="/cpic/mall/js/sales/jquery.js"></script>
+
+    <link href="/cpic/css2/gwsy/base/base.css" rel="stylesheet" type="text/css" />
+    <link href="/cpic/mall/css/lifesales/common.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="/cpic/market/css/v2/base.css">
+	<script type="text/javascript" src="/cpic/market/js/jquery.min.js"></script>
+	<script src="/cpic/js/v2/commonInclude.js"></script>
+<style type="text/css">
+    .slider210 {
+        position: absolute;
+        top: 160px;
+        right: 180px;
+    }
+</style>
+	<title>太平洋保险</title>
+</head>
+<body>
+<script type="text/javascript">
+
+</script>
+
+<style type="text/css">
+.common_nav a.under_link {
+	position: absolute;
+	right: 10px;
+	top: 4px;
+	font-weight: normal;
+	font-size: 14px;
+	color: #0E5BB3;
+	width: 60px;
+	height: 26px;
+	background: url(../../images/lifesales/common/btn-dvl.gif) no-repeat;
+	overflow: hidden;
+	font-size: 0;
+	text-indent: -999999999em;
+	font-family: BACKGROUND :   url(../../images/lifesales/common/btn-dvl.gif) no-repeat;
+}
+
+.state {
+	margin-top: 20px;
+}
+
+.state .bg-t,.state .state-con,.state .bg-b {
+	width: 767px;
+	background: url(/cpic/mall/images/lifesales/common/state_bg.jpg) no-repeat;
+}
+
+.state .bg-t {
+	height: 20px;
+	background-position: -767px 0;
+}
+
+.state .bg-b {
+	height: 20px;
+	background-position: -767px -20px;
+}
+
+.state .state-con {
+	width: 727px;
+	padding: 0 20px;
+	background-repeat: repeat-y;
+	overflow: hidden;
+}
+
+.state .sm_nav {
+	padding: 0;
+}
+
+.state .sm_nav table {
+	ling-height: 24px;
+}
+
+.___boxContent {
+	overflow-y: auto;
+}
+</style>
+<div class="main">
+	<div class="step">
+		<img src="/cpic/mall/images/lifesales/common/step3.jpg" />
+	</div>
+
+	<form action="underwriting" method="post" id="premiums_form">
+
+		<div class="slider767">
+		<link href="/cpic/mall/css/lifesales/common.css" rel="stylesheet" type="text/css" />
+    	<h3 class="h3_tt">
+    	      	     [[${product.pname}]]
+    	      	</h3>
+                <div class="bd_box">
+        	<h3 class="common_nav"><em class="ico4"></em>保障和金额<a id="modiSecurity" href="#" class="modify next_btn ahand">[修改]</a><a href="javascript:void(0)" class="under_link up_link ahand">收起</a></h3>			<div class="content_box">
+            <div class="blank10"></div>
+            <div class="danwei danwei620">单位：元</div>
+            <table width="620" border="0" cellspacing="0" cellpadding="0" class="common_table2 w620">
+                  <tr>
+                    <th width="505" class="w_col_0">保障</th>
+                    <th>保额</th>
+	    			 </tr>
+					<tr th:each="mprot:${mainprotectionList}">
+					<td class="w_col_0">[[${mprot.ptname}]]</td>
+    				<td class='w_col_1'>[[${mprot.amount}]]</td>
+					</tr>
+				    <tr th:each="sprot:${subprotectionList}">
+					<td class="w_col_0">附加[[${sprot.ptname}]]</td>
+					<td class='w_col_1'>[[${sprot.amount}]]</td>
+				    </tr>
+            </table>
+            <div class="btm_box"><b id="totalGrossPremium" class="red">总保费：[[${orders.premium*totalcopies}]]元</b><span id="totalGrossPremiumDetail" class="p_info">(单张保费[[${orders.premium}]]元 * 份数[[${totalcopies}]])</span></div>
+            </div>
+        </div>
+<div class="blank14"></div>
+	<div class="bd_box">
+	<h3 class="common_nav"><em class="ico2"></em>保单基本信息<a id="modiBaseInfo" class="modify next_btn ahand">[修改]</a><a  class="under_link up_link ahand">收起</a></h3>
+	<div class="content_box">
+        <div class="blank14"></div>
+        <table border="0" cellspacing="0" cellpadding="0" class="common_table common_table_show">
+          <tr>
+            <th width="150"> 保险起期：</th>
+            <td width="180">[[${#dates.format(orders.ostart,'yyyy-MM-dd')}]] 0时起</td>
+            <th width="150"> 保险止期：</th>
+            <td width="180">[[${#dates.format(orders.oend,'yyyy-MM-dd')}]] 24时止</td>
+          </tr>
+        </table>
+        <div class="blank7"></div>
+    </div>
+</div> 
+			<div class="blank14"></div>
+			<div class="bd_box">
+				<h3 class="common_nav">
+					<em class="ico2"></em>投保人信息<a id="modiInsurance"
+						class="modify next_btn ahand">[修改]</a><a
+						class="under_link up_link ahand">收起</a>
+				</h3>
+				<div class="content_box">
+					<div class="blank14"></div>
+					<table border="0" cellspacing="0" cellpadding="0"
+						class="common_table common_table_show">
+						<tr>
+							<th width="150">姓名：</th>
+							<td width="180">[[${asuser.uname}]]</td>
+							<th width="150">性别：</th>
+							<td width="180" th:text="${asuser.sex==1}?'男':'女'"></td>
+						</tr>
+						<tr>
+							<th>证件类型：</th>
+							<td>[[${asuser.certType.cename}]]</td>
+							<th>证件号码：</th>
+							<td>[[${asuser.certnum}]]</td>
+						</tr>
+						<tr>
+						</tr>
+						<tr>
+							<th>出生日期：</th>
+							<td>[[${#dates.format(asuser.birthdate,'yyyy-MM-dd')}]]</td>
+							<th>&nbsp;</th>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<th>联系电话：</th>
+							<td>[[${asuser.telnum}]]</td>
+							<th>电子邮箱：</th>
+							<td>[[${asuser.email}]]</td>
+						</tr>
+						<tr>
+							<th>所在省：</th>
+							<td>湖南省</td>
+							<th>市：</th>
+							<td>[[${asuser.city}]]</td>
+						</tr>
+						<tr>
+							<th>联系地址：</th>
+							<td colspan="3">[[${asuser.address}]]</td>
+						</tr>
+						<tr>
+							<th>邮编：</th>
+							<td>[[${asuser.postcode}]]</td>
+							<th>&nbsp;</th>
+							<td>&nbsp;</td>
+						</tr>
+						</table>
+					<div class="blank7"></div>
+				</div>
+			</div>
+			<div class="blank14"></div>
+						<div class="bd_box">
+				<h3 class="common_nav">
+					<em class="ico2"></em>被保人信息<a id="modiInsured"
+						class="modify next_btn ahand">[修改]</a>
+					 <span
+						class="nav_tips" id="insuranceDescMsg">(我们为每位被保险人单独出具保单）</span>
+					 <a href="javascript:void(0)" class="under_link up_link ahand">收起</a>
+				</h3>
+					<div class="content_box">
+					<p class="blank14"></p>
+					<table width="680" border="0" cellspacing="0" cellpadding="0"
+						class="common_table2" id="bbr_list">
+						<tr>
+							<th width="110" class="w_col_0">与投保人关系</th>
+							<th width="90">姓名</th>
+							<th width="160">证件号码</th>
+							<th width="50">性别</th>
+							<th width="95">出生日期</th>
+							<th width="140">职业</th>
+							<th>操作</th>
+						</tr>
+						 <tr th:each="addedorder:${addedorderids}">
+							<td class="w_col_0">[[${addedorder.relation}]]</td>
+							<td>[[${addedorder.inuser.uname}]]</td>
+							 <td>[[${addedorder.inuser.certnum}]]</td>
+							<td th:text="${addedorder.inuser.sex==1}?'男':'女'"></td>
+							<td>[[${#dates.format(addedorder.inuser.birthdate,'yyyy-MM-dd')}]]</td>
+							 <td>[[${addedorder.jobclass.cname}]]</td>
+							<td><a href="javascript:void(0)"
+								class="under_link modifybbr" index="0">详细信息</a></td>
+						</tr>
+						 </table>
+					<p class="blank14"></p>
+				</div>
+				</div>
+			<div class="blank14"></div>
+			<div class="bd_box">
+					<h3 class="common_nav">
+					<em class="ico1"></em>保单配送信息<a href="javascript:void(0)"
+					class="under_link up_link ahand">收起</a>
+				</h3>
+				<div class="content_box">
+					<div class="blank10"></div>
+					<table border="0" cellspacing="0" cellpadding="0"
+						class="common_table common_table_show">
+						<tr>
+							<th width="108" valign="top">配送方式：</th>
+							<td width="190" valign="top">[[${orders.distribution}]]</td>
+							<td valign="top">&nbsp;</td>
+							<td valign="top">&nbsp;</td>
+						</tr>
+					</table>
+					<div class="blank7"></div>
+				</div>
+			</div>
+			
+			<div class="state">
+				<div class="bg-t"></div>
+				<div class="state-con">
+					<h3 class="sm_nav">投保人申明：</h3>
+					<table border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td />
+
+							 	<td valign="top"> 1. 本投保人兹申明以上述各项内容填写属实，已征得被保险人同意，并认可保险金额。</br>
+								2.本人投保人已认真阅读并正确理解<a id="bxtk_pdf" href="#" class="red">保险条款</a>和产品详情页面（投保须知及重要说明等）的各项内容，尤其是保险条款有关责任免除的条款。本投保人接受保险合同（含保险条款）全部内容，并同意投保。</br>
+								3.除法律另有规定外，本人授权太平洋保险将本人提供给太平洋保险的信息、享受太平洋保险服务产生的信息（包括本单证签署之前提供和产生的信息）以及太平洋保险根据本条约定查询、收集的信息，用于太平洋保险及其因服务必要委托的合作伙伴为本人提供服务、推荐产品、开展市场调查与信息数据分析。除法律另有规定外，本人授权太平洋保险基于为本人提供更优质服务和产品的目的，向太平洋保险因服务必要开展合作的伙伴提供、查询、收集本人的信息。为确保本人信息的安全，太平洋保险及其合作伙伴对上述信息负有保密义务，并采取各种措施保证信息安全。本条款自本单证签署时生效，具有独立法律效力，不受合同成立与否及效力状态变化的影响。本条所称“太平洋保险”是指中国太平洋保险（集团）股份有限公司及其直接或间接控股的公司，以及中国太平洋保险（集团）股份有限公司直接或间接作为其单一最大股东的公司。如您不同意上述授权条款的部分或全部，可致电客服热线（95500）取消或变更授权。
+								</td>
+						</tr>
+						<tr>
+							<td />
+							<th valign="top" style="text-align: left"><input id="bxtk"
+								name="" type="checkbox" value="" class="input_radio" />&nbsp;&nbsp;<span
+								style="color: red">友情提示：如已阅读投保人申明，请在此处勾选，进行下一步操作。</span>
+							</th>
+						</tr>
+					</table>
+				</div>
+				<div class="bg-b"></div>
+			</div>
+			<div class="blank20"></div>
+			<div class="tc step_link">
+				<a href="javascript:goback();" class="f14 under_link" id="back_btn"><b>上一步</b>
+				</a>  <a class="o_btn next_btn ahand"
+					id="next_btn_alert">下一步</a>
+			</div>
+			<div class="blank20"></div>
+		</div>
+	</form>
+	<link href="/cpic/mall/css/lifesales/common.css" rel="stylesheet" type="text/css" />
+
+	<p class="clear"></p>	    	
+		
+
+    </dl>
+</div>
+
+<div id="bbr_box" style="display: none">
+	<div class="blank20"></div>
+	<form>
+		<table border="0" cellspacing="0" cellpadding="0"
+			class="common_table common_table_show">
+			<tr>
+				<th width="150">与投保人关系：</th>
+				<td width="180" id="insured_insuredRelatedToApplicant"></td>
+				<th width="150">份数：</th>
+				<td width="180" id="insured_count"></td>
+			</tr>
+			<tr>
+				<th>姓名：</th>
+				<td id="insured_fullName"></td>
+				<th>性别：</th>
+				<td id="insured_gender"></td>
+			</tr>
+			<tr>
+				<th>证件类型：</th>
+				<td id="insured_idType"></td>
+				<th>证件号码：</th>
+				<td id="insured_idNumber"></td>
+			</tr>
+			<tr id="divBBPassCode" style="display:none;">
+			  <th>通行证号码： </th>
+			  <td id="insured_passcode"></td>
+			</tr>
+			<tr>
+				<th>出生日期：</th>
+				<td id="insured_birthDate"></td>
+				<th>职业：</th>
+				<td id="insu_third_occupationName"></td>
+			</tr>
+			<tr>
+				<th>联系电话：</th>
+				<td id="insured_phoneNumber"></td>
+				<th>电子邮箱：</th>
+				<td id="insured_email"></td>
+			</tr>
+			<tr>
+				<th>所在省：</th>
+				<td id="insured_province"></td>
+				<th>市：</th>
+				<td id="insured_city"></td>
+			</tr>
+			<tr>
+				<th>联系地址：</th>
+				<td colspan="3" id="insured_address"></td>
+			</tr>
+			<tr>
+				<th>邮编：</th>
+				<td id="insured_postcode"></td>
+				<th>&nbsp;</th>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+	</form>
+</div>
+
+
+<style type="text/css">
+    *{
+        font: 14px/24px "microsoft yahei", "times new roman", sans-serif;
+    }
+    .rel_en {
+        z-index: 20;
+    }
+    .relative {
+        z-index: 30;
+    }
+    .nav-item-box {
+        z-index: 200;
+    }
+    .footer {
+
+        width: 100%;
+    }
+
+    .nav-item .column-name span{
+        line-height: 84px;
+    }
+    /*.slider210 {
+        position: absolute;
+        top: 160px;
+        right: 180px;
+    }*/
+    .copyright {
+        bottom: 29px;
+        position: relative;
+        /*margin-top: -25px;*/
+    }
+    .pull-right {
+        margin-top: -18px;
+    }
+</style>
+
+</body>
+</html>

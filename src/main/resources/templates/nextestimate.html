@@ -4,24 +4,13 @@
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <script type="text/javascript" src="/cpic/mall/js/sales/jquery.js"></script>
-
-<!--<script type="text/javascript" src="/mall/js/jquery.validate.min.js"></script>
-
-<script type="text/javascript" src="/mall/js/My97DatePicker/WdatePicker.js"></script>
-<script type="text/javascript" src="/mall/js/Hz2Py/pingyin_jw_for_cnta.js"></script>
-<script type="text/javascript" src="/mall/js/sales/jquery.float.js"></script>
-<script type="text/javascript" src="/mall/js/sales/checkName.js"></script>
-<script type="text/javascript" src="/mall/js/sales/commonUtil.js"></script>
-<script type="text/javascript" src="/mall/js/ajaxfileupload.js"></script>
-<script type="text/javascript" src="/mall/js/json2.js"></script>
-<script type="text/javascript" src="https://a2cdn3.8686c.com/omniture/s_code_pc.js"></script>
-
-<script language="JavaScript" src="/mall/js/jquery.XYTipsWindow.js"></script>-->
     <link href="/cpic/css2/gwsy/base/base.css" rel="stylesheet" type="text/css" />
     <link href="/cpic/mall/css/lifesales/common.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="/cpic/market/css/v2/base.css">
 	<script type="text/javascript" src="/cpic/market/js/jquery.min.js"></script>
 	<script src="/cpic/js/v2/commonInclude.js"></script>
+	<link rel="stylesheet" href="/cpic/layui/css/layui.css">
+	<script src="/cpic/layui/layui.all.js"></script>
 <style type="text/css">
     .slider210 {
         position: absolute;
@@ -29,21 +18,85 @@
         right: 180px;
     }
 </style>
-
-
 <title>太平洋保险</title>
 </head>
 <body>
-    <!-- 正在 加载弹出层 -->
-    <iframe class="overlay" id="overlay" style="display:none;" scrolling="no" frameborder="0" > </iframe>
-    <div class="loading_box" id="loading_box" style="display:none;" >正在处理中，请稍候....</div>
 
 <script type="text/javascript" th:inline="javascript">
 	$().ready(function () {
 		var sex=[[${session.user.sex}]];
 		$("#gender").val(sex);
+        var nodes=$("#bbr_box").html();
+        $("#bbr_box").html("");
+        var inuserindex=0;
 		$("#addbbr").click(function () {
-			$("#bbr_box").attr("style","");
+            layer.open({
+                type: 1,
+				title: '添加被保人',
+                offset: '50px',
+                area: ['800px', '500px'],
+                content: nodes
+            });
+            $('[name=relation]').change(function () {
+				if($(this).val()=='本人'){
+					$("#insuredFieldsBody").attr("style","display:none");
+				}else{
+                    $("#insuredFieldsBody").attr("style","");
+                }
+            })
+			$("#bbr_config").click(function () {
+				layer.close(layer.index);
+				var formval=$("#addInsured_form").serialize();
+				//alert(formval);
+				//alert($('[name=relation]').val());
+				$.ajax({
+					type: "POST",
+					url: "/cpic/hds/addinsuredUser",
+					data: formval,
+					dataType: "json",
+					success: function(data){
+						//alert(data);
+						//alert(data['uid']);
+						if($('[name=relation]').val()=='本人'){
+							//alert(2);
+							$("#bbr_list").append('<tr id="insured_list_row_0">' +
+								'<td class="w_col_'+inuserindex+'">本人</td>' +
+								'<td colspan="5">同投保人信息</td>' +
+								'<td><a href="javascript:void(0)" class="under_link modifybbr" index="'+inuserindex+'">修改</a>' +
+								' <a href="javascript:void(0)" class="under_link delbbr" index="'+inuserindex+'">删除</a></td></tr>');
+						}else{
+                            $("#bbr_list").append('<tr id="insured_list_row_0">' +
+                                '<td class="w_col_'+inuserindex+'">'+$('[name=relation]').val()+'</td>' +
+                                '<td>'+data['uname']+'</td>' +
+                                '<td>'+data['certnum']+'</td>' +
+                                '<td>'+(data['sex']?'男':'女')+'</td>' +
+                                '<td>'+data['birthdate']+'</td>' +
+                                '<td>'+[[${orders.jobclass.cname}]]+'</td>' +
+                                '<td><a href="javascript:void(0)" class="under_link modifybbr" index="'+inuserindex+'">修改</a>' +
+                                ' <a href="javascript:void(0)" class="under_link delbbr" index="'+inuserindex+'">删除</a></td></tr>'
+                                );
+                        }
+                        var fkinuserids=$("[name=fkinuserids]").val();
+                        fkinuserids+=data['uid']+"-";
+                        $("[name=fkinuserids]").val(fkinuserids);
+
+                        var copieslist=$("[name=copieslist]").val();
+                        copieslist+=$('[name=copies]').val()+"-";
+                        $("[name=copieslist]").val(copieslist);
+
+                        var relations=$("[name=relations]").val();
+                        relations+=$('[name=relation]').val()+"-";
+                        $("[name=relations]").val(relations);
+					}
+				})
+                inuserindex++;
+			})
+        });
+		$("#nextButtonInfo").click(function () {
+
+            $("select").removeAttr("disabled");
+            //alert($("#premiums_form").serialize());
+			$("#premiums_form").submit();
         })
     })
 </script>
@@ -54,9 +107,25 @@
 	<div class="step"><img src="/cpic/mall/images/lifesales/common/step2.jpg" /></div>
 	<a name="mdf1"></a>
     <form action="/cpic/hds/orderconfirm" method="post" id="premiums_form">
+		<input type="hidden" name="ostart" th:value="${#dates.format(orders.ostart,'yyyy-MM-dd')}">
+		<input type="hidden" name="oend" th:value="${#dates.format(orders.oend,'yyyy-MM-dd')}">
+		<input type="hidden" name="fkjobcid" th:value="${orders.jobclass.cid}">
+		<input type="hidden" name="benefitway" th:value="${orders.benefitway}">
+		<input type="hidden" name="premium" th:value="${orders.premium}">
+
+		<input type="hidden" name="protvals" th:value="${protvals}">
+		<input type="hidden" name="protvalg" th:value="${protvalg}">
+		<input type="hidden" name="protids" th:value="${protids}">
+		<input type="hidden" name="protidg" th:value="${protidg}">
+
+		<input type="hidden" name="pid" th:value="${pid}">
+		<input type="hidden" value="" name="fkinuserids">
+		<input type="hidden" value="" name="relations">
+		<input type="hidden" value="" name="copieslist">
+
 		<div class="slider767">
         	<h3 class="h3_tt">
-        	          	     [[${product.pname}]]
+        	     [[${product.pname}]]
         	</h3>
             <div class="bd_box">
             	<a name="mdf1"></a>
@@ -70,26 +139,22 @@
 								<th><i class="red">*</i> 证件类型：</th>
 								<td>
         						<div class="i_rel">
-        						<select name="ceid" id="idType" class="common_select getText required" hiddenName="assIdTypeName" th:disabled="${session.user.certType != null}?'true':'false'">
+									<label><select name="fkceid" id="idType" class="common_select getText required" hiddenName="assIdTypeName" th:disabled="${session.user.certType != null}?'true':'false'">
         							    <option th:selected="${session.user.certType != null}?(${cert.ceid eq session.user.certType.ceid}?'true':'false'):'false'" th:value="${cert.ceid}" th:each="cert:${certTypelist}">[[${cert.cename}]]</option>
-								</select>
+								</select></label>
         						</div>
         					</td>
                           </tr>
-                          <!--<tr id="divTBPassCode" style="display:none;">
-        					 <th><i class="red">*</i> 通行证号码：</th>
-        				     <td><div class="i_rel"><input id="passcode" name="passcode"  type="text" value="" class="common_input required" maxlength="18"/></div></td>
-                          </tr>-->
                           <tr>
                               <th><i class="red">*</i> 证件号码：</th>
                               <td><div class="i_rel"><input id="idNumber" name="certnum" th:value="${session.user.certnum}" th:readonly="${session.user.certnum != null}?'true':'false'"  type="text" class="common_input required idCard" maxlength="18"/></div></td>
         					  <th width="140"><i class="red">*</i> 性别：</th>
                               <td width="200">
         	                        <div class="i_rel">
-        							<select name="sex" id="gender" class="common_select required" th:disabled="${session.user.sex != null}?'true':'false'">
+										<label><select name="sex" id="gender" class="common_select required" th:disabled="${session.user.sex != null}?'true':'false'">
         								<option value="1">男</option>
         								<option value="0">女</option>
-        							</select>
+        							</select></label>
         							</div>
 							  </td>
                           </tr>
@@ -99,7 +164,7 @@
                             <th><i class="red">*</i> 所在地区：</th>
 	                        <td>
 	                	        <span class="relative" style="display:block">
-	                	             <input name="city" th:value="${session.user.city}" th:readonly="${session.user.city != null}?'true':'false'" type="text" class="common_input required search" id="cityName"  autocomplete="off" />
+	                	        <label><input name="city" th:value="${session.user.city}" th:readonly="${session.user.city != null}?'true':'false'" type="text" class="common_input required search" id="cityName"  autocomplete="off" /></label>
 	                	        </span>
 	                        </td>
 						  </tr>
@@ -179,29 +244,22 @@
     </dl>
 </div>
 
-<script>
-	$().ready(function () {
-		$("#close_bbr").click(function () {
-            $("#bbr_box").attr("style","display:none");
-        })
-    })
-</script>
 
 <div id="bbr_box" style="display:none">
-<div class="___boxTitle boxTitle" style="position: relative;border-color: rgb(238, 238, 238); border:none; cursor: move; top:-31px;  width:100px; ">
-	<h3 id="insureddiv">添加被保人</h3><span  id="close_bbr" style="right:-662px;">关闭</span>
-</div>	
-	<form id="/cpic/hds/addInsured_form" th:action="@{'addinsuredUser'}">
+	<form id="addInsured_form">
 		<div>
-			<div style="position:relative;top:-15px;padding-left:40px;"><span class="red">*</span>(同样职业类别可直接添加被保险人，否则请另选职业投保)</div>
+			<div style="position:relative;top:0px;padding-left:40px;"><span class="red">*</span>(同样职业类别可直接添加被保险人，否则请另选职业投保)</div>
 				<table id="insured_table" border="0" cellspacing="0" cellpadding="0" class="common_table" style="padding-right: 30px;">
 					<tr>
                     <th width="150"><i class="red">*</i> 与投保人关系：</th>
                     <td width="200">
                        <div class="i_rel">
-                       <select name="insured_insuredRelatedToApplicant" id="insured_insuredRelatedToApplicant" class="common_select required">
-    						  <option value="1">本人</option>
-						      <option value="2">其他</option>
+                       <select name="relation" id="insured_insuredRelatedToApplicant" class="common_select required">
+    						  <option value="本人" selected>本人</option>
+						      <option value="父母">父母</option>
+						      <option value="子女">子女</option>
+						      <option value="兄弟姐妹">兄弟姐妹</option>
+						      <option value="其他">其他</option>
 					   </select>
     				</div>
     				</td>
@@ -209,35 +267,28 @@
     				<th><i class="red">*</i> 份数： </th>
     	            <td width="200"><div class="i_rel"><input name="copies" id="insured_count" value="1" type="text" readOnly="readOnly" class="common_input required insuredCount" style="width:110px;" alwaysEdit><span class="c999">&nbsp仅限一份</span></div></td>
 					</tr>
-                  <tbody id="insuredFieldsBody">
+                  <tbody id="insuredFieldsBody" style="display:none">
                   <tr>
                     <th><i class="red">*</i> 姓名：</th>
-                    <td><div class="i_rel"><input name="insured_fullName" id="insured_fullName" value="" type="text" class="common_input required correctName"/></div></td>
+                    <td><div class="i_rel"><input name="uname" id="insured_fullName" value="" type="text" class="common_input required correctName"/></div></td>
     				<th><i class="red">*</i> 证件类型：</th>
                     <td>
                         <div class="i_rel">
-    					<select name="insured_idType" id="insured_idType" class="common_select required">
-    					    <option value="1">身份证</option>
-    						<option value="2">护照</option>
-    						<option value="3">军官证</option>
-    						<option value="4">驾照</option>
-    						<option value="5">其他</option>
-    						<option value="9">外国人永久居留证</option>
-    						<option value="h">港澳台居民居住证</option>
+    					<select name="fkceid" id="insured_idType" class="common_select required">
+							<option th:value="${cert.ceid}" th:each="cert:${certTypelist}">[[${cert.cename}]]</option>
 						</select>
     					</div>
     				</td>
                   </tr>
                   <tr>
     				<th><i class="red">*</i> 证件号码：</th>
-    				<td><div class="i_rel"><input name="insured_idNumber" id="insured_idNumber" value="" onblur="setRelate()" type="text" class="common_input required insured_idCard" maxlength="18"/></div></td>
+    				<td><div class="i_rel"><input name="certnum" id="insured_idNumber" value="987654321088888888" onblur="setRelate()" type="text" class="common_input required insured_idCard" maxlength="18"/></div></td>
     				<th><i class="red">*</i> 性别：</th>
                     <td>
                         <div class="i_rel">
-    					<input type="hidden" name="insured_gender" id="insured_gender_value" value="" />
-    					<select name="insured_gender" id="insured_gender" class="common_select required" disabled="disabled">
+    					<select name="sex" id="insured_gender" class="common_select required">
     						   <option value="1">男</option>
-    						   <option value="2">女</option>
+    						   <option value="0">女</option>
     					</select>
     					</div>
     				</td>
@@ -246,28 +297,27 @@
                     <th><i class="red">*</i> 出生日期：</th>
                     <td>
                     	<div class="i_rel" id="spe_insured_birthDate">
-                    		<input name="insured_birthDate" id="insured_birthDate" type="text" class="common_input required insuredAge"/>
-                    		<input id="insured_birthDate_bak" type="hidden"/>
+                    		<input name="birthdate" id="insured_birthDate" value="1967-08-06" type="text" class="common_input required insuredAge"/>
                     	</div>
                     </td>
                     <th> 所在地区：</th>
 		            <td>
 		    	        <span class="relative" style="display:block">
-		    	        <input name="insured_cityName" type="text" class="common_input  search" id="insured_cityName" />
+		    	        <input name="city" type="text" value="长沙" class="common_input  search" id="insured_cityName" />
 		    	        </span>
 					</td>
                     <tr>
                     <th>联系电话：</th>
-                    <td><div class="i_rel"><input name="insured_phoneNumber" id="insured_phoneNumber" value="" type="text" class="common_input telephone" maxlength="20"/></div></td>
+                    <td><div class="i_rel"><input name="telnum" id="insured_phoneNumber" value="88888999" type="text" class="common_input telephone" maxlength="20"/></div></td>
                     <th> 电子邮箱：</th>
-                    <td><div class="i_rel"><input name="insured_email" id="insured_email" value="" maxlength="30" type="text" class="common_input email"/></div></td>
+                    <td><div class="i_rel"><input name="email" id="insured_email" value="4567@qq.com" maxlength="30" type="text" class="common_input email"/></div></td>
                       <tr>
                 	  <th> 联系地址：</th>
-                      <td colspan="3"><div class="i_rel"><input name="insured_address" id="insured_address" value="" type="text" class="common_input addressLength" maxlength="50" style="width:458px;"/></div></td>
+                      <td colspan="3"><div class="i_rel"><input name="address" id="insured_address" value="湖南" type="text" class="common_input addressLength" maxlength="50" style="width:458px;"/></div></td>
                     </tr>
                     <tr>
                     <th> 邮编：</th>
-                    <td><div class="i_rel"><input name="insured_postcode" id="insured_postcode" value="" type="text" class="common_input postalCode" maxlength="6"/></div></td>
+                    <td><div class="i_rel"><input name="postcode" id="insured_postcode" value="12306" type="text" class="common_input postalCode" maxlength="6"/></div></td>
                     <th>&nbsp;</th>
                     <td>&nbsp;</td>
                   </tr>

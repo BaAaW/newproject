@@ -23,24 +23,20 @@
   <link rel="stylesheet" href="/cpic/market/css/v2/selectStyle.css">
   <link href="/cpic/market/css/v2/fav.css" rel="stylesheet">
   <script src="/cpic/js/v2/commonInclude.js"></script>
-  
-  <script>
-     //将http协议强转为https
-//    var protocol = window.location.protocol;
-//	var articleids=['1199709','1199710','1199703','1199711','1199712','1199668','1199669','1199705','1199704','1199610','1199670','1199596','1199675','1199676','1199677','1199708','1199707','1565298','1491338','1450989','1552947','1199706','1199586','1199694','1199681','1199682','1199684','1199685','1199687','1199688','1199689','1199690','1199691','1199692','1199693','1199611','1199594','1199594','1564718','1564733','1199696','1199671','1199672','1200042'];
-//		if (protocol == "http:" && articleids.indexOf('1199685')+1){
-//			window.location.href = window.location.href.replace("http","https");
-//		}
-//
-//
-//      window.onload = function () {
-//        //处理浏览器回退后会记住上次选择的问题
-//        $(".rgBox input").attr("autocomplete", "off");
-//      }
-  </script>
 </head>
 
 <body>
+<script th:inline="javascript" type="text/javascript">
+    $().ready(function () {
+
+    })
+    function changeTab(i) {
+        $("#tab"+i+"Link").siblings().removeClass("active");
+        $("#tab"+i+"Link").addClass("active");
+        $(".swiper-slide").removeClass("swiper-slide-visible swiper-slide-active");
+        $("#tabContent"+i).addClass("swiper-slide-visible swiper-slide-active");
+    }
+</script>
   <div class="product-loader hide"></div>
 
   <!-- 面包屑导航 begin -->
@@ -118,16 +114,7 @@
                   <li class="width260" id="insurancePeriod" th:unless="${product.minduration==product.maxduration&&#strings.equals(product.unit1,product.unit2)}">
 						[[${product.minduration}]][[${product.unit1}]]~[[${product.maxduration}]][[${product.unit2}]]
                   </li>
-                  
-                  <!--
-					<z:if condition="${Article.MetaValue_PaymentTerm!=''}">
-										<div class="lingqutiaojianShow">
-											<li class="width80">领取条件：</li>
-											<li class="lingqutiaojian width260">${Article.MetaValue_PaymentTerm}</li>
-										</div>
-									</z:if>-->
-                  <!--  领取条件的多个版本 start-->
-                  <!--  领取条件的多的版本 end-->
+
                   
                   <div class="clear"></div>
                     <div class="shiyongrenqunShow" th:if="${not #strings.isEmpty(mongoproduct.suitpeople)}">
@@ -150,9 +137,6 @@
               </ul>
             </div>
             <div class="boxInnerTitButton">
-              <!--start of 企业、贷款栏目显示按钮-->
-              
-              <!--end of 企业、贷款栏目显示按钮-->
                     <a rel="nofollow" id="buyNowLink" th:href="@{${'/hds/estimate'}(productid=${product.pid})}" onclick="scInsuranceClick()">
                       <input class="boxInnerTitButton0Red" id="buyNowBtn" type="button" value="立即购买">
                     </a>
@@ -211,9 +195,6 @@
                     <h2 class="ProductRecommendationTit"></h2>
                   
                 </a>
-              
-              
-              
                 <a href="/cpic/market/c/2017-06-06/1199613.shtml" title="悠乐宝" target="_blank" alt="悠乐宝">
                   <div id="mbox4" class="ProductRecommendationCon">
                     <img src="/cpic/market/upload/resources/image/2017/06/06/37514_325x376.jpg">
@@ -240,8 +221,8 @@
             <a  id="tab2Link" onclick="changeTab(2)" class="">投保须知</a>
             <a  id="tab3Link" onclick="changeTab(3)" class="">重要说明</a>
             <a  id="tab4Link" onclick="changeTab(4)" class="">案例分享</a>
-            <a  id="tab5Link" onclick="changeTab(5)" class="">产品评论</a>
-            <a  id="tab1Link" onclick="changeTab(6)" class="">条款费率</a>
+            <!--<a  id="tab5Link" onclick="changeTab(5)" class="">产品评论</a>-->
+            <a  id="tab6Link" onclick="changeTab(6)" class="">条款费率</a>
               <!-- 贷款保险的网点查询页签 start-->
               <!-- 贷款保险的网点查询页签 end-->
           </div>
@@ -250,7 +231,7 @@
       <div class="tabs-container swiper-container">
         <div class="swiper-wrapper" style="left: 0px; top: 0px; width: 5454px; height: 1004px; transition: 0.5s;">
 
-                    <div class="swiper-slide swiper-slide-visible swiper-slide-active" id="tabContent1" style="width: 909px; height: auto;">
+         <div class="swiper-slide swiper-slide-visible swiper-slide-active" id="tabContent1" style="width: 909px; height: auto;">
                       <div class="check-policy-con modelEdit"><div class="height50"></div><div id="modelEdit1">
                         <div th:if="${not #lists.isEmpty(mongoproduct.details)}" class="cpxq_tab_content cpxq_info" style="display: block;">
                           <div th:each="detail:${mongoproduct.details}"><h3 class="f14 fa1" >[[${detail.h}]]</h3>
@@ -261,20 +242,26 @@
                         <tbody>
                         <tr th:each="detailpic,picstat:${mongoproduct.detailpics}" th:class="${picstat.index==0}?'firstRow'">
                           <td th:style="${picstat.index==0}?'word-break: break-all;'">
-                          <img width="730" height="683" alt="个人意外综合保险产品详情" th:src="${detailpic}"/>
+                          <img  alt="个人意外综合保险产品详情" th:src="${detailpic}"/>
                           </td>
                         </tr>
-                        </tbody></table></div></div></div></div>
+                        </tbody></table></div></div></div>
+         </div>
 
-                    <div class="swiper-slide" id="tabContent2" style="width: 909px; height: auto;">
-                      <div class="check-policy-con modelEdit"><div class="height50"></div><div id="modelEdit2"><div class="aboutAnkang"><img src="/cpic/market/upload/resources/image/2017/06/16/72693.jpg" alt="个人意外综合保险投保须知"/><img src="/cpic/market/upload/resources/image/2017/06/16/72694.jpg" alt="个人意外综合保险投保须知"/><img src="/cpic/market/upload/resources/image/2017/06/16/72695.jpg" alt="个人意外综合保险投保须知"/><img src="/cpic/market/upload/resources/image/2017/06/16/72696.jpg" alt="个人意外综合保险投保须知"/>
-        
-        
-        
-        
-        </div><div class="clear"></div></div></div></div>
-                    <div class="swiper-slide" id="tabContent3" style="width: 909px; height: auto;">
-                      <div class="check-policy-con modelEdit"><div class="height50"></div><div id="modelEdit3"><p><img src="/cpic/market/upload/resources/image/2017/06/16/72697.jpg" alt="个人意外综合保险重要说明"/><img src="/cpic/market/upload/resources/image/2017/06/16/72698.jpg" alt="个人意外综合保险重要说明"/><img src="/cpic/market/upload/resources/image/2017/06/16/72699.jpg" alt="个人意外综合保险重要说明"/><img src="/cpic/market/upload/resources/image/2017/06/16/72700.jpg" alt="个人意外综合保险重要说明"/>
+         <div class="swiper-slide" id="tabContent2" style="width: 909px; height: auto;">
+             <div class="check-policy-con modelEdit"><div class="height50"></div>
+             <div id="modelEdit2">
+               <div th:if="${not #lists.isEmpty(mongoproduct.needknows)}" class="cpxq_tab_content cpxq_info" style="display: block;">
+                 <p th:each="needknow:${mongoproduct.needknows}" class="f12 gray ml20 mb15">[[${needknow}]]</p>
+               </div>
+               <div class="aboutAnkang" th:if="${not #lists.isEmpty(mongoproduct.needknowpics)}">
+               <img th:each="needknowpic:${mongoproduct.needknowpics}" th:src="${needknowpic}" alt="个人意外综合保险投保须知"/>
+
+        </div><div class="clear"></div></div></div>
+         </div>
+
+        <div class="swiper-slide" id="tabContent3" style="width: 909px; height: auto;">
+        <div class="check-policy-con modelEdit"><div class="height50"></div><div id="modelEdit3"><p><img src="/cpic/market/upload/resources/image/2017/06/16/72697.jpg" alt="个人意外综合保险重要说明"/><img src="/cpic/market/upload/resources/image/2017/06/16/72698.jpg" alt="个人意外综合保险重要说明"/><img src="/cpic/market/upload/resources/image/2017/06/16/72699.jpg" alt="个人意外综合保险重要说明"/><img src="/cpic/market/upload/resources/image/2017/06/16/72700.jpg" alt="个人意外综合保险重要说明"/>
          <img src="/cpic/market/images/v2/baoegaozhi.jpg" title="mingshigaozhi" alt="mingshigaozhi" suffix="jpg"/>
         </p><p style="text-align:center;"><img src="/cpic/market/upload/resources/image/2018/12/03/48670.jpg" alt="know_tbyd5" suffix="jpg"/>
         
@@ -282,17 +269,15 @@
         
         </p><p><br/>
         
-        </p></div></div></div>
-                  
-                  
-                  
-                    <div class="swiper-slide" id="tabContent4" style="width: 909px; height: auto;">
-                      <div class="check-policy-con modelEdit"><div class="height50"></div><div id="modelEdit4"><div class="aboutAnkang"><img width="731" height="1964" src="/cpic/market/upload/resources/image/2017/06/16/72703.png" alt="个人意外综合保险案例分享"/></div></div></div><p><br/></p></div>
-                  
-                  
-                  
-                    <div class="swiper-slide" id="tabContent5" style="width: 909px; height: auto;">
-                      <div class="check-policy-con" id="comment" style=""><div style="float: left; height: auto; width: 100%;"><div class="satisfaction"><div class="satisfactionPart1"><h3>产品综合评分</h3><h2><span id="avg"></span><span id="avg1"></span>
+        </p></div></div>
+        </div>
+
+        <div class="swiper-slide" id="tabContent4" style="width: 909px; height: auto;">
+            <div class="check-policy-con modelEdit"><div class="height50"></div><div id="modelEdit4"><div class="aboutAnkang"><img width="731" height="1964" src="/cpic/market/upload/resources/image/2017/06/16/72703.png" alt="个人意外综合保险案例分享"/></div></div></div><p><br/></p>
+        </div>
+
+         <div class="swiper-slide" id="tabContent5" style="width: 909px; height: auto;">
+                <div class="check-policy-con" id="comment" style=""><div style="float: left; height: auto; width: 100%;"><div class="satisfaction"><div class="satisfactionPart1"><h3>产品综合评分</h3><h2><span id="avg"></span><span id="avg1"></span>
                 
                 </h2></div><div class="satisfactionPart2"><span style="margin-top: 30px;"><p id="product"><br/>
                 
@@ -319,13 +304,13 @@
                           <ul id="topic" class=" list-paddingleft-2"></ul>
                           <div class="page" id="page" style="text-align: right; padding-top: 15px;display:block;"></div>
                         </div><div class="height30"></div></div>
-                    </div>
+          </div>
                   
 
                 <!-- 网点查询页签内容 start-->
                 <!-- 网点查询页签内容 end-->
               
-                <div class="swiper-slide" id="tabContent6" style="width: 909px; height: auto;">
+          <div class="swiper-slide" id="tabContent6" style="width: 909px; height: auto;">
                   <div class="check-policy-con" id="termRate">
                     <div class="height20"></div>
                     

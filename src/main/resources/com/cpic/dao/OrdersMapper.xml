@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.cpic.dao.OrdersMapper">
+    <select id="selectOrdersbyuuid" resultMap="ordersmap">
+        select * from orders where uuid=#{uuid}
+    </select>
+    <resultMap type="Orders" id="ordersmap">
+        <id property="oid" column="oid"/>
+        <association property="inuser" column="fkinid" javaType="User" select="com.cpic.dao.UserMapper.selectuserbyuid"/>
+        <association property="asuser" column="fkasid" javaType="User" select="com.cpic.dao.UserMapper.selectuserbyuid"/>
+        <association property="jobclass" column="fkjobcid" javaType="jobclass" select="com.cpic.dao.JobclassMapper.selectById"/>
+    </resultMap>
+    <insert id="insertordertoprotection">
+        insert into ordertoprotection (fkptid,fkoid) values (#{fkptid},#{fkoid})
+    </insert>
+</mapper>

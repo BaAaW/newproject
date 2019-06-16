@@ -269,14 +269,28 @@
             //action+="?pid="+[[${product.pid}]]+"&cid="+cid+"&ostart="+ostart+"&oend="+oend;
             action+="?pid="+[[${product.pid}]]+"&cid="+cid+"&premium="+getpremium()+"&benefitway="+$("#benefitway").attr("value");
             $("[name ^= GRYWX_G]:checked").each(function (i) {
-                action+="&protidg="+$(this).val();
+                //action+="&protidg="+$(this).val();
+                var protidg=$("[name=protidg]").val();
+                protidg+=$(this).val()+"-";
+                $("[name=protidg]").val(protidg);
+
                 var j=parseInt($(this).parents("[id ^= tr_GRYWX_G]").find("[hiddenName ^= GRYWX_G]").val());
-                action+="&protvalg="+j;
+                //action+="&protvalg="+j;
+                var protvalg=$("[name=protvalg]").val();
+                protvalg+=j+"-";
+                $("[name=protvalg]").val(protvalg);
             });
             $("[name ^= GRYWX_S]:checked").each(function (i) {
-                action+="&protids="+$(this).val();
+                //action+="&protids="+$(this).val();
+                var protids=$("[name=protids]").val();
+                protids+=$(this).val()+"-";
+                $("[name=protids]").val(protids);
+
                 var j=parseInt($(this).parents("[id ^= tr_GRYWX_S]").find("[hiddenName ^= GRYWX_S]").val());
-                action+="&protvals="+j;
+                //action+="&protvals="+j;
+                var protvals=$("[name=protvals]").val();
+                protvals+=j+"-";
+                $("[name=protvals]").val(protvals);
             });
             //alert(action);
             $(this).attr("action",action);
@@ -289,7 +303,10 @@
 	<div class="step"><img src="/cpic/mall/images/lifesales/common/step1.jpg" /></div>
 
     <form action="/cpic/hds/nextestimate" method="post" id="premiums_form">
-
+        <input type='hidden' name='protvals' value=''/>
+        <input type='hidden' name='protids' value=''/>
+        <input type='hidden' name='protvalg' value=''/>
+        <input type='hidden' name='protidg' value=''/>
      <div class="slider767">
     <link href="/cpic/mall/css/lifesales/common.css" rel="stylesheet" type="text/css" />
 	<h3 class="h3_tt">[[${product.pname}]]</h3>

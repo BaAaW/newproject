@@ -44,4 +44,11 @@ public class Product implements Serializable {
     private List<HashMap> details;
     @TableField(exist=false)
     private List<String> detailpics;
+    @TableField(exist=false)
+    private List<String> needknows;
+    @TableField(exist=false)
+    private List<String> needknowpics;
+    @TableField(exist=false)
+    private List<String> producttype;
+    private List<String> fkpdid;
 }

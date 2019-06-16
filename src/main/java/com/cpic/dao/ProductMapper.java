@@ -12,5 +12,6 @@ public interface ProductMapper extends BaseMapper<Product> {
     //public IPage<Product> selectallproduct(Page page);
     public Product selectproductbypid(@Param("pid")int pid);
     public List<Product> selectallproduct(@Param("selectcont")int selectcont,@Param("selectfeat")int selectfeat,
-                                          @Param("selectage")int selectage,@Param("selecttime")int selecttime);
+                                          @Param("selectage")int selectage,@Param("selecttime")int selecttime,
+                                          @Param("fkpdid")int fkpdid);
 }

@@ -20,6 +20,10 @@
         LEFT JOIN contenttoprotection ctpt ON ctpt.`fkptid`=pt.`ptid`
         LEFT JOIN content c ON c.`ctid`=ctpt.`fkctid`
         <where>
+            <if test="fkpdid != null and fkpdid != 0">
+                and p.fkpdid=#{fkpdid}
+            </if>
+
             <if test="selectcont!=null and selectcont!=0">and c.`ctid`=#{selectcont}</if>
 
             <if test="selectfeat!=null and selectfeat!=0">

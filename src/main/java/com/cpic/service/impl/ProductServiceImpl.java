@@ -39,7 +39,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper,Product> imple
     public Product getproductbypid(int pid){
         return productMapper.selectproductbypid(pid);
     }
-    public List<Product> getallproduct(int selectcont,int selectfeat,int selectage,int selecttime){
-        return productMapper.selectallproduct(selectcont,selectfeat,selectage,selecttime);
+    public List<Product> getallproduct(int selectcont,int selectfeat,int selectage,int selecttime,int fkpdid){
+        return productMapper.selectallproduct(selectcont,selectfeat,selectage,selecttime,fkpdid);
     }
 }
